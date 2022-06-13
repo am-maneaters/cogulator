@@ -6,6 +6,7 @@ import hoverSfx from "../assets/sounds/GUI_rollover.mp3";
 import clickSfx from "../assets/sounds/GUI_create_toon_fwd.mp3";
 import Gag from "./components/Gag";
 import { GagTrackInfo, GagInfo } from "./types";
+import GagInfoDisplay from "./components/GagInfoDisplay";
 
 const tracksInfo: GagTrackInfo[] = [
   {
@@ -44,25 +45,37 @@ const tracksInfo: GagTrackInfo[] = [
     order: 6,
   },
 ];
+
+const imgFromPath = (path: string) => new URL(path, import.meta.url).href;
+
 const gagTracks = tracksInfo.map(({ name, color }) => ({
-  gags: (gagsJson as GagInfo[])
+  gags: (gagsJson as Exclude<GagInfo[], "image">)
     .filter((gag) => gag.track === name)
-    .sort((a, b) => a.level - b.level),
+    .sort((a, b) => a.level - b.level)
+    .map((gag) => ({
+      ...gag,
+      image: imgFromPath(`/assets/gags/${gag.name.replaceAll(" ", "_")}.webp`),
+    })) as GagInfo[],
   color,
   name,
 }));
 
 function App() {
+  const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
   const [playHoverSfx] = useSound(hoverSfx);
   const [playClickSfx] = useSound(clickSfx);
 
   return (
-    <div className="flex flex-row">
-      <div>
+    <div className="flex bg-red-600 p-8">
+      <div className="pr-8">
         {gagTracks.map(({ gags, color, name }) => (
           <div
-            className="flex p-2 gap-2"
-            style={{ backgroundColor: color }}
+            className="flex p-2 gap-2 px-4 shadow-2xl"
+            style={{
+              backgroundColor: color,
+              borderRadius: "2% 2% 2% 2% / 45% 45% 45% 45% ",
+              boxShadow: "0px 5px 13px 1px #000000",
+            }}
             key={name}
           >
             <div className="w-32">
@@ -76,12 +89,16 @@ function App() {
                 gagInfo={gag}
                 key={gag.name}
                 onClick={() => playClickSfx()}
-                onMouseEnter={() => playHoverSfx()}
+                onMouseEnter={() => {
+                  setHoveredGag(gag);
+                  playHoverSfx();
+                }}
               />
             ))}
           </div>
         ))}
       </div>
+      <GagInfoDisplay gag={hoveredGag} />
     </div>
   );
 }

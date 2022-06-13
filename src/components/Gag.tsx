@@ -13,7 +13,7 @@ export default function Gag({ gagInfo, onMouseEnter, onClick }: Props) {
 
   const gagImagePath = useMemo(() => {
     const imgName = gagInfo.name.replaceAll(" ", "_");
-    return imgFromPath(`../../assets/gags/${imgName}.webp`);
+    return imgFromPath(`/assets/gags/${imgName}.webp`);
   }, [gagInfo]);
 
   const handleClick = () => {
