@@ -1,14 +1,19 @@
+export type AffectsType = 'Cog' | 'Toon';
+export type AffectsNum = 'Single' | 'All';
+export type GagDmgType = 'Damage' | 'Heal' | 'Lure';
+
 export type GagInfo = {
   name: string;
-  track: string;
+  track: GagTrack;
   level: number;
   accuracy: number;
-  affects_type: 'Cog' | 'Toon';
-  affects_num: 'Single' | 'All';
-  min_dmg: number;
-  max_dmg: number;
-  effect: string;
+  affectsType: AffectsType;
+  affectsNum: AffectsNum;
+  minDmg?: number;
+  maxDmg?: number;
   image: string;
+  isOrganic?: boolean;
+  dmgType: GagDmgType;
 };
 export type GagTrack =
   | 'Toonup'

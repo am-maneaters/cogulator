@@ -1,5 +1,5 @@
-import React from "react";
-import { GagInfo } from "../types";
+import React from 'react';
+import { GagInfo } from '../types';
 
 type Props = {
   gag?: GagInfo;
@@ -10,7 +10,7 @@ const Divider = () => (
     className="h-1 w-full px-2"
     style={{
       background:
-        "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(219,201,168,1) 25%, rgba(218,200,166,1) 82%, rgba(255,255,255,1) 100%)",
+        'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(219,201,168,1) 25%, rgba(218,200,166,1) 82%, rgba(255,255,255,1) 100%)',
     }}
   />
 );
@@ -26,8 +26,8 @@ const InfoLineItem = ({ label, value }: InfoLineItemProps) => (
   </div>
 );
 
-const formatAffects = ({ affects_num: num, affects_type: type }: GagInfo) =>
-  num === "All" ? `${num} ${type}s` : `${num} ${type}`;
+const formatAffects = ({ affectsNum: num, affectsType: type }: GagInfo) =>
+  num === 'All' ? `${num} ${type}s` : `${num} ${type}`;
 
 export default function GagInfoDisplay({ gag }: Props) {
   if (!gag) {
@@ -39,7 +39,7 @@ export default function GagInfoDisplay({ gag }: Props) {
       className="bg-white aspect-square w-64 h-64 pt-4 flex flex-col items-center p-2"
       style={{
         background:
-          "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)",
+          'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
       }}
     >
       <div className="text-orange-500 text-3xl font-semibold">{name}</div>
@@ -54,7 +54,7 @@ export default function GagInfoDisplay({ gag }: Props) {
         <Divider />
         <InfoLineItem label="Accuracy" value={`${gag.accuracy}%`} />
         <Divider />
-        <InfoLineItem label="Damage" value={`${gag.max_dmg}`} />
+        <InfoLineItem label={gag.dmgType} value={`${gag.maxDmg}`} />
         <Divider />
         <InfoLineItem label="Affects" value={formatAffects(gag)} />
         <Divider />
