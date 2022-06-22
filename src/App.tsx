@@ -9,8 +9,7 @@ import { GagInfo } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
 import gagsInfo from './data/gagsInfo';
 import gagTracksInfo from './data/gagTracksInfo';
-
-const imgFromPath = (path: string) => new URL(path, import.meta.url).href;
+import { imgFromPath } from './utils/imageUtils';
 
 const gagTracks = gagTracksInfo.map(({ name, color }) => ({
   gags: gagsInfo
@@ -62,7 +61,7 @@ function App() {
 
   return (
     <div>
-      <div className="h-32 flex flex-row">
+      <div className="flex h-32 flex-row">
         {selectedGags.map((gag, i) => (
           <Gag gag={gag} key={i} />
         ))}
@@ -72,7 +71,7 @@ function App() {
         <div className="pr-8">
           {gagTracks.map(({ gags, color, name }) => (
             <div
-              className="flex p-2 gap-2 px-4 shadow-[0_5px_13px_1px_black] rounded-[2%/45%]"
+              className="flex gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
               style={{
                 backgroundColor: color,
               }}
@@ -80,7 +79,7 @@ function App() {
             >
               <div className="w-32">
                 <div className="text-2xl uppercase">{name}</div>
-                <div className="shadow-inner border-2 border-black flex justify-center border-opacity-20 bg-black bg-opacity-10">
+                <div className="flex justify-center border-2 border-black border-opacity-20 bg-black bg-opacity-10 shadow-inner">
                   <p className="whitespace-nowrap">381 to Go!</p>
                 </div>
               </div>
