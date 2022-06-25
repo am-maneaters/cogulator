@@ -5,23 +5,27 @@ import { useList } from 'react-use';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import Gag from './components/Gag';
-import { GagInfo } from './types';
+import { GagInfo, GagTrackInfo } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
 import gagsInfo from './data/gagsInfo';
 import gagTracksInfo from './data/gagTracksInfo';
 import { imgFromPath } from './utils/imageUtils';
+import { TrackInfo } from './components/TrackInfo';
 
-const gagTracks = gagTracksInfo.map(({ name, color }) => ({
-  gags: gagsInfo
-    .filter((gag) => gag.track === name)
-    .sort((a, b) => a.level - b.level)
-    .map((gag) => ({
-      ...gag,
-      image: imgFromPath(gag.image),
-    })),
-  color,
-  name,
-}));
+const gagTracks: GagTrackInfo[] = gagTracksInfo.map(
+  ({ name, color, order }) => ({
+    gags: gagsInfo
+      .filter((gag) => gag.track === name)
+      .sort((a, b) => a.level - b.level)
+      .map((gag) => ({
+        ...gag,
+        image: imgFromPath(gag.image),
+      })),
+    color,
+    name,
+    order,
+  })
+);
 
 function calculateTotalDamage(gags: GagInfo[]) {
   let totalDamage = 0;
@@ -61,7 +65,7 @@ function App() {
 
   return (
     <div>
-      <div className="flex h-32 flex-row">
+      <div className="flex h-32 flex-row gap-8 p-8">
         {selectedGags.map((gag, i) => (
           <Gag gag={gag} key={i} />
         ))}
@@ -77,18 +81,14 @@ function App() {
               }}
               key={name}
             >
-              <div className="w-32">
-                <div className="text-2xl uppercase">{name}</div>
-                <div className="flex justify-center border-2 border-black border-opacity-20 bg-black bg-opacity-10 shadow-inner">
-                  <p className="whitespace-nowrap">381 to Go!</p>
-                </div>
-              </div>
+              <TrackInfo name={name} />
               {gags.map((gag) => (
                 <Gag
                   gag={gag}
                   key={gag.name}
-                  onClick={() => {
-                    selectedGagsList.push(gag);
+                  onGagClick={(isOrganic) => {
+                    const newGag = { ...gag, isOrganic };
+                    selectedGagsList.push(newGag);
                     playClickSfx();
                   }}
                   onMouseEnter={() => {

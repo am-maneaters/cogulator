@@ -28,4 +28,5 @@ export type GagTrackInfo = {
   color: string;
   name: GagTrack;
   order: number;
+  gags: GagInfo[];
 };
