@@ -29,4 +29,10 @@ export type GagTrackInfo = {
   name: GagTrack;
   order: number;
   gags: GagInfo[];
+  dmgType: GagDmgType;
+};
+
+export type CogStatus = {
+  lured?: boolean;
+  trapped?: boolean;
 };

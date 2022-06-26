@@ -1,5 +1,6 @@
 import React from 'react';
 import { GagInfo } from '../types';
+import { getGagDmg } from '../utils/calculatorUtils';
 
 type Props = {
   gag?: GagInfo;
@@ -21,7 +22,7 @@ type InfoLineItemProps = {
 };
 
 const InfoLineItem = ({ label, value }: InfoLineItemProps) => (
-  <div className="text-[#03256A] flex text-lg">
+  <div className="flex text-lg text-[#03256A]">
     <div className="font-semibold">{label}</div>: {value}
   </div>
 );
@@ -36,15 +37,15 @@ export default function GagInfoDisplay({ gag }: Props) {
   const { name, image } = gag;
   return (
     <div
-      className="bg-white aspect-square w-64 h-64 pt-4 flex flex-col items-center p-2"
+      className="flex aspect-square h-64 w-64 flex-col items-center bg-white p-2 pt-4"
       style={{
         background:
           'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
       }}
     >
-      <div className="text-orange-500 text-3xl font-semibold">{name}</div>
+      <div className="text-3xl font-semibold text-orange-500">{name}</div>
       <img
-        className="aspect-square mt-2"
+        className="mt-2 aspect-square"
         src={image}
         width={64}
         alt={name}
@@ -54,7 +55,7 @@ export default function GagInfoDisplay({ gag }: Props) {
         <Divider />
         <InfoLineItem label="Accuracy" value={`${gag.accuracy}%`} />
         <Divider />
-        <InfoLineItem label={gag.dmgType} value={`${gag.maxDmg}`} />
+        <InfoLineItem label={gag.dmgType} value={`${getGagDmg(gag)}`} />
         <Divider />
         <InfoLineItem label="Affects" value={formatAffects(gag)} />
         <Divider />
