@@ -3,7 +3,7 @@ import { GagInfo } from '../types';
 const gags: GagInfo[] = [
   {
     name: 'Feather',
-    image: '/assets/gags/Feather.webp',
+    image: 'Feather.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 1,
@@ -15,7 +15,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Megaphone',
-    image: '/assets/gags/Megaphone.webp',
+    image: 'Megaphone.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 2,
@@ -27,7 +27,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Lipstick',
-    image: '/assets/gags/Lipstick.webp',
+    image: 'Lipstick.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 3,
@@ -39,7 +39,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Bamboo Cane',
-    image: '/assets/gags/Bamboo_Cane.webp',
+    image: 'Bamboo_Cane.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 4,
@@ -51,7 +51,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Pixie Dust',
-    image: '/assets/gags/Pixie_Dust.webp',
+    image: 'Pixie_Dust.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 5,
@@ -63,7 +63,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Juggling Balls',
-    image: '/assets/gags/Juggling_Balls.webp',
+    image: 'Juggling_Balls.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 6,
@@ -75,7 +75,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'High Dive',
-    image: '/assets/gags/High_Dive.webp',
+    image: 'High_Dive.webp',
     track: 'Toonup',
     dmgType: 'Heal',
     level: 7,
@@ -87,7 +87,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Banana Peel',
-    image: '/assets/gags/Banana_Peel.webp',
+    image: 'Banana_Peel.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 1,
@@ -99,7 +99,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Rake',
-    image: '/assets/gags/Rake.webp',
+    image: 'Rake.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 2,
@@ -111,7 +111,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Marbles',
-    image: '/assets/gags/Marbles.webp',
+    image: 'Marbles.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 3,
@@ -123,7 +123,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Quicksand',
-    image: '/assets/gags/Quicksand.webp',
+    image: 'Quicksand.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 4,
@@ -135,7 +135,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Trapdoor',
-    image: '/assets/gags/Trapdoor.webp',
+    image: 'Trapdoor.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 5,
@@ -147,7 +147,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'TNT',
-    image: '/assets/gags/TNT.webp',
+    image: 'TNT.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 6,
@@ -159,7 +159,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Railroad',
-    image: '/assets/gags/Railroad.webp',
+    image: 'Railroad.webp',
     track: 'Trap',
     dmgType: 'Damage',
     level: 7,
@@ -171,7 +171,7 @@ const gags: GagInfo[] = [
   },
   {
     name: '$1 Bill',
-    image: '/assets/gags/$1_Bill.webp',
+    image: '$1_Bill.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 1,
@@ -183,7 +183,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Small Magnet',
-    image: '/assets/gags/Small_Magnet.webp',
+    image: 'Small_Magnet.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 2,
@@ -195,7 +195,7 @@ const gags: GagInfo[] = [
   },
   {
     name: '$5 Bill',
-    image: '/assets/gags/$5_Bill.webp',
+    image: '$5_Bill.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 3,
@@ -207,7 +207,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Big Magnet',
-    image: '/assets/gags/Big_Magnet.webp',
+    image: 'Big_Magnet.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 4,
@@ -219,7 +219,7 @@ const gags: GagInfo[] = [
   },
   {
     name: '$10 Bill',
-    image: '/assets/gags/$10_Bill.webp',
+    image: '$10_Bill.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 5,
@@ -231,7 +231,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Hypno Goggles',
-    image: '/assets/gags/Hypno_Goggles.webp',
+    image: 'Hypno_Goggles.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 6,
@@ -243,7 +243,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Presentation',
-    image: '/assets/gags/Presentation.webp',
+    image: 'Presentation.webp',
     track: 'Lure',
     dmgType: 'Lure',
     level: 7,
@@ -255,7 +255,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Bike Horn',
-    image: '/assets/gags/Bike_Horn.webp',
+    image: 'Bike_Horn.webp',
     track: 'Sound',
     level: 1,
     accuracy: 95,
@@ -267,7 +267,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Whistle',
-    image: '/assets/gags/Whistle.webp',
+    image: 'Whistle.webp',
     track: 'Sound',
     level: 2,
     accuracy: 95,
@@ -279,7 +279,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Bugle',
-    image: '/assets/gags/Bugle.webp',
+    image: 'Bugle.webp',
     track: 'Sound',
     level: 3,
     accuracy: 95,
@@ -291,7 +291,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Aoogah',
-    image: '/assets/gags/Aoogah.webp',
+    image: 'Aoogah.webp',
     track: 'Sound',
     level: 4,
     accuracy: 95,
@@ -303,7 +303,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Elephant Trunk',
-    image: '/assets/gags/Elephant_Trunk.webp',
+    image: 'Elephant_Trunk.webp',
     track: 'Sound',
     level: 5,
     accuracy: 95,
@@ -315,7 +315,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Foghorn',
-    image: '/assets/gags/Foghorn.webp',
+    image: 'Foghorn.webp',
     track: 'Sound',
     level: 6,
     accuracy: 95,
@@ -327,7 +327,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Opera Singer',
-    image: '/assets/gags/Opera_Singer.webp',
+    image: 'Opera_Singer.webp',
     track: 'Sound',
     level: 7,
     accuracy: 95,
@@ -339,7 +339,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Cupcake',
-    image: '/assets/gags/Cupcake.webp',
+    image: 'Cupcake.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 1,
@@ -351,7 +351,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Fruit Pie Slice',
-    image: '/assets/gags/Fruit_Pie_Slice.webp',
+    image: 'Fruit_Pie_Slice.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 2,
@@ -363,7 +363,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Cream Pie Slice',
-    image: '/assets/gags/Cream_Pie_Slice.webp',
+    image: 'Cream_Pie_Slice.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 3,
@@ -375,7 +375,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Whole Fruit Pie',
-    image: '/assets/gags/Whole_Fruit_Pie.webp',
+    image: 'Whole_Fruit_Pie.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 4,
@@ -387,7 +387,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Whole Cream Pie',
-    image: '/assets/gags/Whole_Cream_Pie.webp',
+    image: 'Whole_Cream_Pie.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 5,
@@ -399,7 +399,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Birthday Cake',
-    image: '/assets/gags/Birthday_Cake.webp',
+    image: 'Birthday_Cake.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 6,
@@ -411,7 +411,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Wedding Cake',
-    image: '/assets/gags/Wedding_Cake.webp',
+    image: 'Wedding_Cake.webp',
     track: 'Throw',
     dmgType: 'Damage',
     level: 7,
@@ -423,7 +423,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Squirting Flower',
-    image: '/assets/gags/Squirting_Flower.webp',
+    image: 'Squirting_Flower.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 1,
@@ -435,7 +435,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Glass of Water',
-    image: '/assets/gags/Glass_of_Water.webp',
+    image: 'Glass_of_Water.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 2,
@@ -447,7 +447,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Squirt Gun',
-    image: '/assets/gags/Squirt_Gun.webp',
+    image: 'Squirt_Gun.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 3,
@@ -459,7 +459,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Seltzer Bottle',
-    image: '/assets/gags/Seltzer_Bottle.webp',
+    image: 'Seltzer_Bottle.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 4,
@@ -471,7 +471,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Fire Hose',
-    image: '/assets/gags/Fire_Hose.webp',
+    image: 'Fire_Hose.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 5,
@@ -483,7 +483,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Storm Cloud',
-    image: '/assets/gags/Storm_Cloud.webp',
+    image: 'Storm_Cloud.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 6,
@@ -495,7 +495,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Geyser',
-    image: '/assets/gags/Geyser.webp',
+    image: 'Geyser.webp',
     track: 'Squirt',
     dmgType: 'Damage',
     level: 7,
@@ -507,7 +507,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Flower Pot',
-    image: '/assets/gags/Flower_Pot.webp',
+    image: 'Flower_Pot.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 1,
@@ -519,7 +519,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Sandbag',
-    image: '/assets/gags/Sandbag.webp',
+    image: 'Sandbag.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 2,
@@ -531,7 +531,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Anvil',
-    image: '/assets/gags/Anvil.webp',
+    image: 'Anvil.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 3,
@@ -543,7 +543,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Big Weight',
-    image: '/assets/gags/Big_Weight.webp',
+    image: 'Big_Weight.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 4,
@@ -555,7 +555,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Safe',
-    image: '/assets/gags/Safe.webp',
+    image: 'Safe.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 5,
@@ -567,7 +567,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Grand Piano',
-    image: '/assets/gags/Grand_Piano.webp',
+    image: 'Grand_Piano.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 6,
@@ -579,7 +579,7 @@ const gags: GagInfo[] = [
   },
   {
     name: 'Toontanic',
-    image: '/assets/gags/Toontanic.webp',
+    image: 'Toontanic.webp',
     track: 'Drop',
     dmgType: 'Damage',
     level: 7,

@@ -9,10 +9,12 @@ import { CogStatus, GagInfo, GagTrackInfo } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
 import gagsInfo from './data/gagsInfo';
 import gagTracksInfo from './data/gagTracksInfo';
-import { imgFromPath } from './utils/imageUtils';
 import { TrackInfo } from './components/TrackInfo';
 import { Cog } from './components/Cog';
 import { getGagDmg } from './utils/calculatorUtils';
+import { imgFromPath } from './utils/imageUtils';
+
+const imgs = import.meta.globEager('../assets/gags/*.webp');
 
 const gagTracks: GagTrackInfo[] = gagTracksInfo.map(
   ({ name, color, order, dmgType }) => ({
@@ -21,7 +23,7 @@ const gagTracks: GagTrackInfo[] = gagTracksInfo.map(
       .sort((a, b) => a.level - b.level)
       .map((gag) => ({
         ...gag,
-        image: imgFromPath(gag.image),
+        image: imgFromPath(imgs[`../assets/gags/${gag.image}`].default),
       })),
     color,
     name,
