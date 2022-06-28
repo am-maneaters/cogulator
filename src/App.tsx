@@ -95,8 +95,8 @@ function App() {
       selectedGags.sort((a, b) =>
         a.track === b.track
           ? a.level - b.level
-          : gagTracks.find(({ name }) => name === a.track)?.order -
-            gagTracks.find(({ name }) => name === b.track)?.order
+          : (gagTracks.find(({ name }) => name === a.track)?.order ?? 0) -
+            (gagTracks.find(({ name }) => name === b.track)?.order ?? 0)
       ),
     [selectedGags]
   );

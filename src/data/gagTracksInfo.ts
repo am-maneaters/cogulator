@@ -1,6 +1,6 @@
 import { GagTrackInfo } from '../types';
 
-const tracksInfo: GagTrackInfo[] = [
+const tracksInfo: Omit<GagTrackInfo, 'gags'>[] = [
   {
     name: 'Toonup',
     color: '#C55AE8',
