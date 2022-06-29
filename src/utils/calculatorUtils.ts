@@ -1,5 +1,6 @@
 // Get the health points of a cog by level
 
+import { sum } from 'lodash-es';
 import { gagTracks } from '../data/gagTracksInfo';
 import { CogStatus, GagInfo } from '../types';
 
@@ -45,45 +46,45 @@ export function calculateTotalDamage(
   gagTracks.forEach(({ name, dmgType }) => {
     const trackGags = gags.filter((gag) => gag.track === name);
 
-    const gagDamage = trackGags
-      .map((currentGag) => {
-        const { track } = currentGag;
+    const gagDamage = trackGags.map((currentGag) => {
+      const { track } = currentGag;
 
-        if (track === 'Trap') {
-          [trapGag] = trackGags;
-          cogStatus.trapped = true;
-          return 0;
-        }
-
-        if (dmgType === 'Damage') {
-          return getGagDmg(currentGag);
-        }
-
-        if (dmgType === 'Lure') {
-          cogStatus.lured = true;
-          if (trapGag) {
-            cogStatus.trapped = false;
-            cogStatus.lured = false;
-            const dmg = getGagDmg(trapGag);
-            trapGag = undefined;
-            return dmg;
-          }
-        }
+      if (track === 'Trap') {
+        [trapGag] = trackGags;
+        cogStatus.trapped = true;
         return 0;
-      })
-      .reduce((a, v) => a + v, 0);
+      }
 
-    totalDamage += gagDamage;
+      if (dmgType === 'Damage') {
+        return getGagDmg(currentGag);
+      }
+
+      if (dmgType === 'Lure') {
+        if (trapGag) {
+          cogStatus.trapped = false;
+          const dmg = getGagDmg(trapGag);
+          trapGag = undefined;
+          return dmg;
+        }
+
+        cogStatus.lured = true;
+      }
+      return 0;
+    });
+
+    const summedGagDamage = sum(gagDamage);
+
+    totalDamage += summedGagDamage;
 
     if (dmgType === 'Damage' && totalDamage > 0 && cogStatus.lured) {
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
-      if (name !== 'Sound') totalDamage += gagDamage / 2;
+      if (name !== 'Sound') totalDamage += summedGagDamage / 2;
     }
     if (trackGags.length > 1) {
       // Group bonus only applies when multiple gags are used together
-      totalDamage += Math.ceil(gagDamage / 5);
+      totalDamage += Math.ceil(summedGagDamage / 5);
     }
   });
   return totalDamage;

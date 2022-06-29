@@ -43,9 +43,13 @@ function App() {
 
   return (
     <div>
-      <div className="flex flex-col bg-blue-500">
-        <div className="flex flex-row items-center">
-          <span className="p-2 font-minnie text-5xl">Selected Gags</span>
+      <div className="font-cog text-6xl">Cogulator</div>
+      <div className="flex h-48 flex-col bg-blue-500">
+        <div className="flex flex-row items-center justify-center">
+          <span className="p-2 font-minnie text-5xl">
+            {selectedGags.length > 0 ? 'Selected Gags' : 'No Gags Selected'}
+          </span>
+
           {selectedGags.length > 0 && (
             <button
               className=" aspect-square w-10 rounded-full border-2 border-solid border-black bg-red-500 text-2xl hover:bg-red-400"
@@ -60,7 +64,12 @@ function App() {
             </button>
           )}
         </div>
-        <div className="flex h-32 flex-row items-center justify-start gap-3 p-4">
+        {selectedGags.length === 0 && (
+          <span className="p-2 font-minnie text-2xl">
+            Select Gags to Calculate Damage!
+          </span>
+        )}
+        <div className="flex flex-row items-center justify-start gap-3 p-4">
           {orderedGags.map((gag, i) => (
             <React.Fragment key={gag.id}>
               <Gag
