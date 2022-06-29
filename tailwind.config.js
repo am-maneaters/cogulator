@@ -6,6 +6,7 @@ module.exports = {
         mickey: ['Mickey', 'Impact'],
         cog: ['Remington', 'American Typewriter'],
         toon: ['Impress', 'Comic Sans MS', 'Comic Sans', 'cursive'],
+        minnie: ['Minnie', 'Impact'],
       },
     },
   },

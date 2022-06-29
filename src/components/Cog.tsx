@@ -1,38 +1,28 @@
+import clsx from 'clsx';
 import React, { useMemo } from 'react';
 import { calculateCogHealth } from '../utils/calculatorUtils';
-import luredEffect from '../../assets/lured_effect.webp';
-import trappedEffect from '../../assets/trapped_effect.webp';
-import cogImg from '../../assets/cog.png';
-import { CogStatus } from '../types';
 
-type Props = { level: number; damage?: number; effects?: CogStatus };
+type Props = { level: number; damage?: number };
 
-export const Cog = ({ level, damage = 0, effects = {} }: Props) => {
+export const Cog = ({ level, damage = 0 }: Props) => {
   const hp = useMemo(() => calculateCogHealth(level), [level]);
 
+  const remainingHp = useMemo(() => Math.max(0, hp - damage), [hp, damage]);
+
+  const hpTextColor = useMemo(() => {
+    if (remainingHp === 0) {
+      return 'text-green-500';
+    }
+    return 'text-red-500';
+  }, []);
   return (
     <div className="flex w-16 flex-col bg-[#D2D2D2] font-cog text-xl outline-double">
-      {/* <div>Cog</div>
-      <img src={cogImg} width={50} /> */}
       <div>{level}</div>
       <div>
-        <span className="text-2xl font-extrabold">
-          {Math.max(0, hp - damage)}
-          {/* {damage > 0 && `(-${damage})`} */}
+        <span className={clsx('text-2xl', 'font-extrabold', hpTextColor)}>
+          {remainingHp}
         </span>
       </div>
-      {/* <div className="flex h-6 flex-row gap-4">
-        <img
-          src={luredEffect}
-          className={effects.lured ? '' : 'grayscale'}
-          alt="luredIcon"
-        />
-        <img
-          src={trappedEffect}
-          className={effects.trapped ? '' : 'grayscale'}
-          alt="trappedIcon"
-        />
-      </div> */}
     </div>
   );
 };

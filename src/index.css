@@ -19,17 +19,21 @@
 @font-face {
   font-family: Minnie;
   src: url(../assets/fonts/Minnie.ttf);
-}
-body {
-  margin: 0;
-  font-family:  Impress, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+ }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+ @layer base {
+  html {
+     font-family:  Impress, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }    
+ }
+
+ @layer utilities {
+  .font-minnie {
+    text-shadow: 3px 3px black;
+    color: white;
+  }
+ }

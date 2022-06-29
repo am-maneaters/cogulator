@@ -1,6 +1,6 @@
 import React from 'react';
 import { GagInfo } from '../types';
-import { getGagDmg } from '../utils/calculatorUtils';
+import { getGagAccuracy, getGagDmg } from '../utils/calculatorUtils';
 
 type Props = {
   gag?: GagInfo;
@@ -31,10 +31,6 @@ const formatAffects = ({ affectsNum: num, affectsType: type }: GagInfo) =>
   num === 'All' ? `${num} ${type}s` : `${num} ${type}`;
 
 export default function GagInfoDisplay({ gag }: Props) {
-  if (!gag) {
-    return null;
-  }
-  const { name, image } = gag;
   return (
     <div
       className="flex aspect-square h-64 w-64 flex-col items-center bg-white p-2 pt-4"
@@ -43,25 +39,31 @@ export default function GagInfoDisplay({ gag }: Props) {
           'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
       }}
     >
-      <div className="text-3xl font-semibold text-orange-500">{name}</div>
-      <img
-        className="mt-2 aspect-square"
-        src={image}
-        width={64}
-        alt={name}
-        draggable={false}
-      />
-      <div className="w-full px-2">
-        <Divider />
-        <InfoLineItem label="Accuracy" value={`${gag.accuracy}%`} />
-        <Divider />
-        <InfoLineItem label={gag.dmgType} value={`${getGagDmg(gag)}`} />
-        <Divider />
-        <InfoLineItem label="Affects" value={formatAffects(gag)} />
-        <Divider />
-        <InfoLineItem label="Skill Credit" value="12" />
-        <Divider />
-      </div>
+      {gag && (
+        <>
+          <div className="text-3xl font-semibold text-orange-500">
+            {gag.name}
+          </div>
+          <img
+            className="mt-2 aspect-square"
+            src={gag.image}
+            width={64}
+            alt={gag.name}
+            draggable={false}
+          />
+          <div className="w-full px-2">
+            <Divider />
+            <InfoLineItem label="Accuracy" value={`${getGagAccuracy(gag)}%`} />
+            <Divider />
+            <InfoLineItem label={gag.dmgType} value={`${getGagDmg(gag)}`} />
+            <Divider />
+            <InfoLineItem label="Affects" value={formatAffects(gag)} />
+            <Divider />
+            <InfoLineItem label="Skill Credit" value="12" />
+            <Divider />
+          </div>
+        </>
+      )}
     </div>
   );
 }
