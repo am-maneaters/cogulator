@@ -42,11 +42,14 @@ function App() {
   );
 
   return (
-    <div>
-      <div className="font-cog text-6xl">Cogulator</div>
-      <div className="flex h-48 flex-col bg-blue-500">
+    <div className="flex flex-col items-center">
+      <header className="p-4 font-minnie text-7xl tracking-[-0.09em] !text-[#FEF200]">
+        Big Brain Town
+      </header>
+
+      <div className="flex h-36 flex-col rounded-xl bg-green-600">
         <div className="flex flex-row items-center justify-center">
-          <span className="p-2 font-minnie text-5xl">
+          <span className="p-2 text-2xl">
             {selectedGags.length > 0 ? 'Selected Gags' : 'No Gags Selected'}
           </span>
 
@@ -64,27 +67,29 @@ function App() {
             </button>
           )}
         </div>
-        {selectedGags.length === 0 && (
-          <span className="p-2 font-minnie text-2xl">
-            Select Gags to Calculate Damage!
-          </span>
-        )}
+
         <div className="flex flex-row items-center justify-start gap-3 p-4">
-          {orderedGags.map((gag, i) => (
-            <React.Fragment key={gag.id}>
-              <Gag
-                gag={gag}
-                onGagClick={() => {
-                  selectedGagsList.filter(({ id }) => gag.id !== id);
-                }}
-              />
-              {i !== orderedGags.length - 1 && (
-                <span className="font-minnie text-5xl">+</span>
-              )}
-            </React.Fragment>
-          ))}
+          {selectedGags.length === 0 && (
+            <span className="flex-1 p-2 text-lg">
+              Select Gags to Calculate Damage!
+            </span>
+          )}
+
           {selectedGags.length > 0 && (
             <>
+              {orderedGags.map((gag, i) => (
+                <React.Fragment key={gag.id}>
+                  <Gag
+                    gag={gag}
+                    onGagClick={() => {
+                      selectedGagsList.filter(({ id }) => gag.id !== id);
+                    }}
+                  />
+                  {i !== orderedGags.length - 1 && (
+                    <span className="font-minnie text-5xl">+</span>
+                  )}
+                </React.Fragment>
+              ))}
               <span className="font-minnie text-5xl">=</span>
               <span className="font-minnie text-5xl">{totalDamage}</span>
             </>
@@ -97,7 +102,7 @@ function App() {
           <Cog level={i + 1} key={i} damage={totalDamage} />
         ))}
       </div>
-      <div className="m-2 flex rounded-xl bg-red-600 p-8">
+      <div className="m-2 flex w-fit rounded-xl bg-red-600 p-8">
         <div className="pr-8">
           {gagTracks.map(({ gags, color, name }) => (
             <div
