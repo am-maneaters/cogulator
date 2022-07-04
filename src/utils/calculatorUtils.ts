@@ -36,7 +36,7 @@ export function getGagAccuracy({
 
 export function calculateTotalDamage(
   gags: GagInfo[],
-  initialCogStatus: CogStatus
+  initialCogStatus: CogStatus = {}
 ) {
   let totalDamage = 0;
 

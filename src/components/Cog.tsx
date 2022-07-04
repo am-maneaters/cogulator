@@ -16,9 +16,9 @@ export const Cog = ({ level, damage = 0 }: Props) => {
     return 'text-red-500';
   }, []);
   return (
-    <div className="flex w-16 flex-col bg-[#D2D2D2] font-cog text-xl outline-double">
-      <div>{level}</div>
+    <div className="flex w-24 flex-col bg-[#D2D2D2] font-cog text-xl outline-double">
       <div>
+        {level}:
         <span className={clsx('text-2xl', 'font-extrabold', hpTextColor)}>
           {remainingHp}
         </span>

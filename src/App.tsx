@@ -47,6 +47,7 @@ function App() {
         Big Brain Town
       </header>
 
+      {/* Gag calculation display */}
       <div className="flex h-36 flex-col rounded-xl bg-green-600">
         <div className="flex flex-row items-center justify-center">
           <span className="p-2 text-2xl">
@@ -97,7 +98,8 @@ function App() {
         </div>
       </div>
 
-      <div className="flex flex-row flex-wrap gap-4">
+      {/* Cog Health Displays */}
+      <div className="mx-12 my-2 flex flex-row flex-wrap gap-4 rounded-xl bg-gray-400 p-4">
         {range(20).map((i) => (
           <Cog level={i + 1} key={i} damage={totalDamage} />
         ))}
