@@ -4,21 +4,21 @@
 
 @font-face {
   font-family: Impress;
-  src:  url(../assets/fonts/Impress.ttf) ;
+  src:  url(../assets/fonts/Impress.woff) ;
 }
 @font-face {
   font-family: Remington;
-  src: url(../assets/fonts/vtRemingtonPortable.ttf);
+  src: url(../assets/fonts/vtRemingtonPortable.woff);
 }
 
 @font-face {
   font-family: Mickey;
-  src: url(../assets/fonts/Mickey.ttf);
+  src: url(../assets/fonts/Mickey.woff);
 }
 
 @font-face {
   font-family: Minnie;
-  src: url(../assets/fonts/Minnie.ttf);
+  src: url(../assets/fonts/Minnie.woff);
  }
 
  @layer base {
