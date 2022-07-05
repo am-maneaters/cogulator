@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import useSound from 'use-sound';
 import './App.css';
 import { useList } from 'react-use';
@@ -14,12 +14,17 @@ import { Cog } from './components/Cog';
 import { calculateTotalDamage } from './utils/calculatorUtils';
 import { gagTracks } from './data/gagTracksInfo';
 
+const worker = new Worker(new URL('./worker.ts', import.meta.url), {
+  type: 'module',
+});
+
 let currentId = 0;
 
 type GagInstance = GagInfo & { id: number };
 
 function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
+  const [loading, setLoading] = React.useState(false);
   const [playHoverSfx] = useSound(hoverSfx);
   const [playClickSfx] = useSound(clickSfx);
 
@@ -40,6 +45,28 @@ function App() {
     () => calculateTotalDamage(selectedGags, {}),
     [selectedGags]
   );
+
+  useEffect(() => {
+    const listener = (e: MessageEvent<GagInfo[]>) => {
+      const gagsWithIds: GagInstance[] = e.data.map((gag) => ({
+        ...gag,
+        id: currentId++,
+      }));
+      selectedGagsList.set(gagsWithIds);
+      setLoading(false);
+    };
+    worker.addEventListener('message', listener);
+
+    return () => {
+      worker.removeEventListener('message', listener);
+    };
+  }, []);
+
+  const handleCogClicked = (hp: number) => {
+    worker.postMessage({ targetDamage: hp });
+    setLoading(true);
+    selectedGagsList.clear();
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -70,11 +97,12 @@ function App() {
         </div>
 
         <div className="flex flex-row items-center justify-start gap-3 p-4">
-          {selectedGags.length === 0 && (
-            <span className="flex-1 p-2 text-lg">
-              Select Gags to Calculate Damage!
-            </span>
-          )}
+          <span className="flex-1 p-2 text-lg">
+            {!loading &&
+              selectedGags.length === 0 &&
+              'Select Gags to Calculate Damage!'}
+            {loading && 'LOADING...'}
+          </span>
 
           {selectedGags.length > 0 && (
             <>
@@ -101,7 +129,12 @@ function App() {
       {/* Cog Health Displays */}
       <div className="mx-12 my-2 flex flex-row flex-wrap gap-4 rounded-xl bg-gray-400 p-4">
         {range(20).map((i) => (
-          <Cog level={i + 1} key={i} damage={totalDamage} />
+          <Cog
+            level={i + 1}
+            key={i}
+            damage={totalDamage}
+            onCogClick={handleCogClicked}
+          />
         ))}
       </div>
       <div className="m-2 flex w-fit rounded-xl bg-red-600 p-8">

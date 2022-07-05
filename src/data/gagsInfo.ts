@@ -1,6 +1,9 @@
 import { GagInfo } from '../types';
+import { imgFromPath } from '../utils/imageUtils';
 
-const gags: GagInfo[] = [
+const imgs = import.meta.globEager('../../assets/gags/*.webp');
+
+const gagsOriginal: GagInfo[] = [
   {
     name: 'Feather',
     image: 'Feather.webp',
@@ -590,5 +593,10 @@ const gags: GagInfo[] = [
     maxDmg: 180,
   },
 ];
+
+const gags = gagsOriginal.map((gag) => ({
+  ...gag,
+  image: imgFromPath(imgs[`../../assets/gags/${gag.image}`].default),
+}));
 
 export default gags;

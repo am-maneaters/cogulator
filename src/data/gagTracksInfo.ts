@@ -1,8 +1,5 @@
 import { GagTrackInfo } from '../types';
-import { imgFromPath } from '../utils/imageUtils';
 import gagsInfo from './gagsInfo';
-
-const imgs = import.meta.globEager('../../assets/gags/*.webp');
 
 const tracksInfo: Omit<GagTrackInfo, 'gags'>[] = [
   {
@@ -53,11 +50,7 @@ export const gagTracks: GagTrackInfo[] = tracksInfo.map(
   ({ name, color, order, dmgType }) => ({
     gags: gagsInfo
       .filter((gag) => gag.track === name)
-      .sort((a, b) => a.level - b.level)
-      .map((gag) => ({
-        ...gag,
-        image: imgFromPath(imgs[`../../assets/gags/${gag.image}`].default),
-      })),
+      .sort((a, b) => a.level - b.level),
     color,
     name,
     order,

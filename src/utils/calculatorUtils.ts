@@ -55,6 +55,10 @@ export function calculateTotalDamage(
         return 0;
       }
 
+      if (track === 'Drop' && cogStatus.lured) {
+        return 0;
+      }
+
       if (dmgType === 'Damage') {
         return getGagDmg(currentGag);
       }
@@ -69,6 +73,7 @@ export function calculateTotalDamage(
 
         cogStatus.lured = true;
       }
+
       return 0;
     });
 
