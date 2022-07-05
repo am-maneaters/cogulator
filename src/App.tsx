@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
+
 import useSound from 'use-sound';
 import './App.css';
 import { useList } from 'react-use';
@@ -8,6 +9,7 @@ import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import Gag from './components/Gag';
 import { GagInfo } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
+import gagsInfo from './data/gagsInfo';
 
 import { TrackInfo } from './components/TrackInfo';
 import { Cog } from './components/Cog';
@@ -63,7 +65,7 @@ function App() {
   }, []);
 
   const handleCogClicked = (hp: number) => {
-    worker.postMessage({ targetDamage: hp });
+    worker.postMessage({ targetDamage: hp, availableGags: gagsInfo });
     setLoading(true);
     selectedGagsList.clear();
   };

@@ -1,8 +1,8 @@
-import gagsInfo from './data/gagsInfo';
 import { GagInfo } from './types';
 import { calculateTotalDamage } from './utils/calculatorUtils';
 
 type OptimalGagProps = {
+  availableGags: GagInfo[];
   targetDamage: number;
 };
 
@@ -12,13 +12,16 @@ type OptimalGagResult = {
   cost: number;
 };
 
-function getOptimalGags({ targetDamage }: OptimalGagProps): GagInfo[] {
-  let closestDifference = 1000000;
-  let closestCost = 10000000;
+function getOptimalGags({
+  targetDamage,
+  availableGags,
+}: OptimalGagProps): GagInfo[] {
+  let closestDifference = Infinity;
+  let closestCost = Infinity;
   let closestSelectedGags: GagInfo[] = [];
   let counter = 0;
 
-  const possibleGags = gagsInfo.filter((gag) => gag.track !== 'Toonup');
+  const possibleGags = availableGags.filter((gag) => gag.track !== 'Toonup');
   const gagsLength = possibleGags.length;
 
   let matches: OptimalGagResult[] = [];
@@ -75,8 +78,8 @@ function getOptimalGags({ targetDamage }: OptimalGagProps): GagInfo[] {
 }
 
 // eslint-disable-next-line no-restricted-globals
-addEventListener('message', (e: MessageEvent<OptimalGagProps>) => {
+self.addEventListener('message', (e: MessageEvent<OptimalGagProps>) => {
   const closestGags = getOptimalGags(e.data);
   // eslint-disable-next-line no-restricted-globals
-  postMessage(closestGags);
+  self.postMessage(closestGags);
 });

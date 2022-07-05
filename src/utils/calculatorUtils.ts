@@ -1,7 +1,6 @@
 // Get the health points of a cog by level
 
 import { sum } from 'lodash-es';
-import { gagTracks } from '../data/gagTracksInfo';
 import { CogStatus, GagInfo } from '../types';
 
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
@@ -43,7 +42,9 @@ export function calculateTotalDamage(
   const cogStatus: CogStatus = { ...initialCogStatus };
   let trapGag: GagInfo | undefined;
 
-  gagTracks.forEach(({ name, dmgType }) => {
+  const gagTracks = [...new Set(gags.map((gag) => gag.track))];
+
+  gagTracks.forEach((name) => {
     const trackGags = gags.filter((gag) => gag.track === name);
 
     const gagDamage = trackGags.map((currentGag) => {
@@ -59,11 +60,11 @@ export function calculateTotalDamage(
         return 0;
       }
 
-      if (dmgType === 'Damage') {
+      if (currentGag.dmgType === 'Damage') {
         return getGagDmg(currentGag);
       }
 
-      if (dmgType === 'Lure') {
+      if (currentGag.dmgType === 'Lure') {
         if (trapGag) {
           cogStatus.trapped = false;
           const dmg = getGagDmg(trapGag);
@@ -81,12 +82,17 @@ export function calculateTotalDamage(
 
     totalDamage += summedGagDamage;
 
-    if (dmgType === 'Damage' && totalDamage > 0 && cogStatus.lured) {
+    if (
+      !['Lure', 'Toonup'].includes(name) &&
+      totalDamage > 0 &&
+      cogStatus.lured
+    ) {
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
       if (name !== 'Sound') totalDamage += summedGagDamage / 2;
     }
+
     if (trackGags.length > 1) {
       // Group bonus only applies when multiple gags are used together
       totalDamage += Math.ceil(summedGagDamage / 5);
