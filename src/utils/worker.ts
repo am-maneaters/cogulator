@@ -16,41 +16,18 @@ type OptimalGagResult = {
   cost: number;
 };
 
-function getCombinations<T>(valuesArray: T[]) {
-  const combi: T[][] = [];
-  let temp: T[] = [];
-
-  for (let i = 0; i < 4; i += 1) {
-    temp = [];
-    for (let j = 0; j < valuesArray.length; j += 1) {
-      if (i & (2 ** j)) {
-        temp.push(valuesArray[j]);
-      }
-    }
-    if (temp.length > 0) {
-      combi.push(temp);
-    }
-  }
-
-  return combi;
-}
-
 function getOptimalGags({
   targetDamage,
   availableGags,
-  currentGags,
 }: OptimalGagProps): GagInfo[] {
   let closestDifference = Infinity;
   let closestCost = Infinity;
   let closestSelectedGags: GagInfo[] = [];
-  let counter = 0;
 
   const possibleGags = availableGags.filter((gag) => gag.track !== 'Toonup');
   const gagsLength = possibleGags.length;
 
   const matches: OptimalGagResult[] = [];
-
-  console.log(getCombinations(availableGags));
 
   for (let gag1Idx = 0; gag1Idx < gagsLength; gag1Idx++) {
     const gag1 = possibleGags[gag1Idx];
@@ -92,14 +69,10 @@ function getOptimalGags({
               matches.push({ gags: selectedGags, totalDamage, cost });
             }
           }
-
-          counter += 1;
         }
       }
     }
   }
-  console.log(matches);
-  console.log(`took ${counter} iterations`);
   return closestSelectedGags;
 }
 

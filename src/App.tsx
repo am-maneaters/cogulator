@@ -8,7 +8,6 @@ import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import Gag from './components/Gag';
 import { GagInfo, GagInstance } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
-import gagsInfo from './data/gagsInfo';
 
 import { TrackInfo } from './components/TrackInfo';
 import { Cog } from './components/Cog';
@@ -16,51 +15,27 @@ import { calculateTotalDamage } from './utils/calculatorUtils';
 import { gagTracks } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
-
-const worker = new Worker(new URL('./utils/worker.ts', import.meta.url), {
-  type: 'module',
-});
+import { useOptimalGags } from './hooks/useOptimalGags';
 
 let currentId = 0;
 
 function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
-  const [loading, setLoading] = React.useState(false);
   const [playHoverSfx] = useSound(hoverSfx);
   const [playClickSfx] = useSound(clickSfx);
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
+  const { optimalGags, isLoading, beginCalculation } = useOptimalGags();
+
+  useEffect(() => {
+    if (optimalGags) setSelectedGags(optimalGags);
+  }, [optimalGags]);
+
   const totalDamage = useMemo(
     () => calculateTotalDamage(selectedGags, {}),
     [selectedGags]
   );
-
-  useEffect(() => {
-    const listener = (e: MessageEvent<GagInfo[]>) => {
-      const gagsWithIds: GagInstance[] = e.data.map((gag) => ({
-        ...gag,
-        id: currentId++,
-      }));
-      setSelectedGags(gagsWithIds);
-      setLoading(false);
-    };
-    worker.addEventListener('message', listener);
-
-    return () => {
-      worker.removeEventListener('message', listener);
-    };
-  }, []);
-
-  const handleCogClicked = (hp: number) => {
-    worker.postMessage({
-      targetDamage: hp,
-      availableGags: gagsInfo,
-      currentGags: selectedGags,
-    });
-    setLoading(true);
-    setSelectedGags([]);
-  };
 
   const soundContext = useMemo(() => ({ playHoverSfx, playClickSfx }), []);
 
@@ -76,7 +51,7 @@ function App() {
           selectedGags={selectedGags}
           onSelectionChanged={setSelectedGags}
           totalDamage={totalDamage}
-          loading={loading}
+          loading={isLoading}
         />
 
         {/* Cog Health Displays */}
@@ -86,7 +61,7 @@ function App() {
               level={i + 1}
               key={i}
               damage={totalDamage}
-              onCogClick={handleCogClicked}
+              onCogClick={beginCalculation}
             />
           ))}
         </div>
