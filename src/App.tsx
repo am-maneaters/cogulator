@@ -5,19 +5,16 @@ import './App.css';
 import { range } from 'lodash-es';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
-import Gag from './components/Gag';
 import { GagInfo, GagInstance } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
 
-import { TrackInfo } from './components/TrackInfo';
 import { Cog } from './components/Cog';
 import { calculateTotalDamage } from './utils/calculatorUtils';
 import { gagTracks } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
 import { useOptimalGags } from './hooks/useOptimalGags';
-
-let currentId = 0;
+import GagTrack from './components/GagTrack';
 
 function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
@@ -67,40 +64,15 @@ function App() {
         </div>
         <div className="m-2 flex w-fit rounded-xl bg-red-600 p-8">
           <div className="pr-8">
-            {gagTracks.map(({ gags, color, name }) => (
-              <div
-                className="flex gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
-                style={{
-                  backgroundColor: color,
+            {gagTracks.map((track) => (
+              <GagTrack
+                key={track.name}
+                track={track}
+                onGagHover={setHoveredGag}
+                onGagSelect={(gag) => {
+                  setSelectedGags((prevGags) => [...prevGags, gag]);
                 }}
-                key={name}
-              >
-                <TrackInfo name={name} />
-                <div className="flex gap-2">
-                  {gags.map((gag) => (
-                    <Gag
-                      gag={gag}
-                      key={gag.name}
-                      onGagClick={(isOrganic) => {
-                        currentId += 1;
-                        setSelectedGags((prevGags) => [
-                          ...prevGags,
-                          {
-                            ...gag,
-                            isOrganic,
-                            id: currentId,
-                          },
-                        ]);
-                        playClickSfx();
-                      }}
-                      onGagHover={(isOrganic) => {
-                        setHoveredGag({ ...gag, isOrganic });
-                        playHoverSfx();
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
+              />
             ))}
           </div>
           <GagInfoDisplay gag={hoveredGag} />
