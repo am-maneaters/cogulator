@@ -30,6 +30,6 @@ module.exports = {
     'react/require-default-props': 0,
     'react/function-component-definition': 0,
     'import/prefer-default-export': 0,
-    "no-plusplus": 0,
+    'no-plusplus': 0,
   },
 };

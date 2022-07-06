@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import gagsInfo from '../data/gagsInfo';
 import { GagInfo, GagInstance } from '../types';
+import { getUniqueId } from '../utils/uniqueUtils';
 
 type OptimalGags = {
   isLoading: boolean;
@@ -12,8 +13,6 @@ const worker = new Worker(new URL('../utils/worker.ts', import.meta.url), {
   type: 'module',
 });
 
-let currentId = 0;
-
 export function useOptimalGags(): OptimalGags {
   const [isLoading, setIsLoading] = React.useState(false);
   const [optimalGags, setOptimalGags] = React.useState<GagInstance[]>();
@@ -22,7 +21,7 @@ export function useOptimalGags(): OptimalGags {
     const listener = (e: MessageEvent<GagInfo[]>) => {
       const gagsWithIds: GagInstance[] = e.data.map((gag) => ({
         ...gag,
-        id: `optimal${currentId++}`,
+        id: getUniqueId(),
       }));
       setOptimalGags(gagsWithIds);
       setIsLoading(false);

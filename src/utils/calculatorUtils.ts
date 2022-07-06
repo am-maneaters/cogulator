@@ -6,7 +6,7 @@ import { CogStatus, GagInfo, GagTrack } from '../types';
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
 export function calculateCogHealth(lvl: number): number {
   if (lvl < 1) {
-    throw Error('Cog health cannot be calculated for level less than 1');
+    throw new Error('Cog health cannot be calculated for level less than 1');
   }
 
   // Cogs lvl 1-11 have health of f(x) = (x + 1) * (x + 2)
@@ -26,7 +26,7 @@ export function getGagAccuracy({
   accuracy,
   dmgType,
   isOrganic,
-}: GagInfo): number {
+}: Pick<GagInfo, 'accuracy' | 'dmgType' | 'isOrganic'>): number {
   if (dmgType === 'Lure' && isOrganic) {
     return Math.min(95, accuracy + 10);
   }

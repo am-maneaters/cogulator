@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSfx } from '../context/sfxContext';
 import { GagInfo, GagInstance, GagTrackInfo } from '../types';
+import { getUniqueId } from '../utils/uniqueUtils';
 import Gag from './Gag';
 
 type Props = {
@@ -8,8 +9,6 @@ type Props = {
   onGagHover: (gag: GagInfo) => void;
   onGagSelect: (gag: GagInstance) => void;
 };
-
-let currentId = 0;
 
 export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
   const { playClickSfx, playHoverSfx } = useSfx();
@@ -30,11 +29,10 @@ export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
             gag={gag}
             key={gag.name}
             onGagClick={(isOrganic) => {
-              currentId += 1;
               onGagSelect({
                 ...gag,
                 isOrganic,
-                id: currentId,
+                id: getUniqueId(),
               });
               playClickSfx();
             }}
