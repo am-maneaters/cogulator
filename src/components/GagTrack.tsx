@@ -2,7 +2,6 @@ import React from 'react';
 import { useSfx } from '../context/sfxContext';
 import { GagInfo, GagInstance, GagTrackInfo } from '../types';
 import Gag from './Gag';
-import { TrackInfo } from './TrackInfo';
 
 type Props = {
   track: GagTrackInfo;
@@ -22,7 +21,9 @@ export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
         backgroundColor: color,
       }}
     >
-      <TrackInfo name={name} />
+      <div className="flex min-w-[90px] flex-col justify-center">
+        <div className="text-2xl uppercase">{name}</div>
+      </div>
       <div className="flex gap-2">
         {gags.map((gag) => (
           <Gag
