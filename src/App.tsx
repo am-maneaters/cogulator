@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import useSound from 'use-sound';
 import './App.css';
-import { useList } from 'react-use';
 import { range } from 'lodash-es';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
@@ -16,7 +15,7 @@ import { Cog } from './components/Cog';
 import { calculateTotalDamage } from './utils/calculatorUtils';
 import { gagTracks } from './data/gagTracksInfo';
 
-const worker = new Worker(new URL('./worker.ts', import.meta.url), {
+const worker = new Worker(new URL('./utils/worker.ts', import.meta.url), {
   type: 'module',
 });
 
@@ -30,7 +29,7 @@ function App() {
   const [playHoverSfx] = useSound(hoverSfx);
   const [playClickSfx] = useSound(clickSfx);
 
-  const [selectedGags, selectedGagsList] = useList<GagInstance>([]);
+  const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
   const orderedGags = useMemo(
     () =>
@@ -54,7 +53,7 @@ function App() {
         ...gag,
         id: currentId++,
       }));
-      selectedGagsList.set(gagsWithIds);
+      setSelectedGags(gagsWithIds);
       setLoading(false);
     };
     worker.addEventListener('message', listener);
@@ -65,9 +64,13 @@ function App() {
   }, []);
 
   const handleCogClicked = (hp: number) => {
-    worker.postMessage({ targetDamage: hp, availableGags: gagsInfo });
+    worker.postMessage({
+      targetDamage: hp,
+      availableGags: gagsInfo,
+      currentGags: selectedGags,
+    });
     setLoading(true);
-    selectedGagsList.clear();
+    setSelectedGags([]);
   };
 
   return (
@@ -90,7 +93,7 @@ function App() {
               onMouseEnter={() => playHoverSfx()}
               onClick={() => {
                 playClickSfx();
-                selectedGagsList.clear();
+                setSelectedGags([]);
               }}
             >
               X
@@ -113,7 +116,9 @@ function App() {
                   <Gag
                     gag={gag}
                     onGagClick={() => {
-                      selectedGagsList.filter(({ id }) => gag.id !== id);
+                      setSelectedGags((prevGags) =>
+                        prevGags.filter(({ id }) => gag.id !== id)
+                      );
                     }}
                   />
                   {i !== orderedGags.length - 1 && (
@@ -156,17 +161,19 @@ function App() {
                     gag={gag}
                     key={gag.name}
                     onGagClick={(isOrganic) => {
-                      const newGag: GagInstance = {
-                        ...gag,
-                        isOrganic,
-                        id: (currentId += 1),
-                      };
-                      selectedGagsList.push(newGag);
+                      currentId += 1;
+                      setSelectedGags((prevGags) => [
+                        ...prevGags,
+                        {
+                          ...gag,
+                          isOrganic,
+                          id: currentId,
+                        },
+                      ]);
                       playClickSfx();
                     }}
                     onGagHover={(isOrganic) => {
-                      const newGag = { ...gag, isOrganic };
-                      setHoveredGag(newGag);
+                      setHoveredGag({ ...gag, isOrganic });
                       playHoverSfx();
                     }}
                   />

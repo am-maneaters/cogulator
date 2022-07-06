@@ -1,9 +1,13 @@
-import { GagInfo } from './types';
-import { calculateTotalDamage } from './utils/calculatorUtils';
+/* eslint-disable no-bitwise */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-continue */
+import { GagInfo } from '../types';
+import { calculateTotalDamage } from './calculatorUtils';
 
 type OptimalGagProps = {
   availableGags: GagInfo[];
   targetDamage: number;
+  currentGags: GagInfo[];
 };
 
 type OptimalGagResult = {
@@ -12,9 +16,29 @@ type OptimalGagResult = {
   cost: number;
 };
 
+function getCombinations<T>(valuesArray: T[]) {
+  const combi: T[][] = [];
+  let temp: T[] = [];
+
+  for (let i = 0; i < 4; i += 1) {
+    temp = [];
+    for (let j = 0; j < valuesArray.length; j += 1) {
+      if (i & (2 ** j)) {
+        temp.push(valuesArray[j]);
+      }
+    }
+    if (temp.length > 0) {
+      combi.push(temp);
+    }
+  }
+
+  return combi;
+}
+
 function getOptimalGags({
   targetDamage,
   availableGags,
+  currentGags,
 }: OptimalGagProps): GagInfo[] {
   let closestDifference = Infinity;
   let closestCost = Infinity;
@@ -24,7 +48,9 @@ function getOptimalGags({
   const possibleGags = availableGags.filter((gag) => gag.track !== 'Toonup');
   const gagsLength = possibleGags.length;
 
-  let matches: OptimalGagResult[] = [];
+  const matches: OptimalGagResult[] = [];
+
+  console.log(getCombinations(availableGags));
 
   for (let gag1Idx = 0; gag1Idx < gagsLength; gag1Idx++) {
     const gag1 = possibleGags[gag1Idx];
