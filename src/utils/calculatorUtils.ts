@@ -1,7 +1,7 @@
 // Get the health points of a cog by level
 
 import { sum } from 'lodash-es';
-import { CogStatus, GagInfo } from '../types';
+import { CogStatus, GagInfo, GagTrack } from '../types';
 
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
 export function calculateCogHealth(lvl: number): number {
@@ -33,6 +33,16 @@ export function getGagAccuracy({
   return accuracy;
 }
 
+const trackOrder: GagTrack[] = [
+  'Toonup',
+  'Trap',
+  'Lure',
+  'Sound',
+  'Throw',
+  'Squirt',
+  'Drop',
+];
+
 export function calculateTotalDamage(
   gags: GagInfo[],
   initialCogStatus: CogStatus = {}
@@ -43,6 +53,12 @@ export function calculateTotalDamage(
   let trapGag: GagInfo | undefined;
 
   const gagTracks = [...new Set(gags.map((gag) => gag.track))];
+
+  gagTracks.sort(
+    (a, b) =>
+      trackOrder.findIndex((name) => name === a) -
+      trackOrder.findIndex((name) => name === b)
+  );
 
   gagTracks.forEach((name) => {
     const trackGags = gags.filter((gag) => gag.track === name);
