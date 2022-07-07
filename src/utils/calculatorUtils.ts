@@ -106,7 +106,8 @@ export function calculateTotalDamage(
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
-      if (name !== 'Sound') totalDamage += summedGagDamage / 2;
+      // Lure bonus
+      if (name !== 'Sound') totalDamage += Math.ceil(summedGagDamage / 2);
     }
 
     if (trackGags.length > 1) {
