@@ -1,7 +1,9 @@
 import { GagInfo } from '../types';
 import { imgFromPath } from '../utils/imageUtils';
 
-const imgs = import.meta.globEager('../../assets/gags/*.webp');
+const imgs: Record<string, { default: string }> = import.meta.globEager(
+  '../../assets/gags/*.webp'
+);
 
 const gagsOriginal: GagInfo[] = [
   {

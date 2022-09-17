@@ -1,5 +1,5 @@
 /// <reference types="vite-plugin-svgr/client" />
-/// <reference types="vite" />
+/// <reference types="vite/client" />
 
 import React, { useEffect, useMemo, useState } from 'react';
 
