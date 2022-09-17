@@ -15,7 +15,7 @@ export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
   const { name, color, gags } = track;
   return (
     <div
-      className="flex gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
+      className="flex flex-1 gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
       style={{
         backgroundColor: color,
       }}

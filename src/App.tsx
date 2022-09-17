@@ -53,8 +53,8 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="container mx-auto flex flex-col items-center">
-        <header className="p-4 font-minnie text-7xl tracking-[-0.09em] !text-[#FEF200]">
+      <div className="container mx-auto flex flex-col items-center justify-start">
+        <header className="p-2 font-minnie text-7xl tracking-[-0.09em] !text-[#FEF200]">
           Big Brain Town
           <button
             onClick={() => {
@@ -67,6 +67,21 @@ function App() {
             </div>
           </button>
         </header>
+
+        {/* Gag Tracks */}
+        <div className="m-2 flex w-fit resize overflow-auto rounded-xl bg-red-600 p-8">
+          <div className="flex flex-1 flex-col pr-8">
+            {gagTracks.map((track) => (
+              <GagTrack
+                key={track.name}
+                track={track}
+                onGagHover={setHoveredGag}
+                onGagSelect={handleGagSelected}
+              />
+            ))}
+          </div>
+          <GagInfoDisplay gag={hoveredGag} />
+        </div>
 
         {/* Gag calculation display */}
         <CalculationDisplay
@@ -86,21 +101,6 @@ function App() {
               onCogClick={beginCalculation}
             />
           ))}
-        </div>
-
-        {/* Gag Tracks */}
-        <div className="m-2 flex w-fit rounded-xl bg-red-600 p-8">
-          <div className="pr-8">
-            {gagTracks.map((track) => (
-              <GagTrack
-                key={track.name}
-                track={track}
-                onGagHover={setHoveredGag}
-                onGagSelect={handleGagSelected}
-              />
-            ))}
-          </div>
-          <GagInfoDisplay gag={hoveredGag} />
         </div>
       </div>
     </SfxContext.Provider>

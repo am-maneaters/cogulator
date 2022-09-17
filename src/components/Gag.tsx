@@ -24,8 +24,8 @@ export default function Gag({
 
   return (
     <div
-      className="relative flex h-fit w-fit min-w-[85px] max-w-[85px] select-none 
-         items-end rounded-2xl
+      className="relative flex h-auto min-h-0 w-fit min-w-[85px] max-w-[85px] select-none   
+         items-center justify-center rounded-2xl
          border-2 border-blue-500 bg-gradient-to-b 
          from-blue-500 to-[#00b4ff] px-2 pb-1 
          text-white shadow-[-1px_2px_4px_2px_rgba(0,0,0,0.5)] hover:shadow-xl hover:brightness-110
@@ -61,7 +61,9 @@ export default function Gag({
           role="button"
           tabIndex={0}
         >
+          {/* Green Circle behind Organic Leaf */}
           <div className="pointer-events-none absolute h-[30px] w-[30px] rounded-full bg-green-800 drop-shadow-[1px_1px_1px_black]" />
+          {/* Organic Leaf icon */}
           <img
             className="pointer-events-none absolute right-[-4px] top-[-4px] aspect-square overflow-hidden drop-shadow-[1px_1px_1px_black]"
             src={leaf}
@@ -72,9 +74,8 @@ export default function Gag({
         </div>
       )}
       <img
-        className="mx-2 aspect-square"
+        className="min-w-0 max-w-[65%] object-scale-down"
         src={gag.image}
-        width={50}
         alt={gag.name}
         draggable={false}
       />
