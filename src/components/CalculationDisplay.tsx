@@ -32,9 +32,7 @@ export default function CalculationDisplay({
   return (
     <div className="flex h-36 w-full flex-col rounded-xl bg-green-600">
       <div className="flex flex-row items-center justify-center">
-        <span className="p-2 text-2xl">
-          {selectedGags.length > 0 ? 'Selected Gags' : 'No Gags Selected'}
-        </span>
+        <span className="p-2 text-3xl text-white">Calculation Display</span>
 
         {selectedGags.length > 0 && (
           <button
@@ -53,9 +51,8 @@ export default function CalculationDisplay({
 
       <div className="flex select-none flex-row items-center justify-start gap-3 p-4">
         {selectedGags.length === 0 && (
-          <span className="flex-1 p-2 text-lg">
-            {!loading && 'Select Gags to Calculate Damage!'}
-            {loading && 'LOADING...'}
+          <span className="flex-1 p-2 text-center text-lg text-white">
+            {loading ? 'Loading...' : 'Select Gags to Calculate Damage!'}
           </span>
         )}
 

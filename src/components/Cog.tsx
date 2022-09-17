@@ -16,16 +16,16 @@ export const Cog = ({ level, damage = 0, onCogClick }: Props) => {
   return (
     <div
       className={clsx(
-        'flex w-24 flex-col font-cog text-xl outline-double',
+        'flex flex-col font-cog text-xl outline-double',
         remainingHp === 0 ? 'bg-green-500' : 'bg-red-500',
         damage === 0 && 'bg-gray-500'
       )}
-      onClick={() => onCogClick(hp)}
+      // onClick={() => onCogClick(hp)}
     >
       <div>
-        lvl <span className="text-2xl font-bold">{level}</span>
+        <span className="text-2xl font-bold">{level}</span>
       </div>
-      <div className="text-2xl">{remainingHp} hp</div>
+      <div className="text-2xl">{remainingHp}</div>
     </div>
   );
 };

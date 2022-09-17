@@ -15,12 +15,12 @@ export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
   const { name, color, gags } = track;
   return (
     <div
-      className="flex flex-1 gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
+      className="flex max-w-max flex-1 gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
       style={{
         backgroundColor: color,
       }}
     >
-      <div className="flex min-w-[90px] flex-col justify-center">
+      <div className="flex min-w-[90px] flex-col justify-center sm:hidden xl:block">
         <div className="text-2xl uppercase">{name}</div>
       </div>
       <div className="flex gap-2">

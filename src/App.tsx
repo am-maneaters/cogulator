@@ -51,10 +51,12 @@ function App() {
     setSelectedGags((prevGags) => [...prevGags, gag]);
   };
 
+  const VolumeIcon = soundEnabled ? VolumeOnIcon : VolumeOffIcon;
+
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="container mx-auto flex flex-col items-center justify-start">
-        <header className="p-2 font-minnie text-7xl tracking-[-0.09em] !text-[#FEF200]">
+      <div className="container mx-auto flex flex-col items-center justify-start gap-2 p-1">
+        <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl md:text-7xl ">
           Big Brain Town
           <button
             onClick={() => {
@@ -62,14 +64,12 @@ function App() {
             }}
             type="button"
           >
-            <div className="scale-50">
-              {soundEnabled ? <VolumeOnIcon /> : <VolumeOffIcon />}
-            </div>
+            <VolumeIcon className="h-8 md:h-10" />
           </button>
         </header>
 
         {/* Gag Tracks */}
-        <div className="m-2 flex w-fit resize overflow-auto rounded-xl bg-red-600 p-8">
+        <div className="flex w-full max-w-max overflow-y-scroll rounded-xl bg-red-600 p-8">
           <div className="flex flex-1 flex-col pr-8">
             {gagTracks.map((track) => (
               <GagTrack
@@ -80,7 +80,9 @@ function App() {
               />
             ))}
           </div>
-          <GagInfoDisplay gag={hoveredGag} />
+          <div className="hidden lg:block">
+            <GagInfoDisplay gag={hoveredGag} />
+          </div>
         </div>
 
         {/* Gag calculation display */}
@@ -92,7 +94,7 @@ function App() {
         />
 
         {/* Cog Health Displays */}
-        <div className="my-2 flex flex-row flex-wrap gap-4 rounded-xl bg-gray-400 p-4">
+        <div className="flex w-full max-w-max flex-row flex-nowrap gap-4 overflow-x-scroll rounded-xl bg-gray-400 p-4">
           {range(20).map((i) => (
             <Cog
               level={i + 1}

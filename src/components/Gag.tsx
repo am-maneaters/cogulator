@@ -43,7 +43,7 @@ export default function Gag({
       {gag.isOrganic !== false && (
         <div
           className={clsx(
-            'absolute top-[-13px] right-[-10px] h-[30px] w-[30px] grayscale hover:grayscale-0',
+            'absolute top-[-13px] right-[-10px] h-[25px] w-[25px] grayscale hover:grayscale-0',
             gag.isOrganic && 'grayscale-0'
           )}
           onClick={(e) => {
@@ -62,7 +62,7 @@ export default function Gag({
           tabIndex={0}
         >
           {/* Green Circle behind Organic Leaf */}
-          <div className="pointer-events-none absolute h-[30px] w-[30px] rounded-full bg-green-800 drop-shadow-[1px_1px_1px_black]" />
+          <div className="pointer-events-none absolute h-[25px] w-[25px] rounded-full bg-green-800 drop-shadow-[1px_1px_1px_black]" />
           {/* Organic Leaf icon */}
           <img
             className="pointer-events-none absolute right-[-4px] top-[-4px] aspect-square overflow-hidden drop-shadow-[1px_1px_1px_black]"
