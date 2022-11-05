@@ -16,7 +16,7 @@ export const Cog = ({ level, damage = 0, onCogClick }: Props) => {
   return (
     <div
       className={clsx(
-        'flex flex-col font-cog text-xl outline-double',
+        'flex w-20 flex-col items-center font-cog text-xl outline-double',
         remainingHp === 0 ? 'bg-green-500' : 'bg-red-500',
         damage === 0 && 'bg-gray-500'
       )}

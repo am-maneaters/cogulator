@@ -33,7 +33,7 @@ const formatAffects = ({ affectsNum: num, affectsType: type }: GagInfo) =>
 export default function GagInfoDisplay({ gag }: Props) {
   return (
     <div
-      className="flex aspect-square h-64 w-64 flex-col items-center bg-white p-2 pt-4"
+      className="flex aspect-square h-[264px] w-64 flex-col items-center bg-white p-2 pt-4"
       style={{
         background:
           'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
