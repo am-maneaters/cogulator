@@ -46,7 +46,7 @@ const tracksInfo: Omit<GagTrackInfo, 'gags'>[] = [
   },
 ];
 
-export const gagTracks: GagTrackInfo[] = tracksInfo.map(
+export const GagTracks: GagTrackInfo[] = tracksInfo.map(
   ({ name, color, order, dmgType }) => ({
     gags: gagsInfo
       .filter((gag) => gag.track === name)

@@ -18,7 +18,7 @@ import {
   calculateCogHealth,
   calculateTotalDamage,
 } from './utils/calculatorUtils';
-import { gagTracks } from './data/gagTracksInfo';
+import { GagTracks } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
 import GagTrack from './components/GagTrack';
@@ -46,8 +46,8 @@ function App() {
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
   const totalDamage = useMemo(
-    () => calculateTotalDamage(selectedGags, {}),
-    [selectedGags]
+    () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
+    [selectedGags, useV2Cog]
   );
 
   const soundContext = useMemo(
@@ -85,7 +85,7 @@ function App() {
           />
           <div className="flex">
             <div className="flex flex-1 flex-col pr-8">
-              {gagTracks.map((track) => (
+              {GagTracks.map((track) => (
                 <GagTrack
                   key={track.name}
                   track={track}
@@ -150,7 +150,14 @@ function App() {
           </div>
           <div className="grid grid-cols-5 md:grid-cols-10">
             {range(20).map((i) => (
-              <Cog level={i + 1} key={i} damage={totalDamage} />
+              <Cog
+                level={i + 1}
+                key={i}
+                damage={calculateTotalDamage(selectedGags, {
+                  v2: useV2Cog,
+                  level: i + 1,
+                })}
+              />
             ))}
           </div>
         </div>

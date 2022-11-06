@@ -35,6 +35,8 @@ export type GagTrackInfo = {
 export type CogStatus = {
   lured?: boolean;
   trapped?: boolean;
+  v2?: boolean;
+  level?: number;
 };
 
 export type GagInstance = GagInfo & { id: number | string };

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { gagTracks } from '../data/gagTracksInfo';
+import { GagTracks } from '../data/gagTracksInfo';
 import { GagInstance } from '../types';
 import { Buttoon } from './Buttoon';
 import Gag from './Gag';
@@ -23,8 +23,8 @@ export default function CalculationDisplay({
       selectedGags.sort((a, b) =>
         a.track === b.track
           ? a.level - b.level
-          : (gagTracks.find(({ name }) => name === a.track)?.order ?? 0) -
-            (gagTracks.find(({ name }) => name === b.track)?.order ?? 0)
+          : (GagTracks.find(({ name }) => name === a.track)?.order ?? 0) -
+            (GagTracks.find(({ name }) => name === b.track)?.order ?? 0)
       ),
     [selectedGags]
   );
