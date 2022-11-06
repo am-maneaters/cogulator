@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import useSound from 'use-sound';
 import './App.css';
@@ -21,7 +21,6 @@ import {
 import { gagTracks } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
-import { useOptimalGags } from './hooks/useOptimalGags';
 import GagTrack from './components/GagTrack';
 import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
@@ -39,17 +38,12 @@ function App() {
 
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
+  const [useV2Cog, setUseV2Cog] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
-
-  const { optimalGags, isLoading, beginCalculation } = useOptimalGags();
-
-  useEffect(() => {
-    if (optimalGags) setSelectedGags(optimalGags);
-  }, [optimalGags]);
 
   const totalDamage = useMemo(
     () => calculateTotalDamage(selectedGags, {}),
@@ -101,13 +95,7 @@ function App() {
               ))}
             </div>
             <div className="hidden flex-col items-stretch gap-4 lg:flex">
-              <div
-                className="flex aspect-square h-[264px] w-64 flex-col items-center bg-white p-2 pt-4"
-                style={{
-                  background:
-                    'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
-                }}
-              >
+              <div className="bg-toon-paper flex aspect-square h-[264px] w-64 flex-col items-center p-2 pt-4">
                 {hoveredGag && <GagInfoDisplay gag={hoveredGag} />}
               </div>
               <div className="flex justify-between gap-8 px-6">
@@ -138,38 +126,32 @@ function App() {
 
         {/* Cog Health Displays */}
         <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-scroll rounded-xl bg-gray-400 p-4">
-          <div
-            className={clsx(
-              'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
-              'bg-gray-500'
-            )}
-          >
-            <div>
-              <span className="text-lg font-bold">Cog Level</span>
-            </div>
-            <div className="text-xl">HP Left</div>
-          </div>
           <div>
-            <div className="flex">
-              {range(10).map((i) => (
-                <Cog
-                  level={i + 1}
-                  key={i}
-                  damage={totalDamage}
-                  onCogClick={beginCalculation}
-                />
-              ))}
+            <div
+              className={clsx(
+                'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
+                'bg-gray-500'
+              )}
+            >
+              <div>
+                <span className="text-lg font-bold">Cog Level</span>
+              </div>
+              <div className="text-xl">HP Left</div>
             </div>
-            <div className="flex">
-              {range(10, 20).map((i) => (
-                <Cog
-                  level={i + 1}
-                  key={i}
-                  damage={totalDamage}
-                  onCogClick={beginCalculation}
-                />
-              ))}
-            </div>
+            <label className="mt-1 flex items-center justify-between text-sm font-bold">
+              v2.0 Cog
+              <input
+                type="checkbox"
+                className="pl-2"
+                checked={useV2Cog}
+                onChange={(e) => setUseV2Cog(e.target.checked)}
+              />
+            </label>
+          </div>
+          <div className="grid grid-cols-5 md:grid-cols-10">
+            {range(20).map((i) => (
+              <Cog level={i + 1} key={i} damage={totalDamage} />
+            ))}
           </div>
         </div>
       </div>

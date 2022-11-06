@@ -45,5 +45,6 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     // allow loops
     'no-restricted-syntax': 0,
+    'jsx-a11y/label-has-associated-control': 0,
   },
 };

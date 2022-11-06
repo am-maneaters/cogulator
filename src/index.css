@@ -4,8 +4,9 @@
 
 @font-face {
   font-family: Impress;
-  src:  url(../assets/fonts/Impress.woff) ;
+  src: url(../assets/fonts/Impress.woff);
 }
+
 @font-face {
   font-family: Remington;
   src: url(../assets/fonts/vtRemingtonPortable.woff);
@@ -14,27 +15,36 @@
 @font-face {
   font-family: Minnie;
   src: url(../assets/fonts/Minnie.woff);
- }
+}
 
- @layer base {
+@layer components {
+  .bg-toon-paper {
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(253, 243, 217, 1) 100%
+    );
+  }
+}
+
+@layer base {
   html {
-     font-family:  Impress, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: Impress, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }    
- }
+  }
+}
 
- @layer utilities {
+@layer utilities {
   .font-minnie {
     text-shadow: 3px 3px black;
     color: white;
   }
- }
+}
 
- .root-node {
-  background-image: url("../assets/cogulator_bg.png");
+.root-node {
+  background-image: url('../assets/cogulator_bg.png');
   background-size: 1000px;
-
- }
+}

@@ -10,12 +10,14 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@tippyjs/react": "^4.2.6",
     "@types/lodash-es": "^4.17.6",
     "clsx": "^1.2.1",
     "framer-motion": "^7.6.4",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tippy.js": "^6.3.7",
     "use-sound": "^4.0.1",
     "usehooks-ts": "^2.9.1"
   },
