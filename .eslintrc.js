@@ -43,5 +43,7 @@ module.exports = {
     // disable props spreading
     'react/jsx-props-no-spreading': 0,
     'react/react-in-jsx-scope': 0,
+    // allow loops
+    'no-restricted-syntax': 0,
   },
 };

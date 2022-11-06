@@ -97,7 +97,6 @@ export function calculateTotalDamage(
     const summedGagDamage = sum(gagDamage);
 
     totalDamage += summedGagDamage;
-
     if (
       !['Lure', 'Toonup'].includes(name) &&
       totalDamage > 0 &&
@@ -110,7 +109,7 @@ export function calculateTotalDamage(
       if (name !== 'Sound') totalDamage += Math.ceil(summedGagDamage / 2);
     }
 
-    if (trackGags.length > 1) {
+    if (trackGags.filter((g) => g.track !== 'Lure').length > 1) {
       // Group bonus only applies when multiple gags are used together
       totalDamage += Math.ceil(summedGagDamage / 5);
     }

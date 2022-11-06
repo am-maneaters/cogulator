@@ -8,7 +8,6 @@ import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import { ReactComponent as VolumeOnIcon } from '../assets/icons/volume-on.svg';
 import { ReactComponent as VolumeOffIcon } from '../assets/icons/volume-off.svg';
-import { ReactComponent as XCircleIcon } from '../assets/icons/x-circle.svg';
 import { ReactComponent as HelpIcon } from '../assets/icons/help-circle.svg';
 
 import { GagInfo, GagInstance } from './types';
@@ -25,6 +24,7 @@ import { SfxContext } from './context/sfxContext';
 import { useOptimalGags } from './hooks/useOptimalGags';
 import GagTrack from './components/GagTrack';
 import { Buttoon } from './components/Buttoon';
+import HelpModal from './components/HelpModal';
 
 // Given damage, figure out the max cog level that can be defeated
 function calculateMaxCogLevel(damage: number) {
@@ -33,6 +33,7 @@ function calculateMaxCogLevel(damage: number) {
   );
   return (maxCogLevel ?? 21) - 1;
 }
+
 function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
 
@@ -78,38 +79,7 @@ function App() {
           Big Brain Town
         </header>
 
-        {helpModalOpen && (
-          <div className="absolute top-0 left-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
-            <div className="w-1/2 rounded-lg bg-white p-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">About Big Brain Town</h2>
-                <Buttoon
-                  className="p-2 text-2xl font-bold"
-                  onClick={() => setHelpModalOpen(false)}
-                >
-                  <XCircleIcon />
-                </Buttoon>
-              </div>
-              <div className="mt-4">
-                <p>
-                  This tool is designed to help you figure out the exact damage
-                  you need to do to defeat each cog level. All rules and
-                  formulas follow the rules established in{' '}
-                  <a
-                    href="https://www.toontownrewritten.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-bold text-blue-500 underline"
-                  >
-                    Toontown Rewritten
-                  </a>
-                  . Please note that this tool is <strong>not</strong>{' '}
-                  affiliated with Disney or Toontown Rewritten.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+        {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
         {/* Gag Tracks */}
         <div className="flex w-full max-w-max flex-col gap-8 overflow-y-scroll rounded-xl bg-red-600 p-8">
@@ -175,7 +145,7 @@ function App() {
             )}
           >
             <div>
-              <span className="text-xl font-bold">Cog Level</span>
+              <span className="text-lg font-bold">Cog Level</span>
             </div>
             <div className="text-xl">HP Left</div>
           </div>
