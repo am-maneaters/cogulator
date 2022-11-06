@@ -62,6 +62,9 @@ export function calculateTotalDamage(
     (a, b) => trackOrder.indexOf(a) - trackOrder.indexOf(b)
   );
 
+  // Save a reference to the current trap gag
+  let trapGag: GagInfo | undefined;
+
   // For each of the currently used gag tracks, calculate the total damage
   for (const gagTrack of gagTracks) {
     // Get the gags of the current track
@@ -71,9 +74,6 @@ export function calculateTotalDamage(
     const gagTrackInfo = GagTracks.find((track) => track.name === gagTrack);
     if (!gagTrackInfo) throw new Error(`Gag track ${gagTrack} not found`);
     const { dmgType, name: trackName } = gagTrackInfo;
-
-    // Save a reference to the current trap gag
-    let trapGag: GagInfo | undefined;
 
     // Calculate gag damage for each selected gag in the current track
     const gagDamage = trackGags.map((currentGag) => {
