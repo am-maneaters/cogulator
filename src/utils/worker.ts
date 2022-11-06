@@ -20,8 +20,8 @@ function getOptimalGags({
   targetDamage,
   availableGags,
 }: OptimalGagProps): GagInfo[] {
-  let closestDifference = Infinity;
-  let closestCost = Infinity;
+  let closestDifference = Number.POSITIVE_INFINITY;
+  let closestCost = Number.POSITIVE_INFINITY;
   let closestSelectedGags: GagInfo[] = [];
 
   const possibleGags = availableGags.filter((gag) => gag.track !== 'Toonup');
@@ -61,13 +61,11 @@ function getOptimalGags({
             matches.push({ gags: selectedGags, totalDamage, cost });
           }
 
-          if (diff === closestDifference) {
-            if (cost < closestCost) {
-              closestDifference = diff;
-              closestCost = cost;
-              closestSelectedGags = selectedGags;
-              matches.push({ gags: selectedGags, totalDamage, cost });
-            }
+          if (diff === closestDifference && cost < closestCost) {
+            closestDifference = diff;
+            closestCost = cost;
+            closestSelectedGags = selectedGags;
+            matches.push({ gags: selectedGags, totalDamage, cost });
           }
         }
       }

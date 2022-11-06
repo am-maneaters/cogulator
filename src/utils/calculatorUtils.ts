@@ -1,5 +1,3 @@
-// Get the health points of a cog by level
-
 import { sum } from 'lodash-es';
 import { GagTracks } from '../data/gagTracksInfo';
 import { CogStatus, GagInfo } from '../types';
@@ -58,29 +56,26 @@ export function calculateTotalDamage(
   let totalDamage = 0;
 
   const cogStatus: CogStatus = { ...initialCogStatus };
-  let trapGag: GagInfo | undefined;
 
   // Get a list of the gag tracks that are used and sort them by track order
   const gagTracks = [...new Set(gags.map((gag) => gag.track))].sort(
-    (a, b) =>
-      trackOrder.findIndex((name) => name === a) -
-      trackOrder.findIndex((name) => name === b)
+    (a, b) => trackOrder.indexOf(a) - trackOrder.indexOf(b)
   );
 
   // For each of the currently used gag tracks, calculate the total damage
-  gagTracks.forEach((gagTrack) => {
+  for (const gagTrack of gagTracks) {
     // Get the gags of the current track
     const trackGags = gags.filter((gag) => gag.track === gagTrack);
 
+    // Get the relevant track info
     const gagTrackInfo = GagTracks.find((track) => track.name === gagTrack);
-
-    if (!gagTrackInfo) {
-      throw new Error(`Gag track ${gagTrack} not found`);
-    }
-
+    if (!gagTrackInfo) throw new Error(`Gag track ${gagTrack} not found`);
     const { dmgType, name: trackName } = gagTrackInfo;
 
-    // Calculate individual gag damage
+    // Save a reference to the current trap gag
+    let trapGag: GagInfo | undefined;
+
+    // Calculate gag damage for each selected gag in the current track
     const gagDamage = trackGags.map((currentGag) => {
       // If the current gag is a trap, save it for lure later
       if (trackName === 'Trap') {
@@ -117,11 +112,11 @@ export function calculateTotalDamage(
 
     totalDamage += summedGagDamage;
 
-    if (dmgType === 'Damage' && totalDamage > 0 && cogStatus.lured) {
+    if (cogStatus.lured && dmgType === 'Damage' && totalDamage > 0) {
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
-      // Lure bonus
+      // Lure bonus applies to all damage types except sound
       if (gagTrack !== 'Sound') totalDamage += Math.ceil(totalDamage / 2);
     }
 
@@ -129,6 +124,6 @@ export function calculateTotalDamage(
     if (trackGags.filter((g) => g.track !== 'Lure').length > 1) {
       totalDamage += Math.ceil(summedGagDamage / 5);
     }
-  });
+  }
   return totalDamage;
 }

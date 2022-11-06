@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:unicorn/recommended',
     'airbnb-typescript',
     'airbnb/hooks',
     'prettier',
@@ -19,7 +20,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'unicorn'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -46,5 +47,8 @@ module.exports = {
     // allow loops
     'no-restricted-syntax': 0,
     'jsx-a11y/label-has-associated-control': 0,
+    'unicorn/prevent-abbreviations': 0,
+    'unicorn/filename-case': 0,
+    'unicorn/no-useless-undefined': 0
   },
 };
