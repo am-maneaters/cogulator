@@ -7,14 +7,13 @@ type Props = {
   gag: GagInfo;
   onGagHover?: (isOrganic: boolean) => void;
   onGagClick?: (isOrganic: boolean) => void;
-  showOrganic?: boolean;
 };
 
 export default function Gag({
   gag,
   onGagHover,
   onGagClick,
-  showOrganic = false,
+  ...props
 }: Props & React.HTMLProps<HTMLDivElement>) {
   const handleClick = (isOrganic: boolean) => {
     if (onGagClick) onGagClick(isOrganic);
@@ -41,6 +40,7 @@ export default function Gag({
       onKeyDown={() => {
         handleMouseEnter(false);
       }}
+      {...props}
     >
       {gag.isOrganic !== false && (
         <div

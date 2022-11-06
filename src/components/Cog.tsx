@@ -20,7 +20,6 @@ export const Cog = ({ level, damage = 0, onCogClick }: Props) => {
         remainingHp === 0 ? 'bg-green-500' : 'bg-red-500',
         damage === 0 && 'bg-gray-500'
       )}
-      // onClick={() => onCogClick(hp)}
     >
       <div>
         <span className="text-2xl font-bold">{level}</span>

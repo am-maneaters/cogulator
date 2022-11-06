@@ -1,6 +1,3 @@
-/// <reference types="vite-plugin-svgr/client" />
-/// <reference types="vite/client" />
-
 import React, { useEffect, useMemo, useState } from 'react';
 
 import useSound from 'use-sound';
@@ -12,40 +9,35 @@ import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import { ReactComponent as VolumeOnIcon } from '../assets/icons/volume-on.svg';
 import { ReactComponent as VolumeOffIcon } from '../assets/icons/volume-off.svg';
 import { ReactComponent as XCircleIcon } from '../assets/icons/x-circle.svg';
+import { ReactComponent as HelpIcon } from '../assets/icons/help-circle.svg';
+
 import { GagInfo, GagInstance } from './types';
 import GagInfoDisplay from './components/GagInfoDisplay';
 
 import { Cog } from './components/Cog';
-import { calculateTotalDamage } from './utils/calculatorUtils';
+import {
+  calculateCogHealth,
+  calculateTotalDamage,
+} from './utils/calculatorUtils';
 import { gagTracks } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
 import { useOptimalGags } from './hooks/useOptimalGags';
 import GagTrack from './components/GagTrack';
+import { Buttoon } from './components/Buttoon';
 
-const Button = ({
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-  <button
-    className={clsx(
-      `relative flex h-auto min-h-0 select-none
-    items-center justify-center rounded-2xl
-    border-2 border-blue-500 bg-gradient-to-b 
-    from-blue-500 to-[#00b4ff] px-2 pb-1 
-    text-white shadow-[-1px_2px_4px_2px_rgba(0,0,0,0.5)] hover:shadow-xl hover:brightness-110
-   focus:brightness-110`,
-      className
-    )}
-    {...props}
-    type="button"
-  />
-);
-
+// Given damage, figure out the max cog level that can be defeated
+function calculateMaxCogLevel(damage: number) {
+  const maxCogLevel = range(1, 20).find(
+    (level) => damage < calculateCogHealth(level)
+  );
+  return (maxCogLevel ?? 21) - 1;
+}
 function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
 
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
@@ -74,6 +66,11 @@ function App() {
 
   const VolumeIcon = soundEnabled ? VolumeOnIcon : VolumeOffIcon;
 
+  const maxCogDefeated = useMemo(
+    () => calculateMaxCogLevel(totalDamage),
+    [totalDamage]
+  );
+
   return (
     <SfxContext.Provider value={soundContext}>
       <div className="container mx-auto flex flex-col items-center justify-start gap-2 p-1">
@@ -81,51 +78,108 @@ function App() {
           Big Brain Town
         </header>
 
-        {/* Gag Tracks */}
-        <div className="flex w-full max-w-max overflow-y-scroll rounded-xl bg-red-600 p-8">
-          <div className="flex flex-1 flex-col pr-8">
-            {gagTracks.map((track) => (
-              <GagTrack
-                key={track.name}
-                track={track}
-                onGagHover={setHoveredGag}
-                onGagSelect={handleGagSelected}
-              />
-            ))}
-          </div>
-          <div className="hidden flex-col items-stretch gap-4 lg:flex">
-            <GagInfoDisplay gag={hoveredGag} />
-            <div className="flex justify-evenly">
-              <Button
-                onClick={() => {
-                  setSoundEnabled(!soundEnabled);
-                }}
-                type="button"
-              >
-                <VolumeIcon className="h-6 md:h-8" />
-              </Button>
-              <Button>
-                <XCircleIcon className="h-6 md:h-8" />
-              </Button>
+        {helpModalOpen && (
+          <div className="absolute top-0 left-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+            <div className="w-1/2 rounded-lg bg-white p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">About Big Brain Town</h2>
+                <Buttoon
+                  className="p-2 text-2xl font-bold"
+                  onClick={() => setHelpModalOpen(false)}
+                >
+                  <XCircleIcon />
+                </Buttoon>
+              </div>
+              <div className="mt-4">
+                <p>
+                  This tool is designed to help you figure out the exact damage
+                  you need to do to defeat each cog level. All rules and
+                  formulas follow the rules established in{' '}
+                  <a
+                    href="https://www.toontownrewritten.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-bold text-blue-500 underline"
+                  >
+                    Toontown Rewritten
+                  </a>
+                  . Please note that this tool is <strong>not</strong>{' '}
+                  affiliated with Disney or Toontown Rewritten.
+                </p>
+              </div>
             </div>
-            <Button className="w-48 flex-1 self-center font-minnie text-5xl">
-              {totalDamage}
-              <XCircleIcon className="h-6 md:h-8" />
-            </Button>
           </div>
-        </div>
+        )}
 
-        <div>
-          {/* Gag calculation display */}
+        {/* Gag Tracks */}
+        <div className="flex w-full max-w-max flex-col gap-8 overflow-y-scroll rounded-xl bg-red-600 p-8">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={setSelectedGags}
             totalDamage={totalDamage}
-            loading={isLoading}
+            onGagHover={setHoveredGag}
           />
+          <div className="flex">
+            <div className="flex flex-1 flex-col pr-8">
+              {gagTracks.map((track) => (
+                <GagTrack
+                  key={track.name}
+                  track={track}
+                  onGagHover={setHoveredGag}
+                  onGagSelect={handleGagSelected}
+                />
+              ))}
+            </div>
+            <div className="hidden flex-col items-stretch gap-4 lg:flex">
+              <div
+                className="flex aspect-square h-[264px] w-64 flex-col items-center bg-white p-2 pt-4"
+                style={{
+                  background:
+                    'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
+                }}
+              >
+                {hoveredGag && <GagInfoDisplay gag={hoveredGag} />}
+              </div>
+              <div className="flex justify-between gap-8 px-6">
+                <Buttoon
+                  onClick={() => {
+                    setSoundEnabled(!soundEnabled);
+                  }}
+                  type="button"
+                  className="flex-1"
+                >
+                  <VolumeIcon className="h-6 md:h-8" />
+                </Buttoon>
+                <Buttoon
+                  className="flex-1"
+                  onClick={() => {
+                    setHelpModalOpen(true);
+                  }}
+                >
+                  <HelpIcon className="h-6 md:h-8" />
+                </Buttoon>
+              </div>
+              <Buttoon className="w-48 flex-1 self-center font-minnie text-2xl">
+                Destroys Lvl {maxCogDefeated}
+              </Buttoon>
+            </div>
+          </div>
+        </div>
 
-          {/* Cog Health Displays */}
-          <div className="w-full max-w-max flex-row flex-nowrap gap-4 overflow-x-scroll rounded-xl bg-gray-400 p-4">
+        {/* Cog Health Displays */}
+        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-scroll rounded-xl bg-gray-400 p-4">
+          <div
+            className={clsx(
+              'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
+              'bg-gray-500'
+            )}
+          >
+            <div>
+              <span className="text-xl font-bold">Cog Level</span>
+            </div>
+            <div className="text-xl">HP Left</div>
+          </div>
+          <div>
             <div className="flex">
               {range(10).map((i) => (
                 <Cog

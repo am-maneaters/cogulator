@@ -1,23 +1,23 @@
 import React, { useMemo } from 'react';
-import { useSfx } from '../context/sfxContext';
 import { gagTracks } from '../data/gagTracksInfo';
 import { GagInstance } from '../types';
+import { Buttoon } from './Buttoon';
 import Gag from './Gag';
+import { ReactComponent as XCircleIcon } from '../../assets/icons/x-circle.svg';
 
 type Props = {
   selectedGags: GagInstance[];
   onSelectionChanged: (gags: GagInstance[]) => void;
   totalDamage: number;
-  loading: boolean;
+  onGagHover: (gag: GagInstance | undefined) => void;
 };
 
 export default function CalculationDisplay({
   selectedGags,
   onSelectionChanged,
   totalDamage,
-  loading,
+  onGagHover,
 }: Props) {
-  const { playClickSfx, playHoverSfx } = useSfx();
   const orderedGags = useMemo(
     () =>
       selectedGags.sort((a, b) =>
@@ -30,35 +30,23 @@ export default function CalculationDisplay({
   );
 
   return (
-    <div className="flex h-36 w-full flex-col rounded-xl bg-green-600">
-      <div className="flex flex-row items-center justify-center">
-        <span className="p-2 text-3xl text-white">Calculation Display</span>
+    <div className="flex items-center justify-between gap-4">
+      <div
+        className="flex h-20 max-w-3xl flex-1 flex-col overflow-x-auto rounded-xl bg-white"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
+        }}
+      >
+        <div className="flex select-none flex-row items-center justify-start gap-3 p-4">
+          {selectedGags.length === 0 && (
+            <span className="flex-1 p-2 text-center text-xl md:text-2xl">
+              Select Gags to Calculate Damage!
+            </span>
+          )}
 
-        {selectedGags.length > 0 && (
-          <button
-            className=" aspect-square w-10 rounded-full border-2 border-solid border-black bg-red-500 text-2xl hover:bg-red-400"
-            type="button"
-            onMouseEnter={() => playHoverSfx()}
-            onClick={() => {
-              playClickSfx();
-              onSelectionChanged([]);
-            }}
-          >
-            X
-          </button>
-        )}
-      </div>
-
-      <div className="flex select-none flex-row items-center justify-start gap-3 p-4">
-        {selectedGags.length === 0 && (
-          <span className="flex-1 p-2 text-center text-lg text-white">
-            {loading ? 'Loading...' : 'Select Gags to Calculate Damage!'}
-          </span>
-        )}
-
-        {selectedGags.length > 0 && (
-          <>
-            {orderedGags.map((gag, i) => (
+          {selectedGags.length > 0 &&
+            orderedGags.map((gag, i) => (
               <React.Fragment key={gag.id}>
                 <Gag
                   gag={gag}
@@ -68,18 +56,34 @@ export default function CalculationDisplay({
                     );
                     onSelectionChanged(newGags);
                   }}
+                  onGagHover={() => {
+                    onGagHover(gag);
+                  }}
                 />
 
                 {/* Number Separator */}
                 {i !== orderedGags.length - 1 && (
-                  <span className="font-minnie text-5xl">+</span>
+                  <span className="font-mickey text-3xl font-extrabold text-black">
+                    +
+                  </span>
                 )}
               </React.Fragment>
             ))}
-            <span className="font-minnie text-5xl">=</span>
-            <span className="font-minnie text-5xl">{totalDamage}</span>
-          </>
-        )}
+        </div>
+      </div>
+      <div className="flex">
+        <span className="font-minnie text-5xl">=</span>
+        <div className="w-32 pr-2 text-right font-minnie text-5xl md:w-44">
+          {totalDamage}
+        </div>
+        <Buttoon
+          onClick={() => {
+            onSelectionChanged([]);
+          }}
+          disabled={selectedGags.length === 0}
+        >
+          <XCircleIcon className="h-6 md:h-8" />
+        </Buttoon>
       </div>
     </div>
   );

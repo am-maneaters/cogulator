@@ -6,7 +6,7 @@ import Gag from './Gag';
 
 type Props = {
   track: GagTrackInfo;
-  onGagHover: (gag: GagInfo) => void;
+  onGagHover: (gag: GagInfo | undefined) => void;
   onGagSelect: (gag: GagInstance) => void;
 };
 
@@ -39,6 +39,9 @@ export default function GagTrack({ track, onGagHover, onGagSelect }: Props) {
             onGagHover={(isOrganic) => {
               onGagHover({ ...gag, isOrganic });
               playHoverSfx();
+            }}
+            onMouseLeave={() => {
+              onGagHover(undefined);
             }}
           />
         ))}

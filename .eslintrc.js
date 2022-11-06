@@ -42,5 +42,6 @@ module.exports = {
     'react/destructuring-assignment': 0,
     // disable props spreading
     'react/jsx-props-no-spreading': 0,
+    'react/react-in-jsx-scope': 0,
   },
 };
