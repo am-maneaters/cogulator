@@ -5,10 +5,9 @@ import { calculateCogHealth } from '../utils/calculatorUtils';
 type Props = {
   level: number;
   damage?: number;
-  onCogClick: (hp: number) => void;
 };
 
-export const Cog = ({ level, damage = 0, onCogClick }: Props) => {
+export const Cog = ({ level, damage = 0 }: Props) => {
   const hp = useMemo(() => calculateCogHealth(level), [level]);
 
   const remainingHp = useMemo(() => Math.max(0, hp - damage), [hp, damage]);
