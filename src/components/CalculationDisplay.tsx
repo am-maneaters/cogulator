@@ -38,7 +38,7 @@ export default function CalculationDisplay({
             'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
         }}
       >
-        <div className="flex select-none flex-row items-center justify-start gap-3 p-4">
+        <div className="flex select-none flex-row items-center justify-start gap-3 overflow-y-hidden p-4">
           {selectedGags.length === 0 && (
             <span className="flex-1 p-2 text-center text-xl md:text-2xl">
               Select Gags to Calculate Damage!
