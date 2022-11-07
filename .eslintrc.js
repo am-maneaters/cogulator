@@ -49,6 +49,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 0,
     'unicorn/prevent-abbreviations': 0,
     'unicorn/filename-case': 0,
-    'unicorn/no-useless-undefined': 0
+    'unicorn/no-useless-undefined': 0,
+    '@typescript-eslint/no-loop-func': 0
   },
 };
