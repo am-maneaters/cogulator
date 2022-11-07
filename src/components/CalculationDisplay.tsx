@@ -31,14 +31,8 @@ export default function CalculationDisplay({
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <div
-        className="flex h-20 max-w-3xl flex-1 flex-col overflow-x-auto rounded-xl bg-white"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(253,243,217,1) 100%)',
-        }}
-      >
-        <div className="flex select-none flex-row items-center justify-start gap-3 overflow-y-hidden p-4">
+      <div className="bg-toon-paper flex h-20 max-w-3xl flex-1 flex-col overflow-x-auto rounded-xl bg-white">
+        <div className="shadow-inner-xl flex select-none flex-row items-center justify-start gap-3 overflow-y-hidden p-4">
           {selectedGags.length === 0 && (
             <span className="flex-1 p-2 text-center text-xl md:text-2xl">
               Select Gags to Calculate Damage!

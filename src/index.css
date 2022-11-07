@@ -25,6 +25,11 @@
       rgba(253, 243, 217, 1) 100%
     );
   }
+
+  .shadow-inner-xl {
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), inset 0 0px 4px 0 rgb(0 0 0 / 0.5);
+  }
 }
 
 @layer base {

@@ -76,7 +76,7 @@ function App() {
         {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
         {/* Gag Tracks */}
-        <div className="flex w-full max-w-max flex-col gap-8 overflow-y-scroll rounded-xl bg-red-600 p-8">
+        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-scroll rounded-xl bg-red-600 p-8 shadow-2xl">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={setSelectedGags}
@@ -125,7 +125,7 @@ function App() {
         </div>
 
         {/* Cog Health Displays */}
-        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-scroll rounded-xl bg-gray-400 p-4">
+        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-scroll rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
           <div>
             <div
               className={clsx(
@@ -148,7 +148,7 @@ function App() {
               />
             </label>
           </div>
-          <div className="grid grid-cols-5 md:grid-cols-10">
+          <div className="grid grid-cols-5 border-2 border-solid border-gray-700 md:grid-cols-10">
             {range(20).map((i) => (
               <Cog
                 level={i + 1}
