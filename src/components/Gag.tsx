@@ -13,6 +13,7 @@ export default function Gag({
   gag,
   onGagHover,
   onGagClick,
+  disabled,
   ...props
 }: Props & React.HTMLProps<HTMLDivElement>) {
   const handleClick = (isOrganic: boolean) => {
@@ -25,21 +26,20 @@ export default function Gag({
 
   return (
     <div
-      className="group relative flex h-auto min-h-0 w-fit min-w-[85px] max-w-[85px]
+      className={clsx(
+        `group relative flex h-auto min-h-0 w-fit min-w-[85px] max-w-[85px]
          select-none items-center justify-center
          rounded-2xl border-2 border-blue-500 
          bg-gradient-to-b from-blue-500 to-[#00b4ff] px-2 
          pb-1 text-white shadow-[-1px_2px_4px_2px_rgba(0,0,0,0.5)] hover:shadow-xl
-        hover:brightness-110 focus:brightness-110 active:brightness-75"
+        hover:brightness-110 focus:brightness-110 active:brightness-75`,
+        disabled && 'cursor-not-allowed opacity-50'
+      )}
       onClick={() => handleClick(false)}
-      onMouseEnter={() => {
-        handleMouseEnter(false);
-      }}
+      onMouseEnter={() => handleMouseEnter(false)}
+      onKeyDown={() => handleMouseEnter(false)}
       role="button"
       tabIndex={0}
-      onKeyDown={() => {
-        handleMouseEnter(false);
-      }}
       {...props}
     >
       {gag.isOrganic !== false && (

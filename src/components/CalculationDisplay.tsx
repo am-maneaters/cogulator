@@ -44,15 +44,17 @@ export default function CalculationDisplay({
               <React.Fragment key={gag.id}>
                 <Gag
                   gag={gag}
-                  onGagClick={() => {
-                    const newGags = selectedGags.filter(
-                      ({ id }) => gag.id !== id
-                    );
-                    onSelectionChanged(newGags);
-                  }}
-                  onGagHover={() => {
-                    onGagHover(gag);
-                  }}
+                  onGagClick={() =>
+                    onSelectionChanged(
+                      selectedGags.filter(({ id }) => gag.id !== id)
+                    )
+                  }
+                  onGagHover={() => onGagHover(gag)}
+                  disabled={
+                    i !== 0 &&
+                    gag.track === 'Trap' &&
+                    orderedGags[i - 1].track === 'Trap'
+                  }
                 />
 
                 {/* Number Separator */}

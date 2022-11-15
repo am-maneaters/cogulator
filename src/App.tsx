@@ -76,7 +76,7 @@ function App() {
         {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-scroll rounded-xl bg-red-600 p-8 shadow-2xl">
+        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 shadow-2xl">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={setSelectedGags}
@@ -125,7 +125,7 @@ function App() {
         </div>
 
         {/* Cog Health Displays */}
-        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-scroll rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
+        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
           <div>
             <div
               className={clsx(
@@ -142,7 +142,7 @@ function App() {
               v2.0 Cog
               <input
                 type="checkbox"
-                className="pl-2"
+                className="pl-2 checked:rounded-xl"
                 checked={useV2Cog}
                 onChange={(e) => setUseV2Cog(e.target.checked)}
               />
