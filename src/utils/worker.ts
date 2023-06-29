@@ -49,7 +49,7 @@ function getOptimalGags({
             continue;
           }
 
-          const totalDamage = calculateTotalDamage(selectedGags);
+          const { totalDamage } = calculateTotalDamage(selectedGags);
           const cost = gag1.level + gag2.level + gag3.level + gag4.level;
 
           const diff = Math.abs(totalDamage - targetDamage);

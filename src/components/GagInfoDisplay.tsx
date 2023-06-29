@@ -6,7 +6,7 @@ type Props = {
   gag: GagInfo;
 };
 
-const Divider = () => (
+export const Divider = () => (
   <div
     className="h-1 w-full px-2"
     style={{
