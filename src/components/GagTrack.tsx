@@ -54,6 +54,9 @@ export default function GagTrack({
             onMouseLeave={() => {
               onGagHover(undefined);
             }}
+            onBlur={() => {
+              onGagHover(undefined);
+            }}
           />
         ))}
       </div>

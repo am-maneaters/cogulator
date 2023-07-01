@@ -49,8 +49,6 @@ export default function GagInfoDisplay({ gag }: Props) {
         <Divider />
         <InfoLineItem label="Affects" value={formatAffects(gag)} />
         <Divider />
-        <InfoLineItem label="Skill Credit" value="12" />
-        <Divider />
       </div>
     </>
   );

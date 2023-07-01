@@ -45,7 +45,7 @@ export default function Gag({
       {gag.isOrganic !== false && (
         <div
           className={clsx(
-            'absolute top-[-13px] right-[-10px] h-[25px] w-[25px] grayscale hover:grayscale-0 group-hover:block',
+            'absolute right-[-10px] top-[-13px] h-[25px] w-[25px] grayscale hover:grayscale-0 group-hover:block',
             gag.isOrganic && 'grayscale-0',
             !gag.isOrganic && 'hidden'
           )}
