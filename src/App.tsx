@@ -25,7 +25,7 @@ import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
 
 const HIDE_TOONUP = true;
-const HIDDEN_COLUMNS = [0, 1, 2];
+const HIDDEN_COLUMNS: number[] = [];
 
 const GagTracks = GAG_TRACKS.filter(
   (track) => !HIDE_TOONUP || track.name !== 'Toonup'
@@ -80,7 +80,7 @@ function App() {
     [totalDamage]
   );
 
-  const [maxCogLevel, setMaxCogLevel] = useState(15);
+  const [maxCogLevel, setMaxCogLevel] = useState(20);
 
   const maxCogHealth = useMemo(
     () => calculateCogHealth(maxCogLevel),
