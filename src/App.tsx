@@ -10,7 +10,7 @@ import { ReactComponent as VolumeOnIcon } from '../assets/icons/volume-on.svg';
 import { ReactComponent as VolumeOffIcon } from '../assets/icons/volume-off.svg';
 import { ReactComponent as HelpIcon } from '../assets/icons/help-circle.svg';
 
-import { GagInfo, GagInstance } from './types';
+import { CogStatus, GagInfo, GagInstance } from './types';
 import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
 
 import { Cog } from './components/Cog';
@@ -24,6 +24,7 @@ import { SfxContext } from './context/sfxContext';
 import GagTrack from './components/GagTrack';
 import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
+import { Switch } from './components/Switch';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 4;
@@ -41,9 +42,11 @@ const CalculatorLine = ({ label = '', value = 0 }) =>
   );
 
 // Given damage, figure out the max cog level that can be defeated
-function calculateMaxCogLevel(damage: number) {
+function calculateMaxCogLevel(gags: GagInfo[], cogStatus: CogStatus = {}) {
   const maxCogLevel = range(1, 21).find(
-    (level) => damage < calculateCogHealth(level)
+    (level) =>
+      calculateTotalDamage(gags, { ...cogStatus, level }).totalDamage <
+      calculateCogHealth(level)
   );
   return (maxCogLevel ?? 21) - 1;
 }
@@ -54,6 +57,7 @@ function App() {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [useV2Cog, setUseV2Cog] = useState(false);
+  const [isLured, setIsLured] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
@@ -61,8 +65,8 @@ function App() {
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
   const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
-    () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
-    [selectedGags, useV2Cog]
+    () => calculateTotalDamage(selectedGags, { v2: useV2Cog, lured: isLured }),
+    [selectedGags, useV2Cog, isLured]
   );
 
   const soundContext = useMemo(
@@ -87,25 +91,8 @@ function App() {
   const VolumeIcon = soundEnabled ? VolumeOnIcon : VolumeOffIcon;
 
   const maxCogDefeated = useMemo(
-    () => calculateMaxCogLevel(totalDamage),
-    [totalDamage]
-  );
-
-  const [maxCogLevel, setMaxCogLevel] = useState(20);
-
-  const maxCogHealth = useMemo(
-    () => calculateCogHealth(maxCogLevel),
-    [maxCogLevel]
-  );
-
-  const hypotheticalTotalDamage = useMemo(
-    () =>
-      hoveredGag
-        ? calculateTotalDamage([...selectedGags, hoveredGag], {
-            v2: useV2Cog,
-          }).totalDamage
-        : 0,
-    [hoveredGag, selectedGags, useV2Cog]
+    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog, lured: isLured }),
+    [isLured, selectedGags, useV2Cog]
   );
 
   return (
@@ -154,6 +141,7 @@ function App() {
                 )}
                 {hoveredGag && <GagInfoDisplay gag={hoveredGag} />}
               </div>
+
               <div className="flex justify-between gap-8 px-6">
                 <Buttoon
                   onClick={() => {
@@ -173,8 +161,8 @@ function App() {
                   <HelpIcon className="h-6 md:h-8" />
                 </Buttoon>
               </div>
-              <Buttoon className="w-48 flex-1 self-center font-minnie text-2xl">
-                Destroys Lvl {maxCogDefeated}
+              <Buttoon className="w-4/5 flex-1 self-center font-minnie text-2xl">
+                Lvl {maxCogDefeated}
               </Buttoon>
             </div>
           </div>
@@ -182,7 +170,7 @@ function App() {
 
         {/* Cog Health Displays */}
         <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center gap-2">
             <div
               className={clsx(
                 'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
@@ -194,19 +182,8 @@ function App() {
               </div>
               <div className="text-lg">HP Left</div>
             </div>
-            <label className="relative mt-4 inline-flex cursor-pointer items-center">
-              <input
-                type="checkbox"
-                value=""
-                className="peer sr-only"
-                checked={useV2Cog}
-                onChange={(e) => setUseV2Cog(e.target.checked)}
-              />
-              <div className="peer h-5 w-9 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-red-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-red-800" />
-              <span className="ml-3 text-sm font-bold text-gray-900 dark:text-black">
-                v2.0
-              </span>
-            </label>
+            <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
+            <Switch checked={isLured} onChange={setIsLured} label="Lured" />
           </div>
           <div className="grid grid-cols-5 border-2 border-solid border-gray-700 md:grid-cols-10">
             {range(20).map((i) => (
@@ -217,6 +194,7 @@ function App() {
                   calculateTotalDamage(selectedGags, {
                     v2: useV2Cog,
                     level: i + 1,
+                    lured: isLured,
                   }).totalDamage
                 }
               />
