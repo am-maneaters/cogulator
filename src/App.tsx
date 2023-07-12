@@ -18,16 +18,22 @@ import {
   calculateCogHealth,
   calculateTotalDamage,
 } from './utils/calculatorUtils';
-import { GagTracks } from './data/gagTracksInfo';
+import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
 import CalculationDisplay from './components/CalculationDisplay';
 import { SfxContext } from './context/sfxContext';
 import GagTrack from './components/GagTrack';
 import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
 
+const HIDE_TOONUP = true;
+
+const GagTracks = GAG_TRACKS.filter(
+  (track) => !HIDE_TOONUP || track.name !== 'Toonup'
+);
+
 // Given damage, figure out the max cog level that can be defeated
 function calculateMaxCogLevel(damage: number) {
-  const maxCogLevel = range(1, 20).find(
+  const maxCogLevel = range(1, 21).find(
     (level) => damage < calculateCogHealth(level)
   );
   return (maxCogLevel ?? 21) - 1;
@@ -45,7 +51,7 @@ function App() {
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
-  const totalDamage = useMemo(
+  const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
     () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
     [selectedGags, useV2Cog]
   );
@@ -64,6 +70,23 @@ function App() {
   const maxCogDefeated = useMemo(
     () => calculateMaxCogLevel(totalDamage),
     [totalDamage]
+  );
+
+  const [maxCogLevel, setMaxCogLevel] = useState(20);
+
+  const maxCogHealth = useMemo(
+    () => calculateCogHealth(maxCogLevel),
+    [maxCogLevel]
+  );
+
+  const hypotheticalTotalDamage = useMemo(
+    () =>
+      hoveredGag
+        ? calculateTotalDamage([...selectedGags, hoveredGag], {
+            v2: useV2Cog,
+          }).totalDamage
+        : 0,
+    [hoveredGag, selectedGags, useV2Cog]
   );
 
   return (
@@ -153,10 +176,12 @@ function App() {
               <Cog
                 level={i + 1}
                 key={i}
-                damage={calculateTotalDamage(selectedGags, {
-                  v2: useV2Cog,
-                  level: i + 1,
-                })}
+                damage={
+                  calculateTotalDamage(selectedGags, {
+                    v2: useV2Cog,
+                    level: i + 1,
+                  }).totalDamage
+                }
               />
             ))}
           </div>
