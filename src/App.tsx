@@ -27,7 +27,7 @@ import HelpModal from './components/HelpModal';
 import { Switch } from './components/Switch';
 
 const HIDE_TOONUP = true;
-const MAX_GAGS = 4;
+const MAX_GAGS = 10;
 
 const GagTracks = GAG_TRACKS.filter(
   (track) => !HIDE_TOONUP || track.name !== 'Toonup'
@@ -57,7 +57,6 @@ function App() {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [useV2Cog, setUseV2Cog] = useState(false);
-  const [isLured, setIsLured] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
@@ -65,8 +64,8 @@ function App() {
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
   const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
-    () => calculateTotalDamage(selectedGags, { v2: useV2Cog, lured: isLured }),
-    [selectedGags, useV2Cog, isLured]
+    () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
+    [selectedGags, useV2Cog]
   );
 
   const soundContext = useMemo(
@@ -91,8 +90,8 @@ function App() {
   const VolumeIcon = soundEnabled ? VolumeOnIcon : VolumeOffIcon;
 
   const maxCogDefeated = useMemo(
-    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog, lured: isLured }),
-    [isLured, selectedGags, useV2Cog]
+    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
+    [selectedGags, useV2Cog]
   );
 
   return (
@@ -183,7 +182,6 @@ function App() {
               <div className="text-lg">HP Left</div>
             </div>
             <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
-            <Switch checked={isLured} onChange={setIsLured} label="Lured" />
           </div>
           <div className="grid grid-cols-5 border-2 border-solid border-gray-700 md:grid-cols-10">
             {range(20).map((i) => (
@@ -194,7 +192,6 @@ function App() {
                   calculateTotalDamage(selectedGags, {
                     v2: useV2Cog,
                     level: i + 1,
-                    lured: isLured,
                   }).totalDamage
                 }
               />
