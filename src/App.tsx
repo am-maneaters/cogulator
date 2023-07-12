@@ -11,7 +11,7 @@ import { ReactComponent as VolumeOffIcon } from '../assets/icons/volume-off.svg'
 import { ReactComponent as HelpIcon } from '../assets/icons/help-circle.svg';
 
 import { GagInfo, GagInstance } from './types';
-import GagInfoDisplay from './components/GagInfoDisplay';
+import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
 
 import { Cog } from './components/Cog';
 import {
@@ -30,6 +30,14 @@ const HIDE_TOONUP = true;
 const GagTracks = GAG_TRACKS.filter(
   (track) => !HIDE_TOONUP || track.name !== 'Toonup'
 );
+
+const CalculatorLine = ({ label = '', value = 0 }) =>
+  value > 0 && (
+    <div className="flex w-full items-center justify-between">
+      <div className="text-xs text-[#aa9c81]">{label}</div>
+      <div>{value}</div>
+    </div>
+  );
 
 // Given damage, figure out the max cog level that can be defeated
 function calculateMaxCogLevel(damage: number) {
@@ -118,7 +126,21 @@ function App() {
               ))}
             </div>
             <div className="hidden flex-col items-stretch gap-4 lg:flex">
-              <div className="bg-toon-paper flex aspect-square h-[264px] w-64 flex-col items-center p-2 pt-4">
+              <div className="bg-toon-paper shadow-inner-xl flex aspect-square h-60 w-64 flex-col items-center rounded-md p-2 pt-4 text-lg">
+                {baseDamage > 0 && !hoveredGag && (
+                  <div className="mt-auto flex w-full flex-col items-end">
+                    <CalculatorLine
+                      label="Base Gag Damage"
+                      value={baseDamage}
+                    />
+                    <CalculatorLine label="Lure Bonus" value={lureBonus} />
+                    <CalculatorLine label="Group Bonus" value={groupBonus} />
+                    <Divider />
+                    <div className="font-minnie text-4xl font-bold !text-red-500">
+                      - {totalDamage}
+                    </div>
+                  </div>
+                )}
                 {hoveredGag && <GagInfoDisplay gag={hoveredGag} />}
               </div>
               <div className="flex justify-between gap-8 px-6">

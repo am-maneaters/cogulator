@@ -69,7 +69,7 @@ export default function CalculationDisplay({
       </div>
       <div className="flex">
         <span className="font-minnie text-5xl">=</span>
-        <div className="w-32 pr-2 text-right font-minnie text-5xl md:w-44">
+        <div className="w-32 pr-2 text-right font-minnie text-5xl md:w-32">
           {totalDamage}
         </div>
         <Buttoon
