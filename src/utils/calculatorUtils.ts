@@ -53,7 +53,9 @@ export function calculateTotalDamage(
   gags: GagInfo[],
   initialCogStatus: CogStatus = {}
 ) {
-  let totalDamage = 0;
+  let baseDamage = 0;
+  let groupBonus = 0;
+  let lureBonus = 0;
 
   const cogStatus: CogStatus = { ...initialCogStatus };
 
@@ -108,22 +110,25 @@ export function calculateTotalDamage(
       return 0;
     });
 
-    const summedGagDamage = sum(gagDamage);
+    baseDamage += sum(gagDamage);
 
-    totalDamage += summedGagDamage;
-
-    if (cogStatus.lured && dmgType === 'Damage' && totalDamage > 0) {
+    if (cogStatus.lured && dmgType === 'Damage' && baseDamage > 0) {
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
       // Lure bonus applies to all damage types except sound
-      if (gagTrack !== 'Sound') totalDamage += Math.ceil(totalDamage / 2);
+      if (gagTrack !== 'Sound') lureBonus = Math.ceil(baseDamage / 2);
     }
 
     // Group bonus only applies when multiple gags are used together
     if (trackGags.filter((g) => g.track !== 'Lure').length > 1) {
-      totalDamage += Math.ceil(summedGagDamage / 5);
+      groupBonus = Math.ceil(baseDamage / 5);
     }
   }
-  return totalDamage;
+  return {
+    baseDamage,
+    groupBonus,
+    lureBonus,
+    totalDamage: baseDamage + groupBonus + lureBonus,
+  };
 }

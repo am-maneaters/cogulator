@@ -6,7 +6,7 @@ type Props = {
   gag: GagInfo;
 };
 
-const Divider = () => (
+export const Divider = () => (
   <div
     className="h-1 w-full px-2"
     style={{
@@ -48,8 +48,6 @@ export default function GagInfoDisplay({ gag }: Props) {
         <InfoLineItem label={gag.dmgType} value={`${getGagDmg(gag)}`} />
         <Divider />
         <InfoLineItem label="Affects" value={formatAffects(gag)} />
-        <Divider />
-        <InfoLineItem label="Skill Credit" value="12" />
         <Divider />
       </div>
     </>

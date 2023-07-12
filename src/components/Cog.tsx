@@ -23,7 +23,7 @@ export const Cog = ({ level, damage = 0 }: Props) => {
       <div>
         <span className="text-2xl font-bold">{level}</span>
       </div>
-      <div className="text-2xl">{remainingHp}</div>
+      <div className="text-lg">{remainingHp}</div>
     </div>
   );
 };
