@@ -26,6 +26,7 @@ import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
 
 const HIDE_TOONUP = true;
+const MAX_GAGS = 4;
 
 const GagTracks = GAG_TRACKS.filter(
   (track) => !HIDE_TOONUP || track.name !== 'Toonup'
@@ -69,8 +70,18 @@ function App() {
     [playClickSfx, playHoverSfx]
   );
 
+  const handleGagsSelected = (gags: GagInstance[]) => {
+    if (gags.length < MAX_GAGS) {
+      setSelectedGags(gags);
+    }
+  };
+
   const handleGagSelected = (gag: GagInstance) => {
-    setSelectedGags((prevGags) => [...prevGags, gag]);
+    if (selectedGags.length < MAX_GAGS) {
+      setSelectedGags((prevGags) => [...prevGags, gag]);
+    } else {
+      setSelectedGags([gag]);
+    }
   };
 
   const VolumeIcon = soundEnabled ? VolumeOnIcon : VolumeOffIcon;
@@ -110,7 +121,7 @@ function App() {
         <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 shadow-2xl">
           <CalculationDisplay
             selectedGags={selectedGags}
-            onSelectionChanged={setSelectedGags}
+            onSelectionChanged={handleGagsSelected}
             totalDamage={totalDamage}
             onGagHover={setHoveredGag}
           />
