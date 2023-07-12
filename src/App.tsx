@@ -171,7 +171,7 @@ function App() {
 
         {/* Cog Health Displays */}
         <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
-          <div>
+          <div className="flex flex-col items-center">
             <div
               className={clsx(
                 'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
@@ -181,16 +181,20 @@ function App() {
               <div>
                 <span className="text-lg font-bold">Cog Level</span>
               </div>
-              <div className="text-xl">HP Left</div>
+              <div className="text-lg">HP Left</div>
             </div>
-            <label className="mt-1 flex items-center justify-between text-sm font-bold">
-              v2.0 Cog
+            <label className="relative mt-4 inline-flex cursor-pointer items-center">
               <input
                 type="checkbox"
-                className="pl-2 checked:rounded-xl"
+                value=""
+                className="peer sr-only"
                 checked={useV2Cog}
                 onChange={(e) => setUseV2Cog(e.target.checked)}
               />
+              <div className="peer h-5 w-9 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-red-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-red-800" />
+              <span className="ml-3 text-sm font-bold text-gray-900 dark:text-black">
+                v2.0
+              </span>
             </label>
           </div>
           <div className="grid grid-cols-5 border-2 border-solid border-gray-700 md:grid-cols-10">
