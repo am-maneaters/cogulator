@@ -97,14 +97,14 @@ function App() {
   return (
     <SfxContext.Provider value={soundContext}>
       <div className="container mx-auto flex flex-col items-center justify-start gap-2 p-1">
-        <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl md:text-7xl ">
+        <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl short:p-0">
           Big Brain Town
         </header>
 
         {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 shadow-2xl">
+        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 shadow-2xl short:mb-0 short:gap-4 short:py-4">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={handleGagsSelected}
@@ -168,7 +168,7 @@ function App() {
         </div>
 
         {/* Cog Health Displays */}
-        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 shadow-2xl">
+        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-3 shadow-2xl">
           <div className="flex flex-col items-center gap-2">
             <div
               className={clsx(

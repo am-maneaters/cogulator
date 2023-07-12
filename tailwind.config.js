@@ -7,6 +7,9 @@ module.exports = {
         toon: ['Impress', 'Comic Sans MS', 'Comic Sans', 'cursive'],
         minnie: ['Minnie', 'Impact'],
       },
+      screens: {
+        short: { raw: '(max-height: 800px)' },
+      },
     },
   },
   plugins: [],
