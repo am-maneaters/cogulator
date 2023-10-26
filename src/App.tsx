@@ -3,7 +3,6 @@ import React, { useMemo, useState } from 'react';
 import useSound from 'use-sound';
 import './App.css';
 import { range } from 'lodash-es';
-import clsx from 'clsx';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import { ReactComponent as VolumeOnIcon } from '../assets/icons/volume-on.svg';
@@ -13,7 +12,6 @@ import { ReactComponent as HelpIcon } from '../assets/icons/help-circle.svg';
 import { CogStatus, GagInfo, GagInstance } from './types';
 import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
 
-import { Cog } from './components/Cog';
 import {
   calculateCogHealth,
   calculateTotalDamage,
@@ -24,7 +22,8 @@ import { SfxContext } from './context/sfxContext';
 import GagTrack from './components/GagTrack';
 import { Buttoon } from './components/Buttoon';
 import HelpModal from './components/HelpModal';
-import { Switch } from './components/Switch';
+import { CogDamageTable } from './components/CogDamageTable';
+// import { CogDamageGauge } from './components/CogDamageGauge';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 10;
@@ -96,22 +95,37 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex flex-col items-center justify-start gap-2 p-1">
-        <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl short:p-0">
+      <div className="mx-auto flex flex-col items-center justify-start gap-2">
+        <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl">
           Big Brain Town
         </header>
 
         {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
+        {/* <CogDamageGauge
+          totalDamage={totalDamage}
+          hoveredGag={hoveredGag}
+          selectedGags={selectedGags}
+          useV2Cog={useV2Cog}
+          maxCogDefeated={maxCogDefeated}
+        /> */}
+
+        {/* Cog Health Displays */}
+        <CogDamageTable
+          selectedGags={selectedGags}
+          useV2Cog={useV2Cog}
+          setUseV2Cog={setUseV2Cog}
+        />
+
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 px-2 shadow-2xl md:px-4 short:mb-0 short:gap-4 short:py-4">
+        <div className="mb-4 flex w-full max-w-max flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={handleGagsSelected}
             totalDamage={totalDamage}
             onGagHover={setHoveredGag}
           />
-          <div className="flex">
+          <div className="flex overflow-auto p-4">
             <div className="flex flex-1 flex-col">
               {GagTracks.map((track) => (
                 <GagTrack
@@ -164,38 +178,6 @@ function App() {
                 Lvl {maxCogDefeated}
               </Buttoon>
             </div>
-          </div>
-        </div>
-
-        {/* Cog Health Displays */}
-        <div className="flex w-full max-w-max flex-nowrap items-center gap-4 overflow-x-auto rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-3 shadow-2xl">
-          <div className="flex flex-col items-center gap-2">
-            <div
-              className={clsx(
-                'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
-                'bg-gray-500'
-              )}
-            >
-              <div>
-                <span className="text-lg font-bold">Cog Level</span>
-              </div>
-              <div className="text-lg">HP Left</div>
-            </div>
-            <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
-          </div>
-          <div className="grid grid-cols-5 border-2 border-solid border-gray-700 sm:grid-cols-10 ">
-            {range(20).map((i) => (
-              <Cog
-                level={i + 1}
-                key={i}
-                damage={
-                  calculateTotalDamage(selectedGags, {
-                    v2: useV2Cog,
-                    level: i + 1,
-                  }).totalDamage
-                }
-              />
-            ))}
           </div>
         </div>
       </div>

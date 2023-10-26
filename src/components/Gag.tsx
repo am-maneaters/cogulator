@@ -27,12 +27,12 @@ export default function Gag({
   return (
     <div
       className={clsx(
-        `group relative flex h-auto min-h-0 w-fit min-w-[85px] max-w-[85px]
-         select-none items-center justify-center
-         rounded-2xl border-2 border-blue-500 
-         bg-gradient-to-b from-blue-500 to-[#00b4ff] px-2 
-         pb-1 text-white shadow-[-1px_2px_4px_2px_rgba(0,0,0,0.5)] hover:shadow-xl
-        hover:brightness-110 focus:brightness-110 active:brightness-75`,
+        `group relative flex h-auto w-14 select-none items-center justify-center
+         rounded-2xl border-2 border-blue-500
+         bg-gradient-to-b from-blue-500 to-[#00b4ff] 
+         px-2 pb-1 text-white shadow-gag 
+         hover:shadow-xl hover:brightness-110 focus:brightness-110 active:brightness-75
+         sm:w-20`,
         disabled && 'cursor-not-allowed opacity-50'
       )}
       onClick={() => handleClick(false)}
@@ -45,7 +45,7 @@ export default function Gag({
       {gag.isOrganic !== false && (
         <div
           className={clsx(
-            'absolute top-[-13px] right-[-10px] h-[25px] w-[25px] grayscale hover:grayscale-0 group-hover:block',
+            'absolute right-[-10px] top-[-13px] h-[25px] w-[25px] grayscale hover:grayscale-0 group-hover:block',
             gag.isOrganic && 'grayscale-0',
             !gag.isOrganic && 'hidden'
           )}
