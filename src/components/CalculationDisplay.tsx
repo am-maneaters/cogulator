@@ -31,7 +31,7 @@ export default function CalculationDisplay({
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <div className="bg-toon-paper flex h-20 max-w-3xl flex-1 flex-col overflow-x-auto rounded-xl bg-white short:h-16">
+      <div className="bg-toon-paper flex h-20 max-w-5xl flex-1 flex-col overflow-x-auto rounded-xl bg-white short:h-16">
         <div className="shadow-inner-xl flex select-none flex-row items-center justify-start gap-3 overflow-y-hidden p-4">
           {selectedGags.length === 0 && (
             <span className="flex-1 p-2 text-center text-xl md:text-2xl">
@@ -59,7 +59,7 @@ export default function CalculationDisplay({
 
                 {/* Number Separator */}
                 {i !== orderedGags.length - 1 && (
-                  <span className="font-mickey text-3xl font-extrabold text-black">
+                  <span className="font-mickey hidden text-3xl font-extrabold text-black md:block">
                     +
                   </span>
                 )}
@@ -68,9 +68,8 @@ export default function CalculationDisplay({
         </div>
       </div>
       <div className="flex">
-        <span className="font-minnie text-5xl">=</span>
-        <div className="w-32 pr-2 text-right font-minnie text-5xl md:w-32">
-          {totalDamage}
+        <div className="pr-2 text-right font-minnie text-5xl">
+          = {totalDamage}
         </div>
         <Buttoon
           onClick={() => {

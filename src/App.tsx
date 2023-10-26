@@ -96,7 +96,7 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="container mx-auto flex flex-col items-center justify-start gap-2 p-1">
+      <div className="mx-auto flex flex-col items-center justify-start gap-2 p-1">
         <header className="flex items-center p-2 font-minnie text-4xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl short:p-0">
           Big Brain Town
         </header>
@@ -104,7 +104,7 @@ function App() {
         {helpModalOpen && <HelpModal onClose={() => setHelpModalOpen(false)} />}
 
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 shadow-2xl short:mb-0 short:gap-4 short:py-4">
+        <div className="mb-4 flex w-full max-w-max flex-col gap-8 overflow-y-auto rounded-xl bg-red-600 p-8 px-2 shadow-2xl md:px-4 short:mb-0 short:gap-4 short:py-4">
           <CalculationDisplay
             selectedGags={selectedGags}
             onSelectionChanged={handleGagsSelected}
@@ -112,7 +112,7 @@ function App() {
             onGagHover={setHoveredGag}
           />
           <div className="flex">
-            <div className="flex flex-1 flex-col pr-8">
+            <div className="flex flex-1 flex-col">
               {GagTracks.map((track) => (
                 <GagTrack
                   key={track.name}
@@ -122,7 +122,7 @@ function App() {
                 />
               ))}
             </div>
-            <div className="hidden flex-col items-stretch gap-4 lg:flex">
+            <div className="hidden flex-col items-stretch gap-4 pl-8 lg:flex">
               <div className="bg-toon-paper shadow-inner-xl flex aspect-square h-60 w-64 flex-col items-center rounded-md p-2 pt-4 text-lg">
                 {baseDamage > 0 && !hoveredGag && (
                   <div className="mt-auto flex w-full flex-col items-end">
@@ -183,7 +183,7 @@ function App() {
             </div>
             <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
           </div>
-          <div className="grid grid-cols-5 border-2 border-solid border-gray-700 md:grid-cols-10">
+          <div className="grid grid-cols-5 border-2 border-solid border-gray-700 sm:grid-cols-10 ">
             {range(20).map((i) => (
               <Cog
                 level={i + 1}

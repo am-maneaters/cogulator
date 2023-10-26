@@ -27,9 +27,7 @@ export default function GagTrack({
   return (
     <div
       className="flex max-w-max flex-1 gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
-      style={{
-        backgroundColor: color,
-      }}
+      style={{ backgroundColor: color }}
     >
       <div className="hidden min-w-[90px] flex-col justify-center xl:flex">
         <div className="text-2xl uppercase">{name}</div>
