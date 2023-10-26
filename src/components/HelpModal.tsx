@@ -8,7 +8,7 @@ type Props = {
 
 export default function HelpModal({ onClose }: Props) {
   return (
-    <div className="absolute top-0 left-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+    <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
       <div className="w-1/2 rounded-lg bg-white p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">About</h2>

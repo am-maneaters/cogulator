@@ -30,7 +30,7 @@ export function CogDamageTable({
         </div>
         <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
       </div>
-      <div className="grid grid-cols-10 border-2 border-solid border-gray-700 ">
+      <div className="grid grid-cols-10 border-2 border-solid border-gray-700 lg:grid-flow-col-dense ">
         {range(20).map((i) => (
           <Cog
             level={i + 1}

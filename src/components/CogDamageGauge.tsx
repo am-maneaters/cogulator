@@ -5,20 +5,27 @@ import {
   calculateCogHealth,
   calculateTotalDamage,
 } from '../utils/calculatorUtils';
-import { GagInfo } from '../types';
+import { CogStatus, GagInfo } from '../types';
+// Given damage, figure out the max cog level that can be defeated
+function calculateMaxCogLevel(gags: GagInfo[], cogStatus: CogStatus = {}) {
+  const maxCogLevel = range(1, 21).find(
+    (level) =>
+      calculateTotalDamage(gags, { ...cogStatus, level }).totalDamage <
+      calculateCogHealth(level)
+  );
+  return (maxCogLevel ?? 21) - 1;
+}
 
 export function CogDamageGauge({
   totalDamage,
   hoveredGag,
   selectedGags,
   useV2Cog,
-  maxCogDefeated,
 }: {
   totalDamage: number;
   hoveredGag: GagInfo | undefined;
   selectedGags: GagInfo[];
   useV2Cog: boolean;
-  maxCogDefeated: number;
 }) {
   const [maxCogLevel, setMaxCogLevel] = useState(20);
 
@@ -46,8 +53,12 @@ export function CogDamageGauge({
     () => (hoveredGag ? (hypotheticalTotalDamage / maxCogHealth) * 99 : 0),
     [hoveredGag, hypotheticalTotalDamage, maxCogHealth]
   );
+  const maxCogDefeated = useMemo(
+    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
+    [selectedGags, useV2Cog]
+  );
   return (
-    <div className="flex hidden w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl lg:block">
+    <div className="hidden w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl lg:block lg:flex">
       <div className="relative mt-2 h-8 w-full rounded-2xl border-2 border-gray-900 bg-white shadow-2xl">
         {/* Display the total damage as a percentage fill */}
         <div

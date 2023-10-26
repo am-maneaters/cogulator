@@ -29,10 +29,10 @@ export default function CalculationDisplay({
 
   return (
     <div className="bg-toon-paper m-4 mb-0 flex h-16 flex-row items-center rounded-xl bg-white p-2 shadow-inner">
-      <div className="flex flex-1 select-none flex-row items-center justify-start gap-3 overflow-auto p-2">
+      <div className="flex flex-1 select-none flex-row items-center justify-start gap-1 overflow-auto p-4 sm:gap-3">
         {selectedGags.length === 0 && (
-          <span className="flex-1 text-center text-xl md:text-2xl">
-            Select Gags to Calculate Damage!
+          <span className="flex-1 text-center text-xl text-yellow-800 opacity-40 md:text-2xl">
+            No gags selected
           </span>
         )}
 
