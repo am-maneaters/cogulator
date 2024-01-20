@@ -15,7 +15,10 @@ import { Header } from './components/Header';
 import { SfxContext } from './context/sfxContext';
 import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
 import type { GagInfo, GagInstance } from './types';
-import { calculateTotalDamage } from './utils/calculatorUtils';
+import {
+  calculateMaxCogLevel,
+  calculateTotalDamage,
+} from './utils/calculatorUtils';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 5;
@@ -43,9 +46,18 @@ function App() {
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
-  const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
-    () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
+  const maxCogDefeated = useMemo(
+    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
     [selectedGags, useV2Cog],
+  );
+
+  const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
+    () =>
+      calculateTotalDamage(selectedGags, {
+        v2: useV2Cog,
+        level: maxCogDefeated,
+      }),
+    [maxCogDefeated, selectedGags, useV2Cog],
   );
 
   const soundContext = useMemo(

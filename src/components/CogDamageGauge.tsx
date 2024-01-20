@@ -2,54 +2,48 @@ import clsx from 'clsx';
 import { range } from 'lodash-es';
 import React, { useMemo } from 'react';
 
-import type { CogStatus, GagInfo } from '../types';
+import type { GagInfo } from '../types';
 import {
   calculateCogHealth,
+  calculateMaxCogLevel,
   calculateTotalDamage,
 } from '../utils/calculatorUtils';
-// Given damage, figure out the max cog level that can be defeated
-function calculateMaxCogLevel(gags: GagInfo[], cogStatus: CogStatus = {}) {
-  const maxCogLevel = range(1, 21).find(
-    (level) =>
-      calculateTotalDamage(gags, { ...cogStatus, level }).totalDamage <
-      calculateCogHealth(level),
-  );
-  return (maxCogLevel ?? 21) - 1;
-}
 
 const MAX_COG_METER_LEVEL = 20;
 
 export function CogDamageGauge({
-  totalDamage,
   hoveredGag,
   selectedGags,
   useV2Cog,
+  totalDamage,
 }: {
-  totalDamage: number;
   hoveredGag: GagInfo | undefined;
   selectedGags: GagInfo[];
   useV2Cog: boolean;
+  totalDamage: number;
 }) {
-  const hypotheticalGags = useMemo(
-    () => (hoveredGag ? [...selectedGags, hoveredGag] : selectedGags),
-    [hoveredGag, selectedGags],
-  );
-  const hypotheticalTotalDamage = useMemo(
-    () =>
-      calculateTotalDamage(hypotheticalGags, {
-        v2: useV2Cog,
-      }).totalDamage,
-    [hypotheticalGags, useV2Cog],
-  );
-
   const maxCogDefeated = useMemo(
     () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
     [selectedGags, useV2Cog],
   );
 
+  const hypotheticalGags = useMemo(
+    () => (hoveredGag ? [...selectedGags, hoveredGag] : selectedGags),
+    [hoveredGag, selectedGags],
+  );
+
   const hypotheticalMaxCogDefeated = useMemo(
     () => calculateMaxCogLevel(hypotheticalGags, { v2: useV2Cog }),
     [hypotheticalGags, useV2Cog],
+  );
+
+  const hypotheticalTotalDamage = useMemo(
+    () =>
+      calculateTotalDamage(hypotheticalGags, {
+        v2: useV2Cog,
+        level: hypotheticalMaxCogDefeated,
+      }).totalDamage,
+    [hypotheticalGags, hypotheticalMaxCogDefeated, useV2Cog],
   );
 
   const maxCogLevel = useMemo(() => MAX_COG_METER_LEVEL, []);
