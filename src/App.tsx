@@ -7,6 +7,7 @@ import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import { Buttoon } from './components/Buttoon';
 import CalculationDisplay from './components/CalculationDisplay';
+import { CogDamageGauge } from './components/CogDamageGauge';
 import { CogDamageTable } from './components/CogDamageTable';
 import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
 import GagTrack from './components/GagTrack';
@@ -15,7 +16,6 @@ import { SfxContext } from './context/sfxContext';
 import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
 import type { GagInfo, GagInstance } from './types';
 import { calculateTotalDamage } from './utils/calculatorUtils';
-// import { CogDamageGauge } from './components/CogDamageGauge';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 5;
@@ -72,12 +72,12 @@ function App() {
       <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
         <Header setSoundEnabled={setSoundEnabled} soundEnabled={soundEnabled} />
 
-        {/* <CogDamageGauge
-          totalDamage={totalDamage}
+        <CogDamageGauge
           hoveredGag={hoveredGag}
           selectedGags={selectedGags}
+          totalDamage={totalDamage}
           useV2Cog={useV2Cog}
-        /> */}
+        />
 
         {/* Cog Health Displays */}
         <CogDamageTable
