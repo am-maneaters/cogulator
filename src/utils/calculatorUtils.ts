@@ -1,7 +1,5 @@
-import { sum } from 'lodash-es';
-
 import { GagTracks } from '../data/gagTracksInfo';
-import type { CogStatus, GagInfo } from '../types';
+import type { CogStatus, GagInfo, GagTrackInfo } from '../types';
 
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
 export function calculateCogHealth(lvl: number): number {
@@ -30,7 +28,6 @@ export function getGagDmg(
   // If the cog is a v2.0 cog, add resistance to the damage
   if (cogStatus.v2 && cogStatus.level) {
     const cogResistance = Math.floor(cogStatus.level * 1.5);
-
     return Math.max(0, baseDamage - cogResistance);
   }
 
@@ -57,6 +54,39 @@ export interface DamageResult {
   totalDamage: number;
 }
 
+function getTrackGagDamage(
+  track: GagTrackInfo,
+  gag: GagInfo,
+  cogStatus: CogStatus,
+): [number, CogStatus] {
+  // If the current gag is a trap, save it for lure later
+  if (track.name === 'Trap') {
+    // Set the cog status to trapped using the first trap gag, ignoring the rest
+    return [0, { ...cogStatus, trapGag: cogStatus.trapGag ?? gag }];
+  }
+
+  // Drop does no damage when the cog is lured
+  if (track.name === 'Drop' && cogStatus.lured) {
+    return [0, cogStatus];
+  }
+
+  if (track.dmgType === 'Damage') {
+    return [getGagDmg(gag, cogStatus), cogStatus];
+  }
+
+  if (track.dmgType === 'Lure') {
+    // If there is a previous trap gag, apply the trap damage and do not set the cog status to lured
+    if (cogStatus.trapGag) {
+      const dmg = getGagDmg(cogStatus.trapGag, cogStatus);
+      return [dmg, { ...cogStatus, trapGag: undefined }];
+    }
+
+    return [0, { ...cogStatus, lured: true }];
+  }
+
+  return [0, cogStatus];
+}
+
 export function calculateTotalDamage(
   gags: GagInfo[],
   initialCogStatus: CogStatus = {},
@@ -65,15 +95,12 @@ export function calculateTotalDamage(
   let groupBonus = 0;
   let lureBonus = 0;
 
-  const cogStatus: CogStatus = { ...initialCogStatus };
+  let cogStatus: CogStatus = { ...initialCogStatus };
 
   // Get a list of the gag tracks that are used and sort them by track order
   const gagTracks = [...new Set(gags.map((gag) => gag.track))].sort(
     (a, b) => trackOrder.indexOf(a) - trackOrder.indexOf(b),
   );
-
-  // Save a reference to the current trap gag
-  let trapGag: GagInfo | undefined;
 
   // For each of the currently used gag tracks, calculate the total damage
   for (const gagTrack of gagTracks) {
@@ -83,57 +110,35 @@ export function calculateTotalDamage(
     // Get the relevant track info
     const gagTrackInfo = GagTracks.find((track) => track.name === gagTrack);
     if (!gagTrackInfo) throw new Error(`Gag track ${gagTrack} not found`);
-    const { dmgType, name: trackName } = gagTrackInfo;
 
-    // Calculate gag damage for each selected gag in the current track
-    const gagDamage = trackGags.map((currentGag) => {
-      // If the current gag is a trap, save it for lure later
-      if (trackName === 'Trap') {
-        [trapGag] = trackGags;
-        cogStatus.trapped = true;
-        return 0;
-      }
+    let trackBaseDamage = 0;
 
-      // Drop does no damage when the cog is lured
-      if (trackName === 'Drop' && cogStatus.lured) {
-        return 0;
-      }
+    for (const gag of trackGags) {
+      const [gagDamage, newCogStatus] = getTrackGagDamage(
+        gagTrackInfo,
+        gag,
+        cogStatus,
+      );
+      trackBaseDamage += gagDamage;
+      cogStatus = newCogStatus;
+    }
 
-      if (dmgType === 'Damage') {
-        return getGagDmg(currentGag, cogStatus);
-      }
-
-      if (dmgType === 'Lure') {
-        // If there is a previous trap gag, apply the trap damage and do not set the cog status to lured
-        if (trapGag) {
-          cogStatus.trapped = false;
-          const dmg = getGagDmg(trapGag, cogStatus);
-          trapGag = undefined;
-          return dmg;
-        }
-
-        cogStatus.lured = true;
-      }
-
-      return 0;
-    });
-
-    const trackBaseDamage = sum(gagDamage);
-
-    baseDamage += trackBaseDamage;
-
-    if (cogStatus.lured && dmgType === 'Damage' && trackBaseDamage > 0) {
+    if (
+      cogStatus.lured &&
+      gagTrackInfo.dmgType === 'Damage' &&
+      trackBaseDamage > 0
+    ) {
       cogStatus.lured = false;
-      cogStatus.trapped = false;
-
       // Lure bonus applies to all damage types except sound
       if (gagTrack !== 'Sound') lureBonus = Math.ceil(trackBaseDamage / 2);
     }
 
     // Group bonus only applies when multiple gags are used together
     if (trackGags.filter((g) => g.track !== 'Lure').length > 1) {
-      groupBonus = Math.ceil(trackBaseDamage / 5);
+      groupBonus += Math.ceil(trackBaseDamage / 5);
     }
+
+    baseDamage += trackBaseDamage;
   }
   return {
     baseDamage,

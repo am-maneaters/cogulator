@@ -34,9 +34,9 @@ export interface GagTrackInfo {
 
 export interface CogStatus {
   lured?: boolean;
-  trapped?: boolean;
   v2?: boolean;
   level?: number;
+  trapGag?: GagInfo;
 }
 
 export type GagInstance = GagInfo & { id: number | string };

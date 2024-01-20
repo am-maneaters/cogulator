@@ -116,3 +116,30 @@ describe('lure, organic throw', () => {
     totalDamage: 165,
   });
 });
+
+describe('multiple trap', () => {
+  const gags = [GAGS.Rake, GAGS.Trapdoor, GAGS.Quicksand, GAGS.TenDollarBill];
+  const result = calculateTotalDamage(gags);
+  expectDamages(result, {
+    baseDamage: 20,
+    groupBonus: 0,
+    lureBonus: 0,
+    totalDamage: 20,
+  });
+});
+
+describe('multiple group', () => {
+  const gags = [
+    GAGS.WholeCreamPie,
+    GAGS.WholeCreamPie,
+    GAGS.FireHose,
+    GAGS.FireHose,
+  ];
+  const result = calculateTotalDamage(gags);
+  expectDamages(result, {
+    baseDamage: 140,
+    groupBonus: 28,
+    lureBonus: 0,
+    totalDamage: 168,
+  });
+});
