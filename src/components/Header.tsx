@@ -1,8 +1,9 @@
-import { ReactComponent as VolumeOnIcon } from '../../assets/icons/volume-on.svg';
-import { ReactComponent as VolumeOffIcon } from '../../assets/icons/volume-off.svg';
-import { ReactComponent as HelpIcon } from '../../assets/icons/help-circle.svg';
-import HelpModal from './HelpModal';
 import { useState } from 'react';
+
+import HelpIcon from '../../assets/icons/help-circle.svg?react';
+import VolumeOffIcon from '../../assets/icons/volume-off.svg?react';
+import VolumeOnIcon from '../../assets/icons/volume-on.svg?react';
+import HelpModal from './HelpModal';
 
 export function Header({
   soundEnabled,

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Buttoon } from './Buttoon';
-import { ReactComponent as XCircleIcon } from '../../assets/icons/x-circle.svg';
 
-type Props = {
+import XCircleIcon from '../../assets/icons/x-circle.svg';
+import { Buttoon } from './Buttoon';
+
+interface Props {
   onClose: () => void;
-};
+}
 
 export default function HelpModal({ onClose }: Props) {
   return (
@@ -22,10 +23,10 @@ export default function HelpModal({ onClose }: Props) {
             help you figure out the exact damage you need to do to defeat each
             cog level. All rules and formulas follow the rules established in{' '}
             <a
-              href="https://www.toontownrewritten.com"
-              target="_blank"
-              rel="noreferrer"
               className="font-bold text-blue-500 underline"
+              href="https://www.toontownrewritten.com"
+              rel="noreferrer"
+              target="_blank"
             >
               Toontown Rewritten
             </a>
@@ -35,8 +36,8 @@ export default function HelpModal({ onClose }: Props) {
             This calculator is a work in progress. If you find any bugs or have
             any suggestions, please send me an email at{' '}
             <a
-              href="mailto:big@brain.town"
               className="font-bold text-blue-500 underline"
+              href="mailto:big@brain.town"
             >
               big@brain.town
             </a>
