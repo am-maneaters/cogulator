@@ -47,12 +47,14 @@ export default function CalculationDisplay({
                   orderedGags[i - 1].track === 'Trap'
                 }
                 gag={gag}
-                onGagClick={() =>
+                onGagClick={() => {
                   onSelectionChanged(
                     selectedGags.filter(({ id }) => gag.id !== id),
-                  )
-                }
+                  );
+                  onGagHover(undefined);
+                }}
                 onGagHover={() => onGagHover(gag)}
+                onMouseLeave={() => onGagHover(undefined)}
               />
             </React.Fragment>
           ))}

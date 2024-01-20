@@ -39,6 +39,7 @@ function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
 
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [showBetaCogDisplay, setShowBetaCogDisplay] = useState(false);
   const [useV2Cog, setUseV2Cog] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
@@ -55,7 +56,7 @@ function App() {
     () =>
       calculateTotalDamage(selectedGags, {
         v2: useV2Cog,
-        level: maxCogDefeated,
+        level: maxCogDefeated + 1,
       }),
     [maxCogDefeated, selectedGags, useV2Cog],
   );
@@ -82,21 +83,28 @@ function App() {
   return (
     <SfxContext.Provider value={soundContext}>
       <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
-        <Header setSoundEnabled={setSoundEnabled} soundEnabled={soundEnabled} />
-
-        <CogDamageGauge
-          hoveredGag={hoveredGag}
-          selectedGags={selectedGags}
-          totalDamage={totalDamage}
-          useV2Cog={useV2Cog}
+        <Header
+          setShowBetaCogDisplay={setShowBetaCogDisplay}
+          setSoundEnabled={setSoundEnabled}
+          showBetaCogDisplay={showBetaCogDisplay}
+          soundEnabled={soundEnabled}
         />
 
-        {/* Cog Health Displays */}
-        <CogDamageTable
-          selectedGags={selectedGags}
-          setUseV2Cog={setUseV2Cog}
-          useV2Cog={useV2Cog}
-        />
+        {showBetaCogDisplay ? (
+          <CogDamageGauge
+            hoveredGag={hoveredGag}
+            selectedGags={selectedGags}
+            setUseV2Cog={setUseV2Cog}
+            totalDamage={totalDamage}
+            useV2Cog={useV2Cog}
+          />
+        ) : (
+          <CogDamageTable
+            selectedGags={selectedGags}
+            setUseV2Cog={setUseV2Cog}
+            useV2Cog={useV2Cog}
+          />
+        )}
 
         {/* Gag Tracks */}
         <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4">

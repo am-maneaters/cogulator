@@ -18,11 +18,11 @@ export default function Gag({
   ...props
 }: Props & React.HTMLProps<HTMLDivElement>) {
   const handleClick = (isOrganic: boolean) => {
-    if (onGagClick) onGagClick(isOrganic);
+    onGagClick?.(isOrganic);
   };
 
   const handleMouseEnter = (isOrganic: boolean) => {
-    if (onGagHover) onGagHover(isOrganic);
+    onGagHover?.(isOrganic);
   };
 
   return (

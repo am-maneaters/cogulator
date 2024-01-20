@@ -2,12 +2,14 @@ import clsx from 'clsx';
 import { range } from 'lodash-es';
 import React, { useMemo } from 'react';
 
+// import cog from '../../assets/cogs/cog1.webp';
 import type { GagInfo } from '../types';
 import {
   calculateCogHealth,
   calculateMaxCogLevel,
   calculateTotalDamage,
 } from '../utils/calculatorUtils';
+import { Switch } from './Switch';
 
 const MAX_COG_METER_LEVEL = 20;
 
@@ -16,11 +18,13 @@ export function CogDamageGauge({
   selectedGags,
   useV2Cog,
   totalDamage,
+  setUseV2Cog,
 }: {
   hoveredGag: GagInfo | undefined;
   selectedGags: GagInfo[];
   useV2Cog: boolean;
   totalDamage: number;
+  setUseV2Cog: (v: boolean) => void;
 }) {
   const maxCogDefeated = useMemo(
     () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
@@ -41,7 +45,7 @@ export function CogDamageGauge({
     () =>
       calculateTotalDamage(hypotheticalGags, {
         v2: useV2Cog,
-        level: hypotheticalMaxCogDefeated,
+        level: hypotheticalMaxCogDefeated + 1,
       }).totalDamage,
     [hypotheticalGags, hypotheticalMaxCogDefeated, useV2Cog],
   );
@@ -68,7 +72,18 @@ export function CogDamageGauge({
   );
 
   return (
-    <div className="hidden w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl lg:flex">
+    <div className="flex w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl gap-2">
+      {/* <div className="w-16 font-bold text-center">
+        Lvl {maxCogDefeated}
+        <img
+          alt="Cog"
+          className="h-16 w-16 border-4 border-gray-800 "
+          src={cog}
+        />
+      </div> */}
+
+      <Switch checked={useV2Cog} label="v2.0" onChange={setUseV2Cog} />
+
       <div className="relative mt-2 h-8 w-full rounded-2xl border-2 border-gray-900 bg-white shadow-2xl">
         {/* Display the total damage as a percentage fill */}
         <div
@@ -85,12 +100,11 @@ export function CogDamageGauge({
             </div>
           )}
         </div>
-
         {/* Display the hypothetical total damage when a user is hovering a gag */}
         {hoveredGag && (
           <div
             className="absolute rounded-l-2xl rounded-r-sm bg-red-500 opacity-30"
-            style={{ inset: `0px ${100 - hypotheticalBarPercentage}% 0px 0px` }}
+            style={{ inset: `0px ${101 - hypotheticalBarPercentage}% 0px 0px` }}
           >
             {hypotheticalTotalDamage > 0 && (
               <div
@@ -102,7 +116,6 @@ export function CogDamageGauge({
             )}
           </div>
         )}
-
         {/* for cogs level 1 - 20, there should be a vertical divider that overlays the bar to show where its health is on the bar */}
         {range(1, maxCogLevel + 1).map((level) => {
           const cogHealth = calculateCogHealth(level);
@@ -119,7 +132,7 @@ export function CogDamageGauge({
                   width: 3,
                 }}
               >
-                {level > maxCogDefeated && (
+                {maxCogDefeated !== 0 && level > maxCogDefeated && (
                   <div className="absolute text-xs font-bold text-gray-900 right-1">
                     {cogHealth - totalDamage}
                   </div>
@@ -128,11 +141,11 @@ export function CogDamageGauge({
               {/* Display the level above */}
               <div
                 className={clsx(
-                  level <= maxCogDefeated ? 'text-white' : 'text-black',
-                  hypotheticalMaxCogDefeated >= level && 'opacity-25',
-                  'absolute text-lg font-bold',
+                  hypotheticalMaxCogDefeated >= level && 'opacity-50',
+                  level === maxCogDefeated ? 'text-3xl' : 'text-lg',
+                  'absolute font-bold',
                   // (level - 1) % 2 && 'hidden',
-                  '-top-6',
+                  'bottom-6',
                 )}
                 style={{
                   left: `${(cogHealth / maxCogHealth) * 99}%`,
