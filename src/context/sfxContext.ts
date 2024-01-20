@@ -1,9 +1,9 @@
 import React from 'react';
 
-type SfxContextType = {
+interface SfxContextType {
   playHoverSfx: () => void;
   playClickSfx: () => void;
-};
+}
 
 export const SfxContext = React.createContext<SfxContextType>({
   playHoverSfx: () => {},

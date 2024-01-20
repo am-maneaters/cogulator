@@ -1,29 +1,27 @@
-import React, { useMemo, useState } from 'react';
-
-import useSound from 'use-sound';
 import './App.css';
-import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
+
+import React, { useMemo, useState } from 'react';
+import { useSound } from 'use-sound';
+
 import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
-
-import { GagInfo, GagInstance } from './types';
-import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
-
-import { calculateTotalDamage } from './utils/calculatorUtils';
-import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
-import CalculationDisplay from './components/CalculationDisplay';
-import { SfxContext } from './context/sfxContext';
-import GagTrack from './components/GagTrack';
+import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import { Buttoon } from './components/Buttoon';
+import CalculationDisplay from './components/CalculationDisplay';
 import { CogDamageTable } from './components/CogDamageTable';
+import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
+import GagTrack from './components/GagTrack';
 import { Header } from './components/Header';
-import { CogDamageGauge } from './components/CogDamageGauge';
+import { SfxContext } from './context/sfxContext';
+import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
+import type { GagInfo, GagInstance } from './types';
+import { calculateTotalDamage } from './utils/calculatorUtils';
 // import { CogDamageGauge } from './components/CogDamageGauge';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 5;
 
 const GagTracks = GAG_TRACKS.filter(
-  (track) => !HIDE_TOONUP || track.name !== 'Toonup'
+  (track) => !HIDE_TOONUP || track.name !== 'Toonup',
 );
 
 const CalculatorLine = ({ label = '', value = 0 }) =>
@@ -47,12 +45,12 @@ function App() {
 
   const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
     () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
-    [selectedGags, useV2Cog]
+    [selectedGags, useV2Cog],
   );
 
   const soundContext = useMemo(
     () => ({ playHoverSfx, playClickSfx }),
-    [playClickSfx, playHoverSfx]
+    [playClickSfx, playHoverSfx],
   );
 
   const handleGagsSelected = (gags: GagInstance[]) => {
@@ -72,7 +70,7 @@ function App() {
   return (
     <SfxContext.Provider value={soundContext}>
       <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
-        <Header soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} />
+        <Header setSoundEnabled={setSoundEnabled} soundEnabled={soundEnabled} />
 
         {/* <CogDamageGauge
           totalDamage={totalDamage}
@@ -84,26 +82,26 @@ function App() {
         {/* Cog Health Displays */}
         <CogDamageTable
           selectedGags={selectedGags}
-          useV2Cog={useV2Cog}
           setUseV2Cog={setUseV2Cog}
+          useV2Cog={useV2Cog}
         />
 
         {/* Gag Tracks */}
         <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4">
           <CalculationDisplay
-            selectedGags={selectedGags}
-            onSelectionChanged={handleGagsSelected}
-            totalDamage={totalDamage}
             onGagHover={setHoveredGag}
+            onSelectionChanged={handleGagsSelected}
+            selectedGags={selectedGags}
+            totalDamage={totalDamage}
           />
           <div className="flex flex-col items-stretch lg:flex-row">
             <div className="flex flex-1 flex-col overflow-auto p-4">
               {GagTracks.map((track) => (
                 <GagTrack
                   key={track.name}
-                  track={track}
                   onGagHover={setHoveredGag}
                   onGagSelect={handleGagSelected}
+                  track={track}
                 />
               ))}
             </div>

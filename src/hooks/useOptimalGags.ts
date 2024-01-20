@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import gagsInfo from '../data/gagsInfo';
-import { GagInfo, GagInstance } from '../types';
+
+import { GAGS } from '../data/gagsInfo';
+import type { GagInfo, GagInstance } from '../types';
 import { getUniqueId } from '../utils/uniqueUtils';
 
-type OptimalGags = {
+interface OptimalGags {
   isLoading: boolean;
   optimalGags?: GagInstance[];
   beginCalculation: (hp: number) => void;
-};
+}
 
 const worker = new Worker(new URL('../utils/worker.ts', import.meta.url), {
   type: 'module',
@@ -36,7 +37,7 @@ export function useOptimalGags(): OptimalGags {
   const beginCalculation = (hp: number) => {
     worker.postMessage({
       targetDamage: hp,
-      availableGags: gagsInfo,
+      availableGags: Object.values(GAGS),
     });
     setIsLoading(true);
     setOptimalGags([]);

@@ -1,15 +1,16 @@
 import React from 'react';
+
 import { useSfx } from '../context/sfxContext';
-import { GagInfo, GagInstance, GagTrackInfo } from '../types';
+import type { GagInfo, GagInstance, GagTrackInfo } from '../types';
 import { getUniqueId } from '../utils/uniqueUtils';
 import Gag from './Gag';
 
-type Props = {
+interface Props {
   track: GagTrackInfo;
   onGagHover: (gag: GagInfo | undefined) => void;
   onGagSelect: (gag: GagInstance) => void;
   hiddenColumns?: number[];
-};
+}
 
 export default function GagTrack({
   track,
@@ -22,7 +23,7 @@ export default function GagTrack({
 
   // filter out gags with the indexes in hiddenColumns
   const filteredGags = gags.filter(
-    (_, index) => !hiddenColumns?.includes(index)
+    (_, index) => !hiddenColumns?.includes(index),
   );
   return (
     <div
@@ -37,6 +38,9 @@ export default function GagTrack({
           <Gag
             gag={gag}
             key={gag.name}
+            onBlur={() => {
+              onGagHover(undefined);
+            }}
             onGagClick={(isOrganic) => {
               onGagSelect({
                 ...gag,
@@ -50,9 +54,6 @@ export default function GagTrack({
               playHoverSfx();
             }}
             onMouseLeave={() => {
-              onGagHover(undefined);
-            }}
-            onBlur={() => {
               onGagHover(undefined);
             }}
           />

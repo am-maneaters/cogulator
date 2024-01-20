@@ -1,8 +1,8 @@
 export type AffectsType = 'Cog' | 'Toon';
-export type AffectsNum = 'Single' | 'All';
+export type AffectsNum = 'All' | 'Single';
 export type GagDmgType = 'Damage' | 'Heal' | 'Lure';
 
-export type GagInfo = {
+export interface GagInfo {
   name: string;
   track: GagTrack;
   level: number;
@@ -14,29 +14,29 @@ export type GagInfo = {
   image: string;
   isOrganic?: boolean;
   dmgType: GagDmgType;
-};
+}
 export type GagTrack =
-  | 'Toonup'
-  | 'Trap'
+  | 'Drop'
   | 'Lure'
   | 'Sound'
-  | 'Throw'
   | 'Squirt'
-  | 'Drop';
+  | 'Throw'
+  | 'Toonup'
+  | 'Trap';
 
-export type GagTrackInfo = {
+export interface GagTrackInfo {
   color: string;
   name: GagTrack;
   order: number;
   gags: GagInfo[];
   dmgType: GagDmgType;
-};
+}
 
-export type CogStatus = {
+export interface CogStatus {
   lured?: boolean;
   trapped?: boolean;
   v2?: boolean;
   level?: number;
-};
+}
 
 export type GagInstance = GagInfo & { id: number | string };

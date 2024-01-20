@@ -1,6 +1,7 @@
 import { sum } from 'lodash-es';
+
 import { GagTracks } from '../data/gagTracksInfo';
-import { CogStatus, GagInfo } from '../types';
+import type { CogStatus, GagInfo } from '../types';
 
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
 export function calculateCogHealth(lvl: number): number {
@@ -19,11 +20,11 @@ export function calculateCogHealth(lvl: number): number {
 
 export function getGagDmg(
   { maxDmg = 0, isOrganic }: GagInfo,
-  cogStatus: CogStatus = {}
+  cogStatus: CogStatus = {},
 ): number {
   const baseDamage = Math.max(
     1,
-    Math.floor(maxDmg + (isOrganic ? Math.max(1, maxDmg * 0.1) : 0))
+    Math.floor(maxDmg + (isOrganic ? Math.max(1, maxDmg * 0.1) : 0)),
   );
 
   // If the cog is a v2.0 cog, add resistance to the damage
@@ -49,10 +50,17 @@ export function getGagAccuracy({
 
 const trackOrder = GagTracks.map((t) => t.name);
 
+export interface DamageResult {
+  baseDamage: number;
+  groupBonus: number;
+  lureBonus: number;
+  totalDamage: number;
+}
+
 export function calculateTotalDamage(
   gags: GagInfo[],
-  initialCogStatus: CogStatus = {}
-) {
+  initialCogStatus: CogStatus = {},
+): DamageResult {
   let baseDamage = 0;
   let groupBonus = 0;
   let lureBonus = 0;
@@ -61,7 +69,7 @@ export function calculateTotalDamage(
 
   // Get a list of the gag tracks that are used and sort them by track order
   const gagTracks = [...new Set(gags.map((gag) => gag.track))].sort(
-    (a, b) => trackOrder.indexOf(a) - trackOrder.indexOf(b)
+    (a, b) => trackOrder.indexOf(a) - trackOrder.indexOf(b),
   );
 
   // Save a reference to the current trap gag
@@ -110,19 +118,21 @@ export function calculateTotalDamage(
       return 0;
     });
 
-    baseDamage += sum(gagDamage);
+    const trackBaseDamage = sum(gagDamage);
 
-    if (cogStatus.lured && dmgType === 'Damage' && baseDamage > 0) {
+    baseDamage += trackBaseDamage;
+
+    if (cogStatus.lured && dmgType === 'Damage' && trackBaseDamage > 0) {
       cogStatus.lured = false;
       cogStatus.trapped = false;
 
       // Lure bonus applies to all damage types except sound
-      if (gagTrack !== 'Sound') lureBonus = Math.ceil(baseDamage / 2);
+      if (gagTrack !== 'Sound') lureBonus = Math.ceil(trackBaseDamage / 2);
     }
 
     // Group bonus only applies when multiple gags are used together
     if (trackGags.filter((g) => g.track !== 'Lure').length > 1) {
-      groupBonus = Math.ceil(baseDamage / 5);
+      groupBonus = Math.ceil(trackBaseDamage / 5);
     }
   }
   return {

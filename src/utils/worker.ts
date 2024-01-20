@@ -1,20 +1,20 @@
 /* eslint-disable no-bitwise */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-continue */
-import { GagInfo } from '../types';
+import type { GagInfo } from '../types';
 import { calculateTotalDamage } from './calculatorUtils';
 
-type OptimalGagProps = {
+interface OptimalGagProps {
   availableGags: GagInfo[];
   targetDamage: number;
   currentGags: GagInfo[];
-};
+}
 
-type OptimalGagResult = {
+interface OptimalGagResult {
   gags: GagInfo[];
   totalDamage: number;
   cost: number;
-};
+}
 
 function getOptimalGags({
   targetDamage,

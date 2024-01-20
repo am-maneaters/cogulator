@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
+
 import { GagTracks } from '../data/gagTracksInfo';
-import { GagInstance } from '../types';
+import type { GagInstance } from '../types';
 import Gag from './Gag';
 
-type Props = {
+interface Props {
   selectedGags: GagInstance[];
   onSelectionChanged: (gags: GagInstance[]) => void;
   totalDamage: number;
   onGagHover: (gag: GagInstance | undefined) => void;
-};
+}
 
 export default function CalculationDisplay({
   selectedGags,
@@ -22,9 +23,9 @@ export default function CalculationDisplay({
         a.track === b.track
           ? a.level - b.level
           : (GagTracks.find(({ name }) => name === a.track)?.order ?? 0) -
-            (GagTracks.find(({ name }) => name === b.track)?.order ?? 0)
+            (GagTracks.find(({ name }) => name === b.track)?.order ?? 0),
       ),
-    [selectedGags]
+    [selectedGags],
   );
 
   return (
@@ -40,18 +41,18 @@ export default function CalculationDisplay({
           orderedGags.map((gag, i) => (
             <React.Fragment key={gag.id}>
               <Gag
-                gag={gag}
-                onGagClick={() =>
-                  onSelectionChanged(
-                    selectedGags.filter(({ id }) => gag.id !== id)
-                  )
-                }
-                onGagHover={() => onGagHover(gag)}
                 disabled={
                   i !== 0 &&
                   gag.track === 'Trap' &&
                   orderedGags[i - 1].track === 'Trap'
                 }
+                gag={gag}
+                onGagClick={() =>
+                  onSelectionChanged(
+                    selectedGags.filter(({ id }) => gag.id !== id),
+                  )
+                }
+                onGagHover={() => onGagHover(gag)}
               />
             </React.Fragment>
           ))}

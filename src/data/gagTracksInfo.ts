@@ -1,5 +1,5 @@
-import { GagTrackInfo } from '../types';
-import gagsInfo from './gagsInfo';
+import type { GagTrackInfo } from '../types';
+import { GAGS } from './gagsInfo';
 
 const tracksInfo: Omit<GagTrackInfo, 'gags'>[] = [
   {
@@ -48,12 +48,12 @@ const tracksInfo: Omit<GagTrackInfo, 'gags'>[] = [
 
 export const GagTracks: GagTrackInfo[] = tracksInfo.map(
   ({ name, color, order, dmgType }) => ({
-    gags: gagsInfo
+    gags: Object.values(GAGS)
       .filter((gag) => gag.track === name)
       .sort((a, b) => a.level - b.level),
     color,
     name,
     order,
     dmgType,
-  })
+  }),
 );

@@ -1,13 +1,14 @@
 import clsx from 'clsx';
 import React from 'react';
-import leaf from '../../assets/organic_leaf.webp';
-import { GagInfo } from '../types';
 
-type Props = {
+import leaf from '../../assets/organic_leaf.webp';
+import type { GagInfo } from '../types';
+
+interface Props {
   gag: GagInfo;
   onGagHover?: (isOrganic: boolean) => void;
   onGagClick?: (isOrganic: boolean) => void;
-};
+}
 
 export default function Gag({
   gag,
@@ -33,11 +34,11 @@ export default function Gag({
          px-2 pb-1 text-white shadow-gag 
          hover:shadow-xl hover:brightness-110 focus:brightness-110 active:brightness-75
          sm:w-20`,
-        disabled && 'cursor-not-allowed opacity-50'
+        disabled && 'cursor-not-allowed opacity-50',
       )}
       onClick={() => handleClick(false)}
-      onMouseEnter={() => handleMouseEnter(false)}
       onKeyDown={() => handleMouseEnter(false)}
+      onMouseEnter={() => handleMouseEnter(false)}
       role="button"
       tabIndex={0}
       {...props}
@@ -47,12 +48,13 @@ export default function Gag({
           className={clsx(
             'absolute right-[-10px] top-[-13px] h-[25px] w-[25px] grayscale hover:grayscale-0 group-hover:block',
             gag.isOrganic && 'grayscale-0',
-            !gag.isOrganic && 'hidden'
+            !gag.isOrganic && 'hidden',
           )}
           onClick={(e) => {
             e.stopPropagation();
             handleClick(true);
           }}
+          onKeyDown={() => {}}
           onMouseEnter={(e) => {
             e.stopPropagation();
             handleMouseEnter(true);
@@ -60,7 +62,6 @@ export default function Gag({
           onMouseLeave={() => {
             handleMouseEnter(false);
           }}
-          onKeyDown={() => {}}
           role="button"
           tabIndex={0}
         >
@@ -68,19 +69,19 @@ export default function Gag({
           <div className="pointer-events-none absolute h-[25px] w-[25px] rounded-full bg-green-800 drop-shadow-[1px_1px_1px_black]" />
           {/* Organic Leaf icon */}
           <img
+            alt={gag.name}
             className="pointer-events-none absolute right-[-4px] top-[-4px] aspect-square overflow-hidden drop-shadow-[1px_1px_1px_black]"
+            height={30}
             src={leaf}
             width={30}
-            height={30}
-            alt={gag.name}
           />
         </div>
       )}
       <img
-        className="min-w-0 max-w-[65%] object-scale-down"
-        src={gag.image}
         alt={gag.name}
+        className="min-w-0 max-w-[65%] object-scale-down"
         draggable={false}
+        src={gag.image}
       />
     </div>
   );

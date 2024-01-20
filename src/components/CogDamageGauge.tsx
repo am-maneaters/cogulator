@@ -1,17 +1,18 @@
 import clsx from 'clsx';
 import { range } from 'lodash-es';
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+
+import type { CogStatus, GagInfo } from '../types';
 import {
   calculateCogHealth,
   calculateTotalDamage,
 } from '../utils/calculatorUtils';
-import { CogStatus, GagInfo } from '../types';
 // Given damage, figure out the max cog level that can be defeated
 function calculateMaxCogLevel(gags: GagInfo[], cogStatus: CogStatus = {}) {
   const maxCogLevel = range(1, 21).find(
     (level) =>
       calculateTotalDamage(gags, { ...cogStatus, level }).totalDamage <
-      calculateCogHealth(level)
+      calculateCogHealth(level),
   );
   return (maxCogLevel ?? 21) - 1;
 }
@@ -27,16 +28,16 @@ export function CogDamageGauge({
   selectedGags: GagInfo[];
   useV2Cog: boolean;
 }) {
-  const [maxCogLevel, setMaxCogLevel] = useState(20);
+  const [maxCogLevel] = useState(20);
 
   const maxCogHealth = useMemo(
     () => calculateCogHealth(maxCogLevel),
-    [maxCogLevel]
+    [maxCogLevel],
   );
 
   const barPercentage = useMemo(
     () => (totalDamage / maxCogHealth) * 99,
-    [maxCogHealth, totalDamage]
+    [maxCogHealth, totalDamage],
   );
 
   const hypotheticalTotalDamage = useMemo(
@@ -46,16 +47,16 @@ export function CogDamageGauge({
             v2: useV2Cog,
           }).totalDamage
         : 0,
-    [hoveredGag, selectedGags, useV2Cog]
+    [hoveredGag, selectedGags, useV2Cog],
   );
 
   const hypotheticalBarPercentage = useMemo(
     () => (hoveredGag ? (hypotheticalTotalDamage / maxCogHealth) * 99 : 0),
-    [hoveredGag, hypotheticalTotalDamage, maxCogHealth]
+    [hoveredGag, hypotheticalTotalDamage, maxCogHealth],
   );
   const maxCogDefeated = useMemo(
     () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
-    [selectedGags, useV2Cog]
+    [selectedGags, useV2Cog],
   );
   return (
     <div className="hidden w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl lg:block lg:flex">
@@ -110,7 +111,7 @@ export function CogDamageGauge({
               <div
                 className={clsx(
                   'absolute h-full bg-black py-2',
-                  level <= maxCogDefeated && 'opacity-25'
+                  level <= maxCogDefeated && 'opacity-25',
                 )}
                 style={{
                   left: `calc(${(cogHealth / maxCogHealth) * 99}% - 3px)`,
@@ -132,7 +133,7 @@ export function CogDamageGauge({
                   level <= maxCogDefeated ? 'text-white' : 'text-black',
                   'absolute text-lg font-bold',
                   // (level - 1) % 2 && 'hidden',
-                  '-top-6'
+                  '-top-6',
                 )}
                 style={{
                   left: `${(cogHealth / maxCogHealth) * 99}%`,

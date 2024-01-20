@@ -1,10 +1,11 @@
 import React from 'react';
-import { GagInfo } from '../types';
+
+import type { GagInfo } from '../types';
 import { getGagAccuracy, getGagDmg } from '../utils/calculatorUtils';
 
-type Props = {
+interface Props {
   gag: GagInfo;
-};
+}
 
 export const Divider = () => (
   <div
@@ -16,10 +17,10 @@ export const Divider = () => (
   />
 );
 
-type InfoLineItemProps = {
+interface InfoLineItemProps {
   label: string;
   value: string;
-};
+}
 
 const InfoLineItem = ({ label, value }: InfoLineItemProps) => (
   <div className="flex text-lg text-[#03256A]">
@@ -35,11 +36,11 @@ export default function GagInfoDisplay({ gag }: Props) {
     <>
       <div className="text-3xl font-semibold text-orange-500">{gag.name}</div>
       <img
+        alt={gag.name}
         className="mt-2 aspect-square"
+        draggable={false}
         src={gag.image}
         width={64}
-        alt={gag.name}
-        draggable={false}
       />
       <div className="w-full px-2">
         <Divider />

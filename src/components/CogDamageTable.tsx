@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import { range } from 'lodash-es';
+
+import type { GagInfo } from '../types';
 import { calculateTotalDamage } from '../utils/calculatorUtils';
 import { Cog } from './Cog';
 import { Switch } from './Switch';
-import { GagInfo } from '../types';
 
 export function CogDamageTable({
   selectedGags,
@@ -20,7 +21,7 @@ export function CogDamageTable({
         <div
           className={clsx(
             'flex h-16 w-28 flex-col items-center font-cog text-xl outline-double',
-            'bg-gray-500'
+            'bg-gray-500',
           )}
         >
           <div>
@@ -28,19 +29,19 @@ export function CogDamageTable({
           </div>
           <div className="text-lg">HP Left</div>
         </div>
-        <Switch checked={useV2Cog} onChange={setUseV2Cog} label="v2.0" />
+        <Switch checked={useV2Cog} label="v2.0" onChange={setUseV2Cog} />
       </div>
       <div className="grid grid-cols-10 border-2 border-solid border-gray-700 lg:grid-flow-col-dense ">
         {range(20).map((i) => (
           <Cog
-            level={i + 1}
-            key={i}
             damage={
               calculateTotalDamage(selectedGags, {
                 v2: useV2Cog,
                 level: i + 1,
               }).totalDamage
             }
+            key={i}
+            level={i + 1}
           />
         ))}
       </div>
