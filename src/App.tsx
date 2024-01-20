@@ -7,6 +7,7 @@ import clickSfx from '../assets/sounds/GUI_create_toon_fwd.mp3';
 import hoverSfx from '../assets/sounds/GUI_rollover.mp3';
 import { Buttoon } from './components/Buttoon';
 import CalculationDisplay from './components/CalculationDisplay';
+import { CogDamageGauge } from './components/CogDamageGauge';
 import { CogDamageTable } from './components/CogDamageTable';
 import GagInfoDisplay, { Divider } from './components/GagInfoDisplay';
 import GagTrack from './components/GagTrack';
@@ -14,8 +15,10 @@ import { Header } from './components/Header';
 import { SfxContext } from './context/sfxContext';
 import { GagTracks as GAG_TRACKS } from './data/gagTracksInfo';
 import type { GagInfo, GagInstance } from './types';
-import { calculateTotalDamage } from './utils/calculatorUtils';
-// import { CogDamageGauge } from './components/CogDamageGauge';
+import {
+  calculateMaxCogLevel,
+  calculateTotalDamage,
+} from './utils/calculatorUtils';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 5;
@@ -36,6 +39,7 @@ function App() {
   const [hoveredGag, setHoveredGag] = React.useState<GagInfo>();
 
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [showBetaCogDisplay, setShowBetaCogDisplay] = useState(false);
   const [useV2Cog, setUseV2Cog] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
@@ -43,9 +47,18 @@ function App() {
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
-  const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
-    () => calculateTotalDamage(selectedGags, { v2: useV2Cog }),
+  const maxCogDefeated = useMemo(
+    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
     [selectedGags, useV2Cog],
+  );
+
+  const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
+    () =>
+      calculateTotalDamage(selectedGags, {
+        v2: useV2Cog,
+        level: maxCogDefeated + 1,
+      }),
+    [maxCogDefeated, selectedGags, useV2Cog],
   );
 
   const soundContext = useMemo(
@@ -70,21 +83,28 @@ function App() {
   return (
     <SfxContext.Provider value={soundContext}>
       <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
-        <Header setSoundEnabled={setSoundEnabled} soundEnabled={soundEnabled} />
-
-        {/* <CogDamageGauge
-          totalDamage={totalDamage}
-          hoveredGag={hoveredGag}
-          selectedGags={selectedGags}
-          useV2Cog={useV2Cog}
-        /> */}
-
-        {/* Cog Health Displays */}
-        <CogDamageTable
-          selectedGags={selectedGags}
-          setUseV2Cog={setUseV2Cog}
-          useV2Cog={useV2Cog}
+        <Header
+          setShowBetaCogDisplay={setShowBetaCogDisplay}
+          setSoundEnabled={setSoundEnabled}
+          showBetaCogDisplay={showBetaCogDisplay}
+          soundEnabled={soundEnabled}
         />
+
+        {showBetaCogDisplay ? (
+          <CogDamageGauge
+            hoveredGag={hoveredGag}
+            selectedGags={selectedGags}
+            setUseV2Cog={setUseV2Cog}
+            totalDamage={totalDamage}
+            useV2Cog={useV2Cog}
+          />
+        ) : (
+          <CogDamageTable
+            selectedGags={selectedGags}
+            setUseV2Cog={setUseV2Cog}
+            useV2Cog={useV2Cog}
+          />
+        )}
 
         {/* Gag Tracks */}
         <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4">

@@ -1,5 +1,20 @@
+import { range } from 'lodash-es';
+
 import { GagTracks } from '../data/gagTracksInfo';
 import type { CogStatus, GagInfo, GagTrackInfo } from '../types';
+
+export function calculateMaxCogLevel(
+  gags: GagInfo[],
+  cogStatus: CogStatus = {},
+) {
+  const maxCogLevel = range(1, 21).find(
+    (level) =>
+      calculateTotalDamage(gags, { ...cogStatus, level }).totalDamage <
+      calculateCogHealth(level),
+  );
+
+  return (maxCogLevel ?? 21) - 1;
+}
 
 // https://toontownrewritten.fandom.com/wiki/Health_of_Cogs
 export function calculateCogHealth(lvl: number): number {

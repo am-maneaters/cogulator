@@ -25,6 +25,7 @@ export default function GagTrack({
   const filteredGags = gags.filter(
     (_, index) => !hiddenColumns?.includes(index),
   );
+
   return (
     <div
       className="flex w-min flex-1 gap-2 rounded-[2%/45%] p-2 px-4 shadow-[0_5px_13px_1px_black]"
