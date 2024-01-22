@@ -100,6 +100,7 @@ function App() {
           />
         ) : (
           <CogDamageTable
+            hoveredGag={hoveredGag}
             selectedGags={selectedGags}
             setUseV2Cog={setUseV2Cog}
             useV2Cog={useV2Cog}
@@ -107,7 +108,7 @@ function App() {
         )}
 
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4">
+        <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4 border-red-700 border-4">
           <CalculationDisplay
             onGagHover={setHoveredGag}
             onSelectionChanged={handleGagsSelected}
@@ -126,7 +127,7 @@ function App() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-4 p-4">
+            <div className="flex flex-col gap-0 p-0 sm:gap-4 sm:p-4">
               <div className="bg-toon-paper shadow-inner-xl hidden aspect-square h-60 w-64 flex-col items-center rounded-md p-2 pt-4 text-lg lg:flex">
                 {baseDamage > 0 && !hoveredGag && (
                   <div className="mt-auto flex w-full flex-col items-end">
@@ -147,11 +148,11 @@ function App() {
 
               {/* <div className="flex justify-between gap-8 px-6">
                 <Buttoon
+                  className="flex-1"
                   onClick={() => {
                     setSoundEnabled(!soundEnabled);
                   }}
                   type="button"
-                  className="flex-1"
                 >
                   <VolumeIcon className="h-6 md:h-8" />
                 </Buttoon>

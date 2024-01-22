@@ -141,7 +141,9 @@ export function CogDamageGauge({
               {/* Display the level above */}
               <div
                 className={clsx(
-                  hypotheticalMaxCogDefeated >= level && 'opacity-50',
+                  hypotheticalMaxCogDefeated >= level
+                    ? 'opacity-100'
+                    : 'opacity-50',
                   level === maxCogDefeated ? 'text-3xl' : 'text-lg',
                   'absolute font-bold',
                   // (level - 1) % 2 && 'hidden',

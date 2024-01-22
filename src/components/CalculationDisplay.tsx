@@ -1,5 +1,7 @@
+import clsx from 'clsx';
 import React, { useMemo } from 'react';
 
+import XIcon from '../../assets/icons/x-circle.svg?react';
 import { GagTracks } from '../data/gagTracksInfo';
 import type { GagInstance } from '../types';
 import Gag from './Gag';
@@ -59,11 +61,22 @@ export default function CalculationDisplay({
             </React.Fragment>
           ))}
       </div>
+
       {selectedGags.length > 0 && (
-        <div className="text-right text-xl text-yellow-800 opacity-40 shadow-sm sm:text-5xl">
-          = {totalDamage}
+        <div className="flex flex-row items-center justify-end gap-2">
+          <div className="text-right text-xl text-yellow-800 opacity-40 shadow-sm sm:text-5xl">
+            = {totalDamage}
+          </div>
         </div>
       )}
+      <button onClick={() => onSelectionChanged([])}>
+        <XIcon
+          className={clsx(
+            'h-8 w-8 text-red-500 ml-2',
+            selectedGags.length === 0 && 'opacity-50',
+          )}
+        />
+      </button>
     </div>
   );
 }
