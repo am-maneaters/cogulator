@@ -1,6 +1,6 @@
 import React from 'react';
 
-import XCircleIcon from '../../assets/icons/x-circle.svg';
+import XCircleIcon from '../../assets/icons/x-circle.svg?react';
 import { Buttoon } from './Buttoon';
 
 interface Props {

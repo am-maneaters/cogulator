@@ -1,5 +1,4 @@
 import './index.css';
-import 'tippy.js/dist/tippy.css';
 
 import LogRocket from 'logrocket';
 import React from 'react';
