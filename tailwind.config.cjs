@@ -16,6 +16,9 @@ module.exports = {
         // shadow-[-1px_2px_4px_2px_rgba(0,0,0,0.5)]
         gag: '-1px 2px 4px 2px rgba(0,0,0,0.5)',
       },
+      dropShadow: {
+        box: '-5px 5px 5px rgba(0 0 0 / 0.5)',
+      },
     },
   },
   plugins: [],

@@ -14,6 +14,7 @@ export interface GagInfo {
   image: string;
   isOrganic?: boolean;
   dmgType: GagDmgType;
+  organicBonus?: number;
 }
 export type GagTrack =
   | 'Drop'

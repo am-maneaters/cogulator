@@ -1,6 +1,3 @@
-/* eslint-disable no-bitwise */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-continue */
 import type { GagInfo } from '../types';
 import { calculateTotalDamage } from './calculatorUtils';
 

@@ -1,5 +1,3 @@
-import './App.css';
-
 import React, { useMemo, useState } from 'react';
 import { useSound } from 'use-sound';
 
@@ -82,7 +80,7 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
+      <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2 drop-shadow-box">
         <Header
           setShowBetaCogDisplay={setShowBetaCogDisplay}
           setSoundEnabled={setSoundEnabled}

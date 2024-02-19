@@ -3,7 +3,7 @@ import { imgFromPath } from '../utils/imageUtils';
 
 const imgs: Record<string, { default: string }> = import.meta.glob(
   '../../assets/gags/*.webp',
-  { eager: true },
+  { eager: true }
 );
 
 const img = (name: string) =>
@@ -21,6 +21,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 8,
     maxDmg: 10,
+    organicBonus: 0.2,
   },
   Megaphone: {
     name: 'Megaphone',
@@ -33,6 +34,7 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 15,
     maxDmg: 18,
+    organicBonus: 0.2,
   },
   Lipstick: {
     name: 'Lipstick',
@@ -45,6 +47,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 25,
     maxDmg: 30,
+    organicBonus: 0.2,
   },
   BambooCane: {
     name: 'Bamboo Cane',
@@ -57,6 +60,7 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 40,
     maxDmg: 45,
+    organicBonus: 0.2,
   },
   PixieDust: {
     name: 'Pixie Dust',
@@ -69,6 +73,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 50,
     maxDmg: 60,
+    organicBonus: 0.2,
   },
   JugglingBalls: {
     name: 'Juggling Balls',
@@ -81,6 +86,7 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 75,
     maxDmg: 105,
+    organicBonus: 0.2,
   },
   HighDive: {
     name: 'High Dive',
@@ -93,6 +99,7 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 210,
     maxDmg: 210,
+    organicBonus: 0.2,
   },
   BananaPeel: {
     name: 'Banana Peel',
@@ -184,7 +191,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 1,
-    accuracy: 50,
+    accuracy: 60,
     affectsType: 'Cog',
     affectsNum: 'Single',
     minDmg: 2,
@@ -196,7 +203,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 2,
-    accuracy: 50,
+    accuracy: 55,
     affectsType: 'Cog',
     affectsNum: 'All',
     minDmg: 2,
@@ -208,7 +215,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 3,
-    accuracy: 60,
+    accuracy: 70,
     affectsType: 'Cog',
     affectsNum: 'Single',
     minDmg: 3,
@@ -220,7 +227,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 4,
-    accuracy: 60,
+    accuracy: 65,
     affectsType: 'Cog',
     affectsNum: 'All',
     minDmg: 3,
@@ -232,7 +239,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 5,
-    accuracy: 70,
+    accuracy: 80,
     affectsType: 'Cog',
     affectsNum: 'Single',
     minDmg: 4,
@@ -244,7 +251,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 6,
-    accuracy: 70,
+    accuracy: 75,
     affectsType: 'Cog',
     affectsNum: 'All',
     minDmg: 4,
@@ -256,7 +263,7 @@ export const GAGS = {
     track: 'Lure',
     dmgType: 'Lure',
     level: 7,
-    accuracy: 95,
+    accuracy: 90,
     affectsType: 'Cog',
     affectsNum: 'All',
     minDmg: 8,
@@ -441,6 +448,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 3,
     maxDmg: 4,
+    organicBonus: 0.15,
   },
   GlassOfWater: {
     name: 'Glass of Water',
@@ -453,6 +461,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 6,
     maxDmg: 8,
+    organicBonus: 0.15,
   },
   SquirtGun: {
     name: 'Squirt Gun',
@@ -465,6 +474,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 10,
     maxDmg: 12,
+    organicBonus: 0.15,
   },
   SeltzerBottle: {
     name: 'Seltzer Bottle',
@@ -477,6 +487,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 18,
     maxDmg: 21,
+    organicBonus: 0.15,
   },
   FireHose: {
     name: 'Fire Hose',
@@ -489,6 +500,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 27,
     maxDmg: 30,
+    organicBonus: 0.15,
   },
   StormCloud: {
     name: 'Storm Cloud',
@@ -501,6 +513,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 36,
     maxDmg: 80,
+    organicBonus: 0.15,
   },
   Geyser: {
     name: 'Geyser',
@@ -513,6 +526,7 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 105,
     maxDmg: 105,
+    organicBonus: 0.15,
   },
   FlowerPot: {
     name: 'Flower Pot',
@@ -525,6 +539,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 10,
     maxDmg: 10,
+    organicBonus: 0.15,
   },
   Sandbag: {
     name: 'Sandbag',
@@ -537,6 +552,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 18,
     maxDmg: 18,
+    organicBonus: 0.15,
   },
   Anvil: {
     name: 'Anvil',
@@ -549,6 +565,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 30,
     maxDmg: 30,
+    organicBonus: 0.15,
   },
   BigWeight: {
     name: 'Big Weight',
@@ -561,6 +578,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 45,
     maxDmg: 45,
+    organicBonus: 0.15,
   },
   Safe: {
     name: 'Safe',
@@ -573,6 +591,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 60,
     maxDmg: 70,
+    organicBonus: 0.15,
   },
   GrandPiano: {
     name: 'Grand Piano',
@@ -585,6 +604,7 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 85,
     maxDmg: 170,
+    organicBonus: 0.15,
   },
   Toontanic: {
     name: 'Toontanic',
@@ -597,5 +617,6 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 180,
     maxDmg: 180,
+    organicBonus: 0.15,
   },
 } satisfies Record<string, GagInfo>;
