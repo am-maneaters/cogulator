@@ -1,5 +1,3 @@
-import './App.css';
-
 import React, { useMemo, useState } from 'react';
 import { useSound } from 'use-sound';
 
@@ -82,7 +80,7 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex h-full max-w-min flex-col items-center justify-evenly gap-2">
+      <div className="mx-auto flex h-full flex-col items-center justify-evenly gap-2 drop-shadow-box">
         <Header
           setShowBetaCogDisplay={setShowBetaCogDisplay}
           setSoundEnabled={setSoundEnabled}
@@ -108,7 +106,7 @@ function App() {
         )}
 
         {/* Gag Tracks */}
-        <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4 border-red-700 border-4">
+        <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4 border-red-700 border-4 max-w-min">
           <CalculationDisplay
             onGagHover={setHoveredGag}
             onSelectionChanged={handleGagsSelected}

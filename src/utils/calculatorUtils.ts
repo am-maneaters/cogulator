@@ -31,14 +31,14 @@ export function calculateCogHealth(lvl: number): number {
   return (lvl + 1) * (lvl + 2) + 14;
 }
 
-export function getGagDmg(
-  { maxDmg = 0, isOrganic }: GagInfo,
-  cogStatus: CogStatus = {},
-): number {
-  const baseDamage = Math.max(
-    1,
-    Math.floor(maxDmg + (isOrganic ? Math.max(1, maxDmg * 0.1) : 0)),
-  );
+export function getGagDmg(gagInfo: GagInfo, cogStatus: CogStatus = {}): number {
+  const { maxDmg = 0, isOrganic, organicBonus = 0.1 } = gagInfo;
+
+  const organicBonusValue = isOrganic
+    ? Math.max(1, Math.ceil(maxDmg * organicBonus))
+    : 0;
+
+  const baseDamage = Math.max(1, maxDmg + organicBonusValue);
 
   // If the cog is a v2.0 cog, add resistance to the damage
   if (cogStatus.v2 && cogStatus.level) {
