@@ -7,9 +7,16 @@ interface Props {
   onClose: () => void;
 }
 
+const changelog = [
+  {
+    date: 'May 25th, 2024',
+    notes: ['Updated gag values for the Under New Management update!'],
+  },
+];
+
 export default function HelpModal({ onClose }: Props) {
   return (
-    <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-10 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
       <div className="w-1/2 rounded-lg bg-white p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">About</h2>
@@ -48,6 +55,18 @@ export default function HelpModal({ onClose }: Props) {
             Please note that this tool is <strong>not</strong> affiliated with
             Disney or Toontown Rewritten.
           </p>
+          <h2 className="text-2xl font-bold py-2">Changelog</h2>
+
+          {changelog.map(({ date, notes }) => (
+            <div aria-label="Changelog entry" key={date}>
+              <h4 className="font-bold">{date}</h4>
+              <ul aria-label="Changelog notes" className="list-disc pl-4">
+                {notes.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
