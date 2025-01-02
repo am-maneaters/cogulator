@@ -38,7 +38,6 @@ function App() {
 
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [showBetaCogDisplay, setShowBetaCogDisplay] = useState(false);
-  const [useV2Cog, setUseV2Cog] = useState(false);
 
   const [playHoverSfx] = useSound(hoverSfx, { soundEnabled });
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
@@ -46,17 +45,16 @@ function App() {
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
 
   const maxCogDefeated = useMemo(
-    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
-    [selectedGags, useV2Cog],
+    () => calculateMaxCogLevel(selectedGags),
+    [selectedGags],
   );
 
   const { totalDamage, baseDamage, groupBonus, lureBonus } = useMemo(
     () =>
       calculateTotalDamage(selectedGags, {
-        v2: useV2Cog,
         level: maxCogDefeated + 1,
       }),
-    [maxCogDefeated, selectedGags, useV2Cog],
+    [maxCogDefeated, selectedGags],
   );
 
   const soundContext = useMemo(
@@ -80,7 +78,7 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex h-full flex-col items-center justify-evenly gap-2 drop-shadow-box">
+      <div className="mx-auto flex h-full flex-col items-center justify-center gap-2 drop-shadow-box md:gap-4 lg:gap-8">
         <Header
           setShowBetaCogDisplay={setShowBetaCogDisplay}
           setSoundEnabled={setSoundEnabled}
@@ -92,17 +90,10 @@ function App() {
           <CogDamageGauge
             hoveredGag={hoveredGag}
             selectedGags={selectedGags}
-            setUseV2Cog={setUseV2Cog}
             totalDamage={totalDamage}
-            useV2Cog={useV2Cog}
           />
         ) : (
-          <CogDamageTable
-            hoveredGag={hoveredGag}
-            selectedGags={selectedGags}
-            setUseV2Cog={setUseV2Cog}
-            useV2Cog={useV2Cog}
-          />
+          <CogDamageTable hoveredGag={hoveredGag} selectedGags={selectedGags} />
         )}
 
         {/* Gag Tracks */}

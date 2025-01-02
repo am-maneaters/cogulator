@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useSfx } from '../context/sfxContext';
 import type { GagInfo, GagInstance, GagTrackInfo } from '../types';
 import { getUniqueId } from '../utils/uniqueUtils';

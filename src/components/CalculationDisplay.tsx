@@ -69,7 +69,7 @@ export default function CalculationDisplay({
           </div>
         </div>
       )}
-      <button onClick={() => onSelectionChanged([])}>
+      <button type="button" onClick={() => onSelectionChanged([])}>
         <XIcon
           className={clsx(
             'h-8 w-8 text-red-500 ml-2',

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { GagInfo } from '../types';
 import { getGagAccuracy, getGagDmg } from '../utils/calculatorUtils';
 

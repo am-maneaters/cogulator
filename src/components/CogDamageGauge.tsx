@@ -9,26 +9,21 @@ import {
   calculateMaxCogLevel,
   calculateTotalDamage,
 } from '../utils/calculatorUtils';
-import { Switch } from './Switch';
 
 const MAX_COG_METER_LEVEL = 20;
 
 export function CogDamageGauge({
   hoveredGag,
   selectedGags,
-  useV2Cog,
   totalDamage,
-  setUseV2Cog,
 }: {
   hoveredGag: GagInfo | undefined;
   selectedGags: GagInfo[];
-  useV2Cog: boolean;
   totalDamage: number;
-  setUseV2Cog: (v: boolean) => void;
 }) {
   const maxCogDefeated = useMemo(
-    () => calculateMaxCogLevel(selectedGags, { v2: useV2Cog }),
-    [selectedGags, useV2Cog],
+    () => calculateMaxCogLevel(selectedGags),
+    [selectedGags],
   );
 
   const hypotheticalGags = useMemo(
@@ -37,17 +32,16 @@ export function CogDamageGauge({
   );
 
   const hypotheticalMaxCogDefeated = useMemo(
-    () => calculateMaxCogLevel(hypotheticalGags, { v2: useV2Cog }),
-    [hypotheticalGags, useV2Cog],
+    () => calculateMaxCogLevel(hypotheticalGags),
+    [hypotheticalGags],
   );
 
   const hypotheticalTotalDamage = useMemo(
     () =>
       calculateTotalDamage(hypotheticalGags, {
-        v2: useV2Cog,
         level: hypotheticalMaxCogDefeated + 1,
       }).totalDamage,
-    [hypotheticalGags, hypotheticalMaxCogDefeated, useV2Cog],
+    [hypotheticalGags, hypotheticalMaxCogDefeated],
   );
 
   const maxCogLevel = useMemo(() => MAX_COG_METER_LEVEL, []);
@@ -81,8 +75,6 @@ export function CogDamageGauge({
           src={cog}
         />
       </div> */}
-
-      <Switch checked={useV2Cog} label="v2.0" onChange={setUseV2Cog} />
 
       <div className="relative mt-2 h-8 w-full rounded-2xl border-2 border-gray-900 bg-white shadow-2xl">
         {/* Display the total damage as a percentage fill */}

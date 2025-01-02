@@ -35,7 +35,6 @@ export interface GagTrackInfo {
 
 export interface CogStatus {
   lured?: boolean;
-  v2?: boolean;
   level?: number;
   trapGag?: GagInfo;
 }

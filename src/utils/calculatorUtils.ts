@@ -31,22 +31,14 @@ export function calculateCogHealth(lvl: number): number {
   return (lvl + 1) * (lvl + 2) + 14;
 }
 
-export function getGagDmg(gagInfo: GagInfo, cogStatus: CogStatus = {}): number {
+export function getGagDmg(gagInfo: GagInfo): number {
   const { maxDmg = 0, isOrganic, organicBonus = 0.1 } = gagInfo;
 
   const organicBonusValue = isOrganic
     ? Math.max(1, Math.ceil(maxDmg * organicBonus))
     : 0;
 
-  const baseDamage = Math.max(1, maxDmg + organicBonusValue);
-
-  // If the cog is a v2.0 cog, add resistance to the damage
-  if (cogStatus.v2 && cogStatus.level) {
-    const cogResistance = Math.floor(cogStatus.level * 1.5);
-    return Math.max(0, baseDamage - cogResistance);
-  }
-
-  return baseDamage;
+  return Math.max(1, maxDmg + organicBonusValue);
 }
 
 export function getGagAccuracy({
@@ -86,13 +78,13 @@ function getTrackGagDamage(
   }
 
   if (track.dmgType === 'Damage') {
-    return [getGagDmg(gag, cogStatus), cogStatus];
+    return [getGagDmg(gag), cogStatus];
   }
 
   if (track.dmgType === 'Lure') {
     // If there is a previous trap gag, apply the trap damage and do not set the cog status to lured
     if (cogStatus.trapGag) {
-      const dmg = getGagDmg(cogStatus.trapGag, cogStatus);
+      const dmg = getGagDmg(cogStatus.trapGag);
       return [dmg, { ...cogStatus, trapGag: undefined }];
     }
 
