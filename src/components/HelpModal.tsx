@@ -12,6 +12,12 @@ const changelog = [
     date: 'May 25th, 2024',
     notes: ['Updated gag values for the Under New Management update!'],
   },
+  {
+    date: 'January 1st, 2025',
+    notes: [
+      'Removed v2.0 cog functionality since it is no longer in the game. Thanks Shane!',
+    ],
+  },
 ];
 
 export default function HelpModal({ onClose }: Props) {

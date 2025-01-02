@@ -3,7 +3,7 @@ import { imgFromPath } from '../utils/imageUtils';
 
 const imgs: Record<string, { default: string }> = import.meta.glob(
   '../../assets/gags/*.webp',
-  { eager: true }
+  { eager: true },
 );
 
 const img = (name: string) =>

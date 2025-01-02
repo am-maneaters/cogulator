@@ -13,6 +13,7 @@ interface OptimalGagResult {
   cost: number;
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function getOptimalGags({
   targetDamage,
   availableGags,
@@ -24,6 +25,7 @@ function getOptimalGags({
   const possibleGags = availableGags.filter((gag) => gag.track !== 'Toonup');
   const gagsLength = possibleGags.length;
 
+  // eslint-disable-next-line sonarjs/no-unused-collection
   const matches: OptimalGagResult[] = [];
 
   for (let gag1Idx = 0; gag1Idx < gagsLength; gag1Idx++) {
