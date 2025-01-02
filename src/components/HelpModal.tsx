@@ -1,5 +1,3 @@
-import React from 'react';
-
 import XCircleIcon from '../../assets/icons/x-circle.svg?react';
 import { Buttoon } from './Buttoon';
 
@@ -34,9 +32,9 @@ export default function HelpModal({ onClose }: Props) {
           <p>
             Big Brain Town is a calculator for Toontown Rewritten designed to
             help you figure out the exact damage you need to do to defeat each
-            cog level. All rules and formulas follow the rules established in{' '}
+            cog level. All rules and formulas follow the rules established in
             <a
-              className="font-bold text-blue-500 underline"
+              className="font-bold text-blue-500 underline ml-1"
               href="https://www.toontownrewritten.com"
               rel="noreferrer"
               target="_blank"
@@ -47,9 +45,9 @@ export default function HelpModal({ onClose }: Props) {
           </p>
           <p className="mt-4">
             This calculator is a work in progress. If you find any bugs or have
-            any suggestions, please send me an email at{' '}
+            any suggestions, please send me an email at
             <a
-              className="font-bold text-blue-500 underline"
+              className="font-bold text-blue-500 underline ml-1"
               href="mailto:big@brain.town"
             >
               big@brain.town

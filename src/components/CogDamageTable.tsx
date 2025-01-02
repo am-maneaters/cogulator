@@ -8,7 +8,6 @@ import { Cog } from './Cog';
 
 export function CogDamageTable({
   selectedGags,
-
   hoveredGag,
 }: {
   selectedGags: GagInfo[];

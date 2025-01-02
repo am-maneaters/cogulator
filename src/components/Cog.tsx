@@ -50,7 +50,7 @@ export const Cog = ({ level, damage = 0, hypotheticalDamage }: Props) => {
       <div className="text-xs md:text-sm">
         {hypotheticalDamage === 0
           ? remainingHp
-          : remainingHypotheticalHp ?? remainingHp}
+          : (remainingHypotheticalHp ?? remainingHp)}
       </div>
     </div>
   );

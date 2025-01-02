@@ -1,12 +1,11 @@
 import './index.css';
 
-import LogRocket from 'logrocket';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App';
-LogRocket.init('fk6gsk/big-brain-town');
 
-const root = createRoot(document.querySelector('#root')!);
-
-root.render(<App />);
+const rootNode = document.querySelector('#root');
+if (rootNode) {
+  const root = createRoot(rootNode);
+  root.render(<App />);
+}

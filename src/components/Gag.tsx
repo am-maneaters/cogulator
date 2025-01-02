@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import React from 'react';
 
 import leaf from '../../assets/organic_leaf.webp';
 import type { GagInfo } from '../types';
@@ -39,6 +38,7 @@ export default function Gag({
       onClick={() => handleClick(false)}
       onKeyDown={() => handleMouseEnter(false)}
       onMouseEnter={() => handleMouseEnter(false)}
+      // biome-ignore lint/a11y/useSemanticElements: Button adds extra bad stuff
       role="button"
       tabIndex={0}
       {...props}
@@ -62,6 +62,7 @@ export default function Gag({
           onMouseLeave={() => {
             handleMouseEnter(false);
           }}
+          // biome-ignore lint/a11y/useSemanticElements: Don't wanna
           role="button"
           tabIndex={0}
         >
