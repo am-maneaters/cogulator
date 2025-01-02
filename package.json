@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@biomejs/cli-darwin-x64": "^1.9.4",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
