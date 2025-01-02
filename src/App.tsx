@@ -78,7 +78,7 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex h-full flex-col items-center justify-evenly gap-2 drop-shadow-box">
+      <div className="mx-auto flex h-full flex-col items-center justify-center gap-2 drop-shadow-box md:gap-4 lg:gap-8">
         <Header
           setShowBetaCogDisplay={setShowBetaCogDisplay}
           setSoundEnabled={setSoundEnabled}
