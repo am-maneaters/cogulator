@@ -11,7 +11,7 @@ const changelog = [
     notes: ['Updated gag values for the Under New Management update!'],
   },
   {
-    date: 'January 1st, 2025',
+    date: 'January 2nd, 2025',
     notes: [
       'Removed v2.0 cog functionality since it is no longer in the game. Thanks Shane!',
     ],
