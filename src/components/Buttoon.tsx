@@ -7,8 +7,9 @@ export const Buttoon = ({
   <button
     className={clsx(
       `relative flex h-auto min-h-0 select-none
+       cursor-pointer
        items-center justify-center rounded-2xl
-       border-2 border-blue-500 bg-gradient-to-b 
+       border-2 border-blue-500 bg-linear-to-b 
      from-blue-500 to-[#00b4ff] p-1 
      text-white shadow-gag hover:shadow-xl
        hover:brightness-110 focus:brightness-110 active:brightness-75

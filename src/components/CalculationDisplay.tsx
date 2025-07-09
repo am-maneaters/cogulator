@@ -64,12 +64,16 @@ export default function CalculationDisplay({
 
       {selectedGags.length > 0 && (
         <div className="flex flex-row items-center justify-end gap-2">
-          <div className="text-right text-xl text-yellow-800 opacity-40 shadow-sm sm:text-5xl">
+          <div className="text-right text-xl text-yellow-800 opacity-40 shadow-xs sm:text-5xl">
             = {totalDamage}
           </div>
         </div>
       )}
-      <button type="button" onClick={() => onSelectionChanged([])}>
+      <button
+        className="cursor-pointer"
+        type="button"
+        onClick={() => onSelectionChanged([])}
+      >
         <XIcon
           className={clsx(
             'h-8 w-8 text-red-500 ml-2',

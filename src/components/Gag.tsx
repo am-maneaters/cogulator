@@ -27,9 +27,9 @@ export default function Gag({
   return (
     <div
       className={clsx(
-        `group relative flex h-auto w-14 select-none items-center justify-center
+        `cursor-pointer group relative flex h-auto w-14 select-none items-center justify-center
          rounded-2xl border-2 border-blue-500
-         bg-gradient-to-b from-blue-500 to-[#00b4ff] 
+         bg-linear-to-b from-blue-500 to-[#00b4ff] 
          px-2 pb-1 text-white shadow-gag 
          hover:shadow-xl hover:brightness-110 focus:brightness-110 active:brightness-75
          sm:w-20`,

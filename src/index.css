@@ -1,40 +1,69 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-html,
-body,
-#root {
-  height: 100%;
+@config '../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-@font-face {
-  font-family: Impress;
-  src: url(../assets/fonts/Impress.woff);
+@utility bg-toon-paper {
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(253, 243, 217, 1) 100%
+  );
 }
 
-@font-face {
-  font-family: Remington;
-  src: url(../assets/fonts/vtRemingtonPortable.woff);
+@utility shadow-inner-xl {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), inset 0 0px 4px 0 rgb(0 0 0 / 0.5);
 }
 
-@font-face {
-  font-family: Minnie;
-  src: url(../assets/fonts/Minnie.woff);
+@utility shadow-gag {
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+    var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    -1px 2px 4px 2px var(--tw-shadow-color, rgba(0, 0, 0, 0.5));
 }
 
-@layer components {
-  .bg-toon-paper {
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(253, 243, 217, 1) 100%
-    );
+@utility font-minnie {
+  text-shadow: 3px 3px black;
+  color: white;
+}
+
+@layer utilities {
+  html,
+  body,
+  #root {
+    height: 100%;
   }
 
-  .shadow-inner-xl {
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-      var(--tw-ring-shadow, 0 0 #0000), inset 0 0px 4px 0 rgb(0 0 0 / 0.5);
+  @font-face {
+    font-family: Impress;
+    src: url("/assets/fonts/Impress.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Remington;
+    src: url("/assets/fonts/vtRemingtonPortable.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Minnie;
+    src: url("/assets/fonts/Minnie.woff") format("woff");
   }
 }
 
@@ -48,11 +77,10 @@ body,
   }
 }
 
-@layer utilities {
-  .font-minnie {
-    text-shadow: 3px 3px black;
-    color: white;
-  }
+@theme {
+  --font-minnie: "Minnie", Impact;
+  --font-toon: "Impress", "Comic Sans MS", "Comic Sans", cursive;
+  --font-cog: "Remington", "American Typewriter";
 }
 
 .root-node {

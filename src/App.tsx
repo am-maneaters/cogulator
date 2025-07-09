@@ -127,7 +127,7 @@ function App() {
                     <CalculatorLine label="Lure Bonus" value={lureBonus} />
                     <CalculatorLine label="Group Bonus" value={groupBonus} />
                     <Divider />
-                    <div className="font-minnie text-4xl font-bold !text-red-500">
+                    <div className="font-minnie text-4xl font-bold text-red-500!">
                       - {totalDamage}
                     </div>
                   </div>

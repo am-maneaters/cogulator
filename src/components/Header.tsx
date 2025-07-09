@@ -22,7 +22,7 @@ export function Header({
 
   return (
     <>
-      <header className="flex items-center gap-2 p-2 font-minnie text-xl tracking-[-0.09em]  !text-[#FEF200] sm:text-6xl">
+      <header className="flex items-center gap-2 p-2 font-minnie text-xl tracking-[-0.09em]  text-[#FEF200]! sm:text-6xl">
         {soundEnabled ? (
           <VolumeOnIcon
             className="ml-auto h-8 w-8 cursor-pointer"
