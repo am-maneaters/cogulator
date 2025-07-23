@@ -16,6 +16,16 @@ const changelog = [
       'Removed v2.0 cog functionality since it is no longer in the game. Thanks Shane!',
     ],
   },
+  {
+    date: 'July 22nd, 2025',
+    notes: [
+      'Upgraded packages behind the scenes.',
+      'Show mathematical symbols in the cog damage table on large screens.',
+      'Added a new help modal for the cog damage table.',
+      'Rearranged some UI elements for better usability.',
+      'Minor improvments to make the app more responsive.'
+    ],
+  },
 ];
 
 export default function HelpModal({ onClose }: Props) {
