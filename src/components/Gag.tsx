@@ -32,7 +32,7 @@ export default function Gag({
          bg-linear-to-b from-blue-500 to-[#00b4ff] 
          px-2 pb-1 text-white shadow-gag 
          hover:shadow-xl hover:brightness-110 focus:brightness-110 active:brightness-75
-         sm:w-20`,
+         md:w-16 lg:w-20`,
         disabled && 'cursor-not-allowed opacity-50',
       )}
       onClick={() => handleClick(false)}

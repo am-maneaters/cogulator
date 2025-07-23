@@ -17,6 +17,10 @@ import {
   calculateMaxCogLevel,
   calculateTotalDamage,
 } from './utils/calculatorUtils';
+import MeterIcon from '../assets/icons/thermometer.svg?react';
+import GridIcon from '../assets/icons/grid.svg?react';
+import HelpIcon from '../assets/icons/help-circle.svg?react';
+import CogDamageHelpModal from './components/CogDamageHelpModal';
 
 const HIDE_TOONUP = true;
 const MAX_GAGS = 5;
@@ -43,6 +47,8 @@ function App() {
   const [playClickSfx] = useSound(clickSfx, { soundEnabled });
 
   const [selectedGags, setSelectedGags] = useState<GagInstance[]>([]);
+
+  const [showCogDamageHelp, setShowCogDamageHelp] = useState(false);
 
   const maxCogDefeated = useMemo(
     () => calculateMaxCogLevel(selectedGags),
@@ -78,23 +84,44 @@ function App() {
 
   return (
     <SfxContext.Provider value={soundContext}>
-      <div className="mx-auto flex h-full flex-col items-center justify-center gap-2 drop-shadow-box md:gap-4 lg:gap-8">
-        <Header
-          setShowBetaCogDisplay={setShowBetaCogDisplay}
-          setSoundEnabled={setSoundEnabled}
-          showBetaCogDisplay={showBetaCogDisplay}
-          soundEnabled={soundEnabled}
-        />
+      <div className="mx-auto flex h-full flex-col items-center justify-center gap-2 drop-shadow-box md:gap-4">
+        <Header setSoundEnabled={setSoundEnabled} soundEnabled={soundEnabled} />
 
-        {showBetaCogDisplay ? (
-          <CogDamageGauge
-            hoveredGag={hoveredGag}
-            selectedGags={selectedGags}
-            totalDamage={totalDamage}
-          />
-        ) : (
-          <CogDamageTable hoveredGag={hoveredGag} selectedGags={selectedGags} />
-        )}
+        <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto rounded-xl border-1 border-solid border-gray-500 bg-gray-400 p-3 shadow-2xl ">
+          {showBetaCogDisplay ? (
+            <CogDamageGauge
+              hoveredGag={hoveredGag}
+              selectedGags={selectedGags}
+              totalDamage={totalDamage}
+            />
+          ) : (
+            <CogDamageTable
+              hoveredGag={hoveredGag}
+              selectedGags={selectedGags}
+            />
+          )}
+          <div className="flex flex-col items-center gap-2 text-gray-300">
+            <HelpIcon
+              className="h-6 w-6 cursor-pointer hover:opacity-50"
+              onClick={() => setShowCogDamageHelp(true)}
+            />
+            {showCogDamageHelp && (
+              <CogDamageHelpModal onClose={() => setShowCogDamageHelp(false)} />
+            )}
+
+            {showBetaCogDisplay ? (
+              <GridIcon
+                className="h-6 w-6 cursor-pointer hover:opacity-50"
+                onClick={() => setShowBetaCogDisplay(false)}
+              />
+            ) : (
+              <MeterIcon
+                className="h-6 w-6 cursor-pointer hover:opacity-50"
+                onClick={() => setShowBetaCogDisplay(true)}
+              />
+            )}
+          </div>
+        </div>
 
         {/* Gag Tracks */}
         <div className="mb-4 flex w-full flex-col overflow-y-auto rounded-xl bg-red-600 shadow-2xl md:px-4 border-red-700 border-4 max-w-min">
@@ -116,7 +143,7 @@ function App() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-0 p-0 sm:gap-4 sm:p-4">
+            <div className="flex flex-col gap-1 p-0 lg:gap-2 lg:p-4">
               <div className="bg-toon-paper shadow-inner-xl hidden aspect-square h-60 w-64 flex-col items-center rounded-md p-2 pt-4 text-lg lg:flex">
                 {baseDamage > 0 && !hoveredGag && (
                   <div className="mt-auto flex w-full flex-col items-end">
@@ -155,6 +182,13 @@ function App() {
               >
                 Clear
               </Buttoon>
+
+              <div className="text-md font-toon text-white/70 self-center ">
+                calculator made by{' '}
+                <a href="https://matenaer.dev" className="underline">
+                  master reggie
+                </a>
+              </div>
             </div>
           </div>
         </div>
