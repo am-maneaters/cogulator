@@ -23,7 +23,7 @@ const changelog = [
       'Show mathematical symbols in the cog damage table on large screens.',
       'Added a new help modal for the cog damage table.',
       'Rearranged some UI elements for better usability.',
-      'Minor improvments to make the app more responsive.'
+      'Minor improvements to make the app more responsive.',
     ],
   },
 ];
@@ -71,16 +71,30 @@ export default function HelpModal({ onClose }: Props) {
           </p>
           <h2 className="text-2xl font-bold py-2">Changelog</h2>
 
-          {changelog.map(({ date, notes }) => (
-            <div aria-label="Changelog entry" key={date}>
-              <h4 className="font-bold">{date}</h4>
-              <ul aria-label="Changelog notes" className="list-disc pl-4">
-                {notes.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div
+            className="space-y-4 max-h-64 overflow-y-auto"
+            style={{ scrollbarGutter: 'stable' }}
+          >
+            {changelog.reverse().map(({ date, notes }) => (
+              <div
+                aria-label="Changelog entry"
+                key={date}
+                className="rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm"
+              >
+                <h4 className="font-semibold text-lg text-gray-800 mb-2">
+                  {date}
+                </h4>
+                <ul
+                  aria-label="Changelog notes"
+                  className="list-disc pl-6 text-gray-700 space-y-1"
+                >
+                  {notes.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
