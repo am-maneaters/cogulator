@@ -22,6 +22,8 @@ export const GAGS = {
     minDmg: 8,
     maxDmg: 10,
     organicBonus: 0.2,
+    minXp: 0,
+    maxXp: 20,
   },
   Megaphone: {
     name: 'Megaphone',
@@ -35,6 +37,8 @@ export const GAGS = {
     minDmg: 15,
     maxDmg: 18,
     organicBonus: 0.2,
+    minXp: 20,
+    maxXp: 200,
   },
   Lipstick: {
     name: 'Lipstick',
@@ -48,6 +52,8 @@ export const GAGS = {
     minDmg: 25,
     maxDmg: 30,
     organicBonus: 0.2,
+    minXp: 200,
+    maxXp: 800,
   },
   BambooCane: {
     name: 'Bamboo Cane',
@@ -61,6 +67,8 @@ export const GAGS = {
     minDmg: 40,
     maxDmg: 45,
     organicBonus: 0.2,
+    minXp: 800,
+    maxXp: 2000,
   },
   PixieDust: {
     name: 'Pixie Dust',
@@ -74,6 +82,8 @@ export const GAGS = {
     minDmg: 50,
     maxDmg: 60,
     organicBonus: 0.2,
+    minXp: 2000,
+    maxXp: 6000,
   },
   JugglingBalls: {
     name: 'Juggling Balls',
@@ -87,6 +97,8 @@ export const GAGS = {
     minDmg: 75,
     maxDmg: 105,
     organicBonus: 0.2,
+    minXp: 6000,
+    maxXp: 10000,
   },
   HighDive: {
     name: 'High Dive',
@@ -100,6 +112,8 @@ export const GAGS = {
     minDmg: 210,
     maxDmg: 210,
     organicBonus: 0.2,
+    minXp: 10000,
+    maxXp: 10000,
   },
   BananaPeel: {
     name: 'Banana Peel',
@@ -112,6 +126,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 10,
     maxDmg: 12,
+    minXp: 0,
+    maxXp: 20,
   },
   Rake: {
     name: 'Rake',
@@ -124,6 +140,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 18,
     maxDmg: 20,
+    minXp: 20,
+    maxXp: 100,
   },
   Marbles: {
     name: 'Marbles',
@@ -136,6 +154,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 30,
     maxDmg: 35,
+    minXp: 100,
+    maxXp: 500,
   },
   Quicksand: {
     name: 'Quicksand',
@@ -148,6 +168,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 45,
     maxDmg: 50,
+    minXp: 500,
+    maxXp: 2000,
   },
   Trapdoor: {
     name: 'Trapdoor',
@@ -160,6 +182,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 75,
     maxDmg: 85,
+    minXp: 2000,
+    maxXp: 6000,
   },
   TNT: {
     name: 'TNT',
@@ -172,6 +196,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 90,
     maxDmg: 180,
+    minXp: 6000,
+    maxXp: 10000,
   },
   Railroad: {
     name: 'Railroad',
@@ -184,6 +210,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 200,
     maxDmg: 200,
+    minXp: 10000,
+    maxXp: 10000,
   },
   OneDollarBill: {
     name: '$1 Bill',
@@ -196,6 +224,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 2,
     maxDmg: 2,
+    minXp: 0,
+    maxXp: 20,
   },
   SmallMagnet: {
     name: 'Small Magnet',
@@ -208,6 +238,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 2,
     maxDmg: 2,
+    minXp: 20,
+    maxXp: 100,
   },
   FiveDollarBill: {
     name: '$5 Bill',
@@ -220,6 +252,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 3,
     maxDmg: 3,
+    minXp: 100,
+    maxXp: 800,
   },
   BigMagnet: {
     name: 'Big Magnet',
@@ -232,6 +266,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 3,
     maxDmg: 3,
+    minXp: 800,
+    maxXp: 2000,
   },
   TenDollarBill: {
     name: '$10 Bill',
@@ -244,6 +280,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 4,
     maxDmg: 4,
+    minXp: 2000,
+    maxXp: 6000,
   },
   HypnoGoggles: {
     name: 'Hypno Goggles',
@@ -256,6 +294,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 4,
     maxDmg: 4,
+    minXp: 6000,
+    maxXp: 10000,
   },
   Presentation: {
     name: 'Presentation',
@@ -268,6 +308,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 8,
     maxDmg: 8,
+    minXp: 10000,
+    maxXp: 10000,
   },
   BikeHorn: {
     name: 'Bike Horn',
@@ -280,6 +322,8 @@ export const GAGS = {
     minDmg: 3,
     maxDmg: 4,
     dmgType: 'Damage',
+    minXp: 0,
+    maxXp: 20,
   },
   Whistle: {
     name: 'Whistle',
@@ -292,6 +336,8 @@ export const GAGS = {
     minDmg: 5,
     maxDmg: 7,
     dmgType: 'Damage',
+    minXp: 20,
+    maxXp: 200,
   },
   Bugle: {
     name: 'Bugle',
@@ -304,6 +350,8 @@ export const GAGS = {
     minDmg: 9,
     maxDmg: 11,
     dmgType: 'Damage',
+    minXp: 200,
+    maxXp: 800,
   },
   Aoogah: {
     name: 'Aoogah',
@@ -316,6 +364,8 @@ export const GAGS = {
     minDmg: 14,
     maxDmg: 16,
     dmgType: 'Damage',
+    minXp: 800,
+    maxXp: 2000,
   },
   ElephantTrunk: {
     name: 'Elephant Trunk',
@@ -328,6 +378,8 @@ export const GAGS = {
     minDmg: 19,
     maxDmg: 21,
     dmgType: 'Damage',
+    minXp: 2000,
+    maxXp: 6000,
   },
   Foghorn: {
     name: 'Foghorn',
@@ -340,6 +392,8 @@ export const GAGS = {
     minDmg: 25,
     maxDmg: 50,
     dmgType: 'Damage',
+    minXp: 6000,
+    maxXp: 10000,
   },
   OperaSinger: {
     name: 'Opera Singer',
@@ -352,6 +406,8 @@ export const GAGS = {
     minDmg: 90,
     maxDmg: 90,
     dmgType: 'Damage',
+    minXp: 10000,
+    maxXp: 10000,
   },
   Cupcake: {
     name: 'Cupcake',
@@ -364,6 +420,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 4,
     maxDmg: 6,
+    minXp: 0,
+    maxXp: 10,
   },
   FruitPieSlice: {
     name: 'Fruit Pie Slice',
@@ -376,6 +434,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 8,
     maxDmg: 10,
+    minXp: 10,
+    maxXp: 50,
   },
   CreamPieSlice: {
     name: 'Cream Pie Slice',
@@ -388,6 +448,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 14,
     maxDmg: 17,
+    minXp: 50,
+    maxXp: 400,
   },
   WholeFruitPie: {
     name: 'Whole Fruit Pie',
@@ -400,6 +462,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 24,
     maxDmg: 27,
+    minXp: 400,
+    maxXp: 2000,
   },
   WholeCreamPie: {
     name: 'Whole Cream Pie',
@@ -412,6 +476,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 36,
     maxDmg: 40,
+    minXp: 2000,
+    maxXp: 6000,
   },
   BirthdayCake: {
     name: 'Birthday Cake',
@@ -424,6 +490,8 @@ export const GAGS = {
     affectsNum: 'Single',
     minDmg: 48,
     maxDmg: 100,
+    minXp: 6000,
+    maxXp: 10000,
   },
   WeddingCake: {
     name: 'Wedding Cake',
@@ -436,6 +504,8 @@ export const GAGS = {
     affectsNum: 'All',
     minDmg: 120,
     maxDmg: 120,
+    minXp: 10000,
+    maxXp: 10000,
   },
   SquirtingFlower: {
     name: 'Squirting Flower',
@@ -449,6 +519,8 @@ export const GAGS = {
     minDmg: 3,
     maxDmg: 4,
     organicBonus: 0.15,
+    minXp: 0,
+    maxXp: 10,
   },
   GlassOfWater: {
     name: 'Glass of Water',
@@ -462,6 +534,8 @@ export const GAGS = {
     minDmg: 6,
     maxDmg: 8,
     organicBonus: 0.15,
+    minXp: 10,
+    maxXp: 50,
   },
   SquirtGun: {
     name: 'Squirt Gun',
@@ -475,6 +549,8 @@ export const GAGS = {
     minDmg: 10,
     maxDmg: 12,
     organicBonus: 0.15,
+    minXp: 50,
+    maxXp: 400,
   },
   SeltzerBottle: {
     name: 'Seltzer Bottle',
@@ -488,6 +564,8 @@ export const GAGS = {
     minDmg: 18,
     maxDmg: 21,
     organicBonus: 0.15,
+    minXp: 400,
+    maxXp: 2000,
   },
   FireHose: {
     name: 'Fire Hose',
@@ -501,6 +579,8 @@ export const GAGS = {
     minDmg: 27,
     maxDmg: 30,
     organicBonus: 0.15,
+    minXp: 2000,
+    maxXp: 6000,
   },
   StormCloud: {
     name: 'Storm Cloud',
@@ -514,6 +594,8 @@ export const GAGS = {
     minDmg: 36,
     maxDmg: 80,
     organicBonus: 0.15,
+    minXp: 6000,
+    maxXp: 10000,
   },
   Geyser: {
     name: 'Geyser',
@@ -527,6 +609,8 @@ export const GAGS = {
     minDmg: 105,
     maxDmg: 105,
     organicBonus: 0.15,
+    minXp: 10000,
+    maxXp: 10000,
   },
   FlowerPot: {
     name: 'Flower Pot',
@@ -540,6 +624,8 @@ export const GAGS = {
     minDmg: 10,
     maxDmg: 10,
     organicBonus: 0.15,
+    minXp: 0,
+    maxXp: 20,
   },
   Sandbag: {
     name: 'Sandbag',
@@ -553,6 +639,8 @@ export const GAGS = {
     minDmg: 18,
     maxDmg: 18,
     organicBonus: 0.15,
+    minXp: 20,
+    maxXp: 100,
   },
   Anvil: {
     name: 'Anvil',
@@ -566,6 +654,8 @@ export const GAGS = {
     minDmg: 30,
     maxDmg: 30,
     organicBonus: 0.15,
+    minXp: 100,
+    maxXp: 500,
   },
   BigWeight: {
     name: 'Big Weight',
@@ -579,6 +669,8 @@ export const GAGS = {
     minDmg: 45,
     maxDmg: 45,
     organicBonus: 0.15,
+    minXp: 500,
+    maxXp: 2000,
   },
   Safe: {
     name: 'Safe',
@@ -592,6 +684,8 @@ export const GAGS = {
     minDmg: 60,
     maxDmg: 70,
     organicBonus: 0.15,
+    minXp: 2000,
+    maxXp: 6000,
   },
   GrandPiano: {
     name: 'Grand Piano',
@@ -605,6 +699,8 @@ export const GAGS = {
     minDmg: 85,
     maxDmg: 170,
     organicBonus: 0.15,
+    minXp: 6000,
+    maxXp: 10000,
   },
   Toontanic: {
     name: 'Toontanic',
@@ -618,5 +714,7 @@ export const GAGS = {
     minDmg: 180,
     maxDmg: 180,
     organicBonus: 0.15,
+    minXp: 10000,
+    maxXp: 10000,
   },
 } satisfies Record<string, GagInfo>;

@@ -15,6 +15,8 @@ export interface GagInfo {
   isOrganic?: boolean;
   dmgType: GagDmgType;
   organicBonus?: number;
+  minXp: number;
+  maxXp: number;
 }
 export type GagTrack =
   | 'Drop'

@@ -6,19 +6,22 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["vite/client", "vite-plugin-svgr/client"]
+    "types": ["vite-plugin-svgr/client"]
   },
-  "include": ["src", "test", "vite.config.ts", "tailwind.config.cjs"]
+  "include": ["src"]
 }

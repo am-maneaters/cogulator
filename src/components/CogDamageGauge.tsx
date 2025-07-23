@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { range } from 'lodash-es';
 import React, { useMemo } from 'react';
 
-// import cog from '../../assets/cogs/cog1.webp';
 import type { GagInfo } from '../types';
 import {
   calculateCogHealth,
@@ -44,7 +43,10 @@ export function CogDamageGauge({
     [hypotheticalGags, hypotheticalMaxCogDefeated],
   );
 
-  const maxCogLevel = useMemo(() => MAX_COG_METER_LEVEL, []);
+  const maxCogLevel = useMemo(
+    () => Math.max(12, Math.min(MAX_COG_METER_LEVEL, maxCogDefeated + 5)),
+    [maxCogDefeated],
+  );
 
   const maxCogHealth = useMemo(
     () => calculateCogHealth(maxCogLevel),
@@ -66,16 +68,7 @@ export function CogDamageGauge({
   );
 
   return (
-    <div className="flex w-full items-center rounded-xl border-2 border-solid border-gray-500 bg-gray-400 p-4 py-6 font-cog shadow-2xl gap-2">
-      {/* <div className="w-16 font-bold text-center">
-        Lvl {maxCogDefeated}
-        <img
-          alt="Cog"
-          className="h-16 w-16 border-4 border-gray-800 "
-          src={cog}
-        />
-      </div> */}
-
+    <div className="flex min-w-sm sm:min-w-md lg:min-w-3xl items-center rounded-xl p-4 py-6 font-cog gap-2">
       <div className="relative mt-2 h-8 w-full rounded-2xl border-2 border-gray-900 bg-white shadow-2xl">
         {/* Display the total damage as a percentage fill */}
         <div
