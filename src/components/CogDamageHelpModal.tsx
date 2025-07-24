@@ -8,7 +8,7 @@ interface Props {
 }
 export default function CogDamageHelpModal({ onClose }: Props) {
   return (
-    <div className="fixed inset-0 z-10 flex h-full w-full items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-10 flex h-full w-full items-center justify-center bg-black/60">
       <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl border border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-800">Help!</h2>

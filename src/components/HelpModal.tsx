@@ -30,7 +30,7 @@ const changelog = [
 
 export default function HelpModal({ onClose }: Props) {
   return (
-    <div className="fixed inset-0 z-20 flex h-full w-full items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-20 flex h-full w-full items-center justify-center bg-black/60">
       <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl border border-gray-200 relative">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-3xl font-extrabold text-gray-900">About</h2>
