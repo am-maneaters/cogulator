@@ -26,6 +26,12 @@ const changelog = [
       'Minor improvements to make the app more responsive.',
     ],
   },
+  {
+    date: 'July 23rd, 2025',
+    notes: [
+      "Fixed a bug where modals wouldn't show on Firefox. Thanks Nathan!",
+    ],
+  },
 ];
 
 export default function HelpModal({ onClose }: Props) {
@@ -44,9 +50,10 @@ export default function HelpModal({ onClose }: Props) {
         </div>
         <div className="mt-2 space-y-5 text-gray-800">
           <p>
-            <span className="font-semibold text-blue-700">Big Brain Town</span> is a calculator for Toontown Rewritten designed to
-            help you figure out the exact damage you need to do to defeat each
-            cog level. All rules and formulas follow the rules established in
+            <span className="font-semibold text-blue-700">Big Brain Town</span>{' '}
+            is a calculator for Toontown Rewritten designed to help you figure
+            out the exact damage you need to do to defeat each cog level. All
+            rules and formulas follow the rules established in
             <a
               className="font-bold text-blue-600 underline ml-1"
               href="https://www.toontownrewritten.com"
@@ -72,9 +79,12 @@ export default function HelpModal({ onClose }: Props) {
             <span className="bg-yellow-100 px-2 py-1 rounded text-yellow-800 font-medium">
               Note:
             </span>{' '}
-            This tool is <strong>not</strong> affiliated with Disney or Toontown Rewritten.
+            This tool is <strong>not</strong> affiliated with Disney or Toontown
+            Rewritten.
           </p>
-          <h2 className="text-2xl font-bold py-2 border-b border-gray-200 mb-2">Changelog</h2>
+          <h2 className="text-2xl font-bold py-2 border-b border-gray-200 mb-2">
+            Changelog
+          </h2>
           <div
             className="space-y-4 max-h-64 overflow-y-auto pr-2"
             style={{ scrollbarGutter: 'stable' }}
